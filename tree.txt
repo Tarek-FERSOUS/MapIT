@@ -1,0 +1,47 @@
+it-docs-saas/
+│
+├── apps/
+│   │
+│   ├── api/                         # Backend (Node + Express + Prisma)
+│   │   ├── src/
+│   │   │   ├── index.js
+│   │   │   │
+│   │   │   ├── modules/
+│   │   │   │   ├── auth/
+│   │   │   │   │   ├── auth.routes.js
+│   │   │   │   │   └── auth.service.js
+│   │   │   │   │
+│   │   │   │   ├── incidents/
+│   │   │   │   └── documents/
+│   │   │   │
+│   │   │   ├── middleware/
+│   │   │   └── utils/
+│   │   │
+│   │   ├── prisma/
+│   │   │   └── schema.prisma        # VERY IMPORTANT LOCATION
+│   │   │
+│   │   ├── generated/              # Prisma client (auto-generated)
+│   │   │   └── prisma/
+│   │   │
+│   │   ├── .env                    # REAL env file (DO NOT COMMIT)
+│   │   ├── package.json
+│   │   └── Dockerfile
+│   │
+│   ├── mobile/                     # React Native (Expo)
+│   │   ├── app/
+│   │   ├── assets/
+│   │   ├── services/
+│   │   │   └── api.js
+│   │   ├── store/
+│   │   │   └── authStore.js
+│   │   ├── package.json
+│   │   └── App.js
+│
+├── packages/
+│   └── shared/                     # Shared types / utils (optional for now)
+│       └── index.js
+│
+├── .env.example                    # TEMPLATE (safe to commit)
+├── .gitignore
+├── package.json                    # ROOT (workspaces)
+└── docker-compose.yml

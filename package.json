@@ -1,0 +1,23 @@
+{
+  "name": "it-docs-saas",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test:api",
+    "dev:api": "npm --workspace=apps/api run dev",
+    "dev:mobile": "npm --workspace=apps/mobile start",
+    "dev:web": "npm --workspace=apps/web run dev",
+    "lint": "npm --workspace=apps/mobile run lint && npm --workspace=apps/web run lint",
+    "typecheck": "npm --workspace=apps/web run typecheck",
+    "test:api": "npm --workspace=apps/api run test",
+    "smoke:frontend": "npm --workspace=apps/mobile run smoke",
+    "ci": "npm run lint && npm run typecheck && npm run test:api && npm run smoke:frontend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

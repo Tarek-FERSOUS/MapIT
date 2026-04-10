@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: itdocs
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U user -d itdocs"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      PORT: 3000
+      JWT_SECRET: ci-secret
+      AD_URL: ldap://ci-ad
+      AD_DOMAIN: example.local
+      DEV_MODE: true
+      ADMIN_USERNAMES: admin
+      DATABASE_URL: postgresql://user:password@localhost:5432/itdocs
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma client
+        run: npm --workspace=apps/api run prisma:generate
+
+      - name: Apply migrations
+        run: npm --workspace=apps/api run prisma:migrate:deploy
+
+      - name: Run CI quality checks
+        run: npm run ci

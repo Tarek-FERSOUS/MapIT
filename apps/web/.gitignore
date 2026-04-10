@@ -1,0 +1,36 @@
+# Next.js
+/.next/
+/node_modules
+/build
+/dist
+*.pem
+
+# Environment
+.env.local
+.env.*.local
+.env
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+/coverage
+/.jest_cache
+
+# Production
+/out
+/public
+
+# Misc
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Turbo
+.turbo
