@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Asset, Relationship } from "@/types/api";
-import { MockApiService } from "@/lib/mock-api";
+import { apiClient } from "@/lib/api";
 import { ErrorAlert, LoadingSpinner } from "@/components/ui";
 
 export default function AssetDetailPage() {
@@ -20,18 +20,12 @@ export default function AssetDetailPage() {
         setIsLoading(true);
         setError(null);
         const [assetData, relData] = await Promise.all([
-          MockApiService.getAssetById(params.id),
-          MockApiService.getRelationshipsByAsset(params.id)
+          apiClient.get<Asset>(`/assets/${params.id}`),
+          apiClient.get<{ items: Relationship[] }>("/relationships")
         ]);
 
-        if (!assetData) {
-          setError("Asset not found");
-          setAsset(null);
-          return;
-        }
-
         setAsset(assetData);
-        setRelationships(relData);
+        setRelationships((relData.items || []).filter((rel) => rel.sourceAssetId === params.id || rel.targetAssetId === params.id));
       } catch (_err) {
         setError("Failed to load asset detail");
       } finally {

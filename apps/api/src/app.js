@@ -6,6 +6,10 @@ const authRoutes = require("./modules/auth/auth.routes");
 const incidentsRoutes = require("./modules/incidents/incidents.routes");
 const documentsRoutes = require("./modules/documents/documents.routes");
 const dashboardRoutes = require("./modules/dashboard/dashboard.routes");
+const assetsRoutes = require("./modules/assets/assets.routes");
+const problemsRoutes = require("./modules/problems/problems.routes");
+const relationshipsRoutes = require("./modules/relationships/relationships.routes");
+const settingsRoutes = require("./modules/settings/settings.routes");
 
 function getRequiredEnv(name) {
   const value = process.env[name];
@@ -37,6 +41,10 @@ function createApp() {
   app.use("/incidents", incidentsRoutes);
   app.use("/documents", documentsRoutes);
   app.use("/dashboard", dashboardRoutes);
+  app.use("/assets", assetsRoutes);
+  app.use("/problems", problemsRoutes);
+  app.use("/relationships", relationshipsRoutes);
+  app.use("/settings", settingsRoutes);
 
   app.get("/health", (_req, res) => {
     res.send("API is running");

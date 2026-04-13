@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { Network } from "lucide-react";
+import { apiClient } from "@/lib/api";
 import { Relationship } from "@/types/api";
-import { MockApiService } from "@/lib/mock-api";
 import { EmptyState, ErrorAlert, LoadingSpinner } from "@/components/ui";
 
 export default function RelationshipsPage() {
@@ -16,8 +16,8 @@ export default function RelationshipsPage() {
       try {
         setIsLoading(true);
         setError(null);
-        const data = await MockApiService.getRelationships();
-        setRelationships(data);
+        const data = await apiClient.get<{ items: Relationship[] }>("/relationships");
+        setRelationships(data.items || []);
       } catch (_err) {
         setError("Failed to load relationships");
       } finally {

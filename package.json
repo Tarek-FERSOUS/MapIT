@@ -13,6 +13,7 @@
     "lint": "npm --workspace=apps/mobile run lint && npm --workspace=apps/web run lint",
     "typecheck": "npm --workspace=apps/web run typecheck",
     "test:api": "npm --workspace=apps/api run test",
+    "seed:api": "npm --workspace=apps/api run prisma:seed",
     "smoke:frontend": "npm --workspace=apps/mobile run smoke",
     "ci": "npm run lint && npm run typecheck && npm run test:api && npm run smoke:frontend"
   },

@@ -5,7 +5,7 @@ import axios, {
 } from "axios";
 import { ApiError } from "@/types/api";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+const API_BASE_URL = "/api/backend";
 
 class ApiClient {
   private client: AxiosInstance;

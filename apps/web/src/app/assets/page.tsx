@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { Server } from "lucide-react";
+import { apiClient } from "@/lib/api";
 import { Asset } from "@/types/api";
-import { MockApiService } from "@/lib/mock-api";
 import { EmptyState, ErrorAlert, LoadingSpinner } from "@/components/ui";
 import { formatDateTime } from "@/lib/formatting";
 
@@ -19,8 +19,8 @@ export default function AssetsPage() {
       try {
         setIsLoading(true);
         setError(null);
-        const data = await MockApiService.getAssets();
-        setAssets(data);
+        const data = await apiClient.get<{ items: Asset[] }>("/assets");
+        setAssets(data.items || []);
       } catch (_err) {
         setError("Failed to load assets");
       } finally {

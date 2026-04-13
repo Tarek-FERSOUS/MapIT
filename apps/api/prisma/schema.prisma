@@ -32,3 +32,48 @@ model Document {
   createdAt DateTime @default(now())
 }
 
+model Asset {
+  id          String   @id @default(uuid())
+  name        String
+  type        String
+  ipAddress   String
+  location    String
+  status      String
+  lastUpdated DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Problem {
+  id             String   @id @default(uuid())
+  title          String
+  description    String
+  affectedAssets String[]
+  severity       String
+  status         String
+  solution       String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Relationship {
+  id               String   @id @default(uuid())
+  sourceAssetId    String
+  targetAssetId    String
+  relationshipType String
+  label            String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model UserSettings {
+  id                     String   @id @default(uuid())
+  username               String   @unique
+  notificationsEmail     Boolean  @default(true)
+  notificationsInApp     Boolean  @default(true)
+  notificationsCritical  Boolean  @default(true)
+  theme                  String   @default("light")
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+}
+

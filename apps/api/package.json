@@ -5,12 +5,17 @@
   "main": "index.js",
   "scripts": {
     "predev": "npm run prisma:generate",
+    "pretest": "npm run prisma:generate",
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
     "prisma:generate": "prisma generate --schema prisma/schema.prisma",
+    "prisma:seed": "node prisma/seed.js",
     "prisma:migrate:dev": "prisma migrate dev --schema prisma/schema.prisma",
     "prisma:migrate:deploy": "prisma migrate deploy --schema prisma/schema.prisma",
     "test": "node --test tests/integration/**/*.test.js"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
   },
   "keywords": [],
   "author": "",

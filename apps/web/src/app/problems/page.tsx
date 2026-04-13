@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { AlertTriangle } from "lucide-react";
+import { apiClient } from "@/lib/api";
 import { Problem } from "@/types/api";
-import { MockApiService } from "@/lib/mock-api";
 import { EmptyState, ErrorAlert, LoadingSpinner } from "@/components/ui";
 import { formatDateTime } from "@/lib/formatting";
 
@@ -17,8 +17,8 @@ export default function ProblemsPage() {
       try {
         setIsLoading(true);
         setError(null);
-        const data = await MockApiService.getProblems();
-        setProblems(data);
+        const data = await apiClient.get<{ items: Problem[] }>("/problems");
+        setProblems(data.items || []);
       } catch (_err) {
         setError("Failed to load problems");
       } finally {

@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { MockApiService } from "@/lib/mock-api";
+import { apiClient } from "@/lib/api";
 import { UserSettings } from "@/types/api";
 import { ErrorAlert, LoadingSpinner } from "@/components/ui";
 
@@ -16,7 +16,7 @@ export default function SettingsPage() {
       try {
         setIsLoading(true);
         setError(null);
-        const data = await MockApiService.getSettings();
+        const data = await apiClient.get<UserSettings>("/settings/me");
         setSettings(data);
       } catch (_err) {
         setError("Failed to load settings");
@@ -37,7 +37,7 @@ export default function SettingsPage() {
     try {
       setIsSaving(true);
       setError(null);
-      const updated = await MockApiService.updateSettings(settings);
+      const updated = await apiClient.patch<UserSettings>("/settings/me", settings);
       setSettings(updated);
     } catch (_err) {
       setError("Failed to save settings");
