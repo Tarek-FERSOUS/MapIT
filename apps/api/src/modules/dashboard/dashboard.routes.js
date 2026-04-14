@@ -9,10 +9,35 @@ router.use(requireAuth);
 
 router.get("/summary", async (_req, res) => {
   try {
-    const [incidentCount, documentCount, userCount, recentIncidents, recentDocuments] = await Promise.all([
+    const [incidentCount, documentCount, userCount, assetCount, activeServerCount, openProblemCount, resolvedProblemCount, recentIncidents, recentDocuments, openProblems] = await Promise.all([
       prisma.incident.count(),
       prisma.document.count(),
       prisma.user.count(),
+      prisma.asset.count(),
+      prisma.asset.count({
+        where: {
+          type: {
+            equals: "server",
+            mode: "insensitive"
+          },
+          status: {
+            equals: "online",
+            mode: "insensitive"
+          }
+        }
+      }),
+      prisma.problem.count({
+        where: {
+          status: {
+            not: "resolved"
+          }
+        }
+      }),
+      prisma.problem.count({
+        where: {
+          status: "resolved"
+        }
+      }),
       prisma.incident.findMany({
         orderBy: { createdAt: "desc" },
         take: 5,
@@ -29,6 +54,21 @@ router.get("/summary", async (_req, res) => {
           id: true,
           title: true,
           createdAt: true
+        }
+      }),
+      prisma.problem.findMany({
+        where: {
+          status: {
+            not: "resolved"
+          }
+        },
+        orderBy: { createdAt: "desc" },
+        take: 8,
+        select: {
+          id: true,
+          title: true,
+          severity: true,
+          affectedAssets: true
         }
       })
     ]);
@@ -54,9 +94,14 @@ router.get("/summary", async (_req, res) => {
       kpis: {
         incidents: incidentCount,
         documents: documentCount,
-        users: userCount
+        users: userCount,
+        totalAssets: assetCount,
+        activeServers: activeServerCount,
+        openProblems: openProblemCount,
+        resolvedThisMonth: resolvedProblemCount
       },
-      recentActivity
+      recentActivity,
+      openProblems
     });
   } catch (_err) {
     res.status(500).json({ error: "Failed to load dashboard summary" });

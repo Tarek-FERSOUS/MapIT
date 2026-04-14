@@ -2,19 +2,19 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { Share2, User, Lock, Loader2 } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-    setIsLoading(true);
+    setError(null);
+    setLoading(true);
 
     try {
       const response = await fetch("/api/auth/login", {
@@ -25,107 +25,107 @@ export default function LoginPage() {
 
       if (!response.ok) {
         const data = await response.json();
-        setError(data.error || "Login failed");
-        return;
+        throw new Error(data.error || "Invalid credentials");
       }
 
+      await response.json();
       router.push("/dashboard");
     } catch (err) {
-      setError("Login failed. Please try again.");
+      setError(err instanceof Error ? err.message : "Login failed. Please try again.");
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-primary-50 p-4">
+    <div className="min-h-screen gradient-login flex items-center justify-center p-4 relative">
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23ffffff' fillOpacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"
+        }}
+      />
+
       <div className="w-full max-w-md">
-        <div className="card space-y-8">
-          {/* Header */}
-          <div className="text-center">
-            <h1 className="text-3xl font-bold text-slate-900">MapIT</h1>
-            <p className="text-sm text-slate-600 mt-2">
-              Asset & Problem Management Platform
-            </p>
+        <div className="bg-card rounded-xl shadow-2xl border border-border/20 p-8 space-y-6 relative z-10">
+          <div className="flex flex-col items-center">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary mb-4">
+              <Share2 className="h-6 w-6 text-primary-foreground" />
+            </div>
+            <h1 className="text-2xl font-bold text-foreground">MapIT</h1>
+            <p className="text-sm text-muted-foreground mt-1">Infrastructure Management Platform</p>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleLogin} className="space-y-4">
-            {/* Username */}
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
+            <div className="space-y-2">
+              <label htmlFor="username" className="text-sm font-medium text-foreground">
                 Username
               </label>
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter your username"
-                className="input"
-                disabled={isLoading}
-                autoComplete="username"
-                required
-              />
+              <div className="relative">
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <input
+                  id="username"
+                  type="text"
+                  placeholder="Enter your username"
+                  className="w-full h-11 rounded-md border border-input bg-background pl-9 pr-3 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  disabled={loading}
+                  autoComplete="username"
+                  required
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
             </div>
 
-            {/* Password */}
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
+            <div className="space-y-2">
+              <label htmlFor="password" className="text-sm font-medium text-foreground">
                 Password
               </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your password"
-                className="input"
-                disabled={isLoading}
-                autoComplete="current-password"
-                required
-              />
-            </div>
-
-            {/* Remember Me & Forgot Password */}
-            <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center">
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <input
-                  type="checkbox"
-                  className="rounded border-slate-300 text-primary-600"
-                  disabled={isLoading}
+                  id="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  className="w-full h-11 rounded-md border border-input bg-background pl-9 pr-3 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  disabled={loading}
+                  autoComplete="current-password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-                <span className="ml-2 text-slate-600">Remember me</span>
-              </label>
-              <Link
-                href="#"
-                className="text-primary-600 hover:text-primary-700 font-medium"
-              >
-                Forgot password?
-              </Link>
+              </div>
             </div>
 
-            {/* Error Message */}
-            {error && (
-              <div className="rounded-md bg-red-50 p-3 text-sm text-red-700">
-                {error}
-              </div>
-            )}
+            <div className="flex items-center justify-between">
+              <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer">
+                <input type="checkbox" className="h-4 w-4 rounded border-input" disabled={loading} />
+                Remember me
+              </label>
+              <button type="button" className="text-sm text-primary hover:underline font-medium">
+                Forgot password?
+              </button>
+            </div>
 
-            {/* Submit Button */}
+            {error && <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">{error}</div>}
+
             <button
               type="submit"
-              disabled={isLoading}
-              className="btn btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={loading}
+              className="w-full h-11 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:opacity-95 disabled:opacity-60 disabled:cursor-not-allowed inline-flex items-center justify-center"
             >
-              {isLoading ? "Signing in..." : "Sign In"}
+              {loading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Signing in...
+                </>
+              ) : (
+                "Sign in"
+              )}
             </button>
           </form>
 
-          {/* Dev Mode Info */}
-          <div className="bg-amber-50 p-3 rounded-md border border-amber-200">
-            <p className="text-xs text-amber-700">
-              <strong>Dev credentials:</strong> username: admin, password: password
-            </p>
-          </div>
         </div>
       </div>
     </div>

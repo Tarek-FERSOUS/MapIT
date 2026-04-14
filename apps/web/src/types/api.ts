@@ -29,6 +29,10 @@ export interface DashboardSummary {
     incidents: number;
     documents: number;
     users: number;
+    totalAssets?: number;
+    activeServers?: number;
+    openProblems?: number;
+    resolvedThisMonth?: number;
   };
   recentActivity: {
     id: string;
@@ -36,6 +40,27 @@ export interface DashboardSummary {
     createdAt: string;
     type: "incident" | "document";
   }[];
+  openProblems?: {
+    id: string;
+    title: string;
+    severity: "low" | "medium" | "high" | "critical";
+    affectedAssets: string[];
+  }[];
+}
+
+export interface NotificationItem {
+  id: string;
+  kind: "incident" | "document" | "problem" | "asset";
+  sourceId: string;
+  title: string;
+  createdAt: string;
+  href: string;
+  severity?: "low" | "medium" | "high" | "critical";
+}
+
+export interface NotificationsResponse {
+  items: NotificationItem[];
+  unreadCount: number;
 }
 
 export interface ApiError {
@@ -47,10 +72,14 @@ export interface ApiError {
 export interface Asset {
   id: string;
   name: string;
-  type: "server" | "vm" | "network-device" | "service";
+  type: "server" | "vm" | "network-device" | "network" | "storage" | "service";
   ipAddress: string;
   location: string;
-  status: "online" | "offline" | "maintenance";
+  status: "online" | "offline" | "maintenance" | "warning";
+  os?: string;
+  cpu?: string;
+  memory?: string;
+  tags?: string[];
   lastUpdated: string;
 }
 
@@ -60,7 +89,7 @@ export interface Problem {
   description: string;
   affectedAssets: string[];
   severity: "low" | "medium" | "high" | "critical";
-  status: "open" | "in-progress" | "resolved";
+  status: "open" | "in-progress" | "investigating" | "resolved";
   createdAt: string;
   resolvedAt?: string;
   solution?: string;
@@ -75,6 +104,11 @@ export interface Relationship {
 }
 
 export interface UserSettings {
+  profile?: {
+    firstName: string;
+    lastName: string;
+    email: string;
+  };
   notifications: {
     email: boolean;
     inApp: boolean;

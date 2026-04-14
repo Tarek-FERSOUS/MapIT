@@ -3,19 +3,23 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth";
+import { apiClient } from "@/lib/api";
+import { NotificationItem, NotificationsResponse } from "@/types/api";
 import {
   LayoutDashboard,
-  AlertCircle,
-  FileText,
-  Map,
+  Server,
+  AlertTriangle,
+  Share2,
+  BarChart3,
   Settings,
+  ChevronLeft,
+  ChevronRight,
   LogOut,
-  Menu,
-  X,
   Search,
-  Bell
+  Bell,
+  User
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface SidebarLayoutProps {
   children: React.ReactNode;
@@ -26,7 +30,37 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
   const pathname = usePathname();
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
+  const [notificationsLoading, setNotificationsLoading] = useState(false);
+  const [notificationsError, setNotificationsError] = useState<string | null>(null);
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  const loadNotifications = async () => {
+    try {
+      setNotificationsLoading(true);
+      setNotificationsError(null);
+      const data = await apiClient.get<NotificationsResponse>("/notifications/recent", { limit: 10 });
+      setNotifications(data.items || []);
+      setUnreadCount(data.unreadCount || 0);
+    } catch (_error) {
+      setNotificationsError("Failed to load notifications");
+    } finally {
+      setNotificationsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadNotifications();
+  }, []);
+
+  useEffect(() => {
+    if (notificationsOpen && notifications.length === 0 && !notificationsLoading) {
+      loadNotifications();
+    }
+  }, [notificationsOpen]);
 
   const handleLogout = async () => {
     try {
@@ -45,161 +79,174 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
       icon: LayoutDashboard
     },
     {
-      href: "/incidents",
-      label: "Incidents",
-      icon: AlertCircle
-    },
-    {
-      href: "/documents",
-      label: "Documents",
-      icon: FileText
-    },
-    {
       href: "/assets",
       label: "Assets",
-      icon: LayoutDashboard
+      icon: Server
     },
     {
       href: "/problems",
       label: "Problems",
-      icon: AlertCircle
+      icon: AlertTriangle
     },
     {
       href: "/relationships",
       label: "Relationships",
-      icon: Map
+      icon: Share2
+    },
+    {
+      href: "/reports",
+      label: "Reports",
+      icon: BarChart3
     }
   ];
 
   return (
-    <div className="flex h-screen bg-slate-50">
-      {/* Mobile Sidebar Overlay */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-          aria-hidden="true"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
-      {/* Sidebar */}
-      <aside
-        className={`fixed left-0 top-0 h-screen w-64 bg-white border-r border-slate-200 transform transition-transform duration-300 z-50 lg:relative lg:translate-x-0 ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        <div className="flex flex-col h-full">
-          {/* Logo */}
-          <div className="px-6 py-6 border-b border-slate-200">
-            <Link href="/dashboard" className="text-xl font-bold text-primary-600">
-              MapIT
-            </Link>
-            <button
-              onClick={() => setSidebarOpen(false)}
-              className="absolute right-4 top-4 lg:hidden"
-              aria-label="Close navigation menu"
-            >
-              <X className="w-6 h-6" />
-            </button>
+    <div className="min-h-screen flex w-full bg-background">
+      <aside className={`${collapsed ? "w-[72px]" : "w-64"} hidden md:flex flex-col bg-sidebar border-r border-sidebar-border transition-all duration-200`}>
+        <div className="flex items-center gap-2 px-4 py-5 border-b border-sidebar-border">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sidebar-primary">
+            <Share2 className="h-4 w-4 text-sidebar-primary-foreground" />
           </div>
+          {!collapsed && <span className="text-lg font-bold text-sidebar-accent-foreground tracking-tight">MapIT</span>}
+        </div>
 
-          {/* Navigation */}
-          <nav id="primary-navigation" aria-label="Primary" className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-            {navItems.map(({ href, label, icon: Icon }) => (
+        <nav id="primary-navigation" aria-label="Primary" className="flex-1 p-2 space-y-1 overflow-y-auto">
+          {navItems.map(({ href, label, icon: Icon }) => {
+            const isActive = pathname === href || pathname.startsWith(`${href}/`);
+            return (
               <Link
                 key={href}
                 href={href}
-                aria-current={pathname === href ? "page" : undefined}
-                className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-colors ${
-                  pathname === href
-                    ? "bg-primary-50 text-primary-700"
-                    : "text-slate-700 hover:bg-slate-100"
+                aria-current={isActive ? "page" : undefined}
+                title={collapsed ? label : undefined}
+                className={`flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                  isActive
+                    ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                 }`}
               >
-                <Icon className="w-5 h-5" />
-                <span className="text-sm font-medium">{label}</span>
+                <Icon className="h-[18px] w-[18px] shrink-0" />
+                {!collapsed && <span>{label}</span>}
               </Link>
-            ))}
-          </nav>
+            );
+          })}
+        </nav>
 
-          {/* User Section */}
-          <div className="p-4 border-t border-slate-200 space-y-3">
-            <Link
-              href="/settings"
-              aria-current={pathname === "/settings" ? "page" : undefined}
-              className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-colors ${
-                pathname === "/settings"
-                  ? "bg-primary-50 text-primary-700"
-                  : "text-slate-700 hover:bg-slate-100"
-              }`}
-            >
-              <Settings className="w-5 h-5" />
-              <span className="text-sm font-medium">Settings</span>
-            </Link>
-            <button
-              onClick={handleLogout}
-              className="w-full flex items-center gap-3 px-4 py-2 rounded-lg text-slate-700 hover:bg-red-50 hover:text-red-700 transition-colors"
-              aria-label="Log out"
-            >
-              <LogOut className="w-5 h-5" />
-              <span className="text-sm font-medium">Logout</span>
-            </button>
-            {user && (
-              <div className="px-4 py-2 text-xs text-slate-500">
-                <p className="truncate">
-                  <strong>{user.username}</strong>
-                </p>
-                <p className="text-slate-400">{user.role}</p>
-              </div>
-            )}
-          </div>
+        <div className="border-t border-sidebar-border p-2">
+          <button
+            onClick={() => setCollapsed((prev) => !prev)}
+            className="flex w-full items-center justify-center rounded-md p-2 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors"
+            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          >
+            {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+          </button>
         </div>
       </aside>
 
-      {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Top Header */}
-        <header className="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4 flex-1">
-            <button
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="lg:hidden"
-              aria-label={sidebarOpen ? "Close menu" : "Open menu"}
-              aria-expanded={sidebarOpen}
-              aria-controls="primary-navigation"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
-            <div className="hidden md:flex flex-1 max-w-md">
-              <div className="w-full relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                <input
-                  type="text"
-                  aria-label="Global search"
-                  placeholder="Search..."
-                  className="input pl-10"
-                />
-              </div>
-            </div>
+        <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b border-border bg-card px-4 lg:px-6">
+          <div className="relative flex-1 max-w-md">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Search assets, problems..."
+              className="w-full h-9 rounded-md border-0 bg-muted pl-9 pr-3 text-sm text-foreground focus:outline-none focus-visible:ring-1 focus-visible:ring-primary"
+            />
           </div>
 
-          {/* Header Actions */}
-          <div className="flex items-center gap-4">
-            <button
-              className="relative p-2 text-slate-600 hover:bg-slate-100 rounded-lg"
-              aria-label="Notifications"
-            >
-              <Bell className="w-5 h-5" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
-            </button>
-            <div className="w-10 h-10 rounded-lg bg-primary-600 text-white flex items-center justify-center font-bold">
-              {user?.username?.[0]?.toUpperCase()}
+          <div className="flex items-center gap-2 ml-auto">
+            <div className="relative">
+              <button
+                className="relative inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
+                onClick={() => setNotificationsOpen((prev) => !prev)}
+                title="Notifications"
+                aria-label="Notifications"
+              >
+                <Bell className="h-[18px] w-[18px]" />
+                {unreadCount > 0 && <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-destructive" />}
+              </button>
+
+              {notificationsOpen && (
+                <div className="absolute right-0 mt-2 w-80 rounded-md border border-border bg-card p-2 shadow-lg z-40">
+                  <div className="flex items-center justify-between px-2 py-1.5 border-b border-border/60">
+                    <p className="text-sm font-medium">Recent Notifications</p>
+                    <button
+                      onClick={loadNotifications}
+                      className="text-xs text-muted-foreground hover:text-foreground"
+                      title="Refresh notifications"
+                    >
+                      Refresh
+                    </button>
+                  </div>
+
+                  <div className="max-h-80 overflow-auto">
+                    {notificationsLoading && <p className="text-xs text-muted-foreground px-2 py-3">Loading...</p>}
+                    {!notificationsLoading && notificationsError && (
+                      <p className="text-xs text-destructive px-2 py-3">{notificationsError}</p>
+                    )}
+                    {!notificationsLoading && !notificationsError && notifications.length === 0 && (
+                      <p className="text-xs text-muted-foreground px-2 py-3">No recent notifications.</p>
+                    )}
+
+                    {!notificationsLoading && !notificationsError && notifications.map((item) => (
+                      <Link
+                        key={item.id}
+                        href={item.href}
+                        onClick={() => setNotificationsOpen(false)}
+                        className="block rounded-sm px-2 py-2 hover:bg-muted"
+                      >
+                        <p className="text-sm text-foreground line-clamp-1">{item.title}</p>
+                        <p className="text-[11px] text-muted-foreground mt-1">
+                          {item.kind}
+                          {item.severity ? ` · ${item.severity}` : ""}
+                          {` · ${new Date(item.createdAt).toLocaleString()}`}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="relative">
+              <button
+                onClick={() => setMenuOpen((prev) => !prev)}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full"
+                aria-label="User menu"
+              >
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-semibold">
+                  {user?.username?.[0]?.toUpperCase() || "U"}
+                </div>
+              </button>
+
+              {menuOpen && (
+                <div className="absolute right-0 mt-2 w-48 rounded-md border border-border bg-card p-1 shadow-lg">
+                  <button
+                    onClick={() => {
+                      setMenuOpen(false);
+                      router.push("/settings");
+                    }}
+                    className="flex w-full items-center gap-2 rounded-sm px-2 py-2 text-sm hover:bg-muted"
+                  >
+                    <User className="h-4 w-4" />
+                    Profile
+                  </button>
+                  <button
+                    onClick={handleLogout}
+                    className="flex w-full items-center gap-2 rounded-sm px-2 py-2 text-sm text-destructive hover:bg-muted"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    Sign out
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </header>
 
-        {/* Page Content */}
-        <main id="main-content" className="flex-1 overflow-auto page-enter">{children}</main>
+        <main id="main-content" className="flex-1 p-4 lg:p-6 overflow-auto page-enter">
+          {children}
+        </main>
       </div>
     </div>
   );

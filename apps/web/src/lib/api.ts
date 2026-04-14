@@ -69,3 +69,39 @@ class ApiClient {
 }
 
 export const apiClient = new ApiClient();
+
+export function getApiErrorMessage(error: unknown, fallbackMessage = "Something went wrong") {
+  if (axios.isAxiosError(error)) {
+    const responseData = error.response?.data as ApiError | string | undefined;
+
+    if (typeof responseData === "string" && responseData.trim()) {
+      return responseData;
+    }
+
+    if (responseData && typeof responseData === "object") {
+      if (typeof responseData.error === "string" && responseData.error.trim()) {
+        return responseData.error;
+      }
+
+      if (typeof responseData.message === "string" && responseData.message.trim()) {
+        return responseData.message;
+      }
+    }
+
+    if (error.response?.status === 404) {
+      return "Requested data was not found";
+    }
+
+    if (error.message && error.message !== "Network Error") {
+      return error.message;
+    }
+
+    return "Unable to reach the server. Please try again.";
+  }
+
+  if (error instanceof Error && error.message.trim()) {
+    return error.message;
+  }
+
+  return fallbackMessage;
+}

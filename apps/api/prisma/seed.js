@@ -23,10 +23,10 @@ async function main() {
 
   await prisma.user.createMany({
     data: [
-      { username: "admin" },
-      { username: "testuser" },
-      { username: "sarah" },
-      { username: "michael" }
+      { username: "admin", firstName: "John", lastName: "Doe", email: "john.doe@company.com" },
+      { username: "testuser", firstName: "Test", lastName: "User", email: "test.user@company.com" },
+      { username: "sarah", firstName: "Sarah", lastName: "Chen", email: "sarah.chen@company.com" },
+      { username: "michael", firstName: "Michael", lastName: "Torres", email: "michael.torres@company.com" }
     ]
   });
 
@@ -65,74 +65,43 @@ async function main() {
 
   await prisma.asset.createMany({
     data: [
-      {
-        id: "asset-db",
-        name: "Production DB Server",
-        type: "server",
-        ipAddress: "10.10.0.10",
-        location: "Data Center A",
-        status: "online",
-        lastUpdated: new Date()
-      },
-      {
-        id: "asset-web",
-        name: "Web Frontend VM",
-        type: "vm",
-        ipAddress: "10.10.0.21",
-        location: "Cloud Region 1",
-        status: "online",
-        lastUpdated: new Date()
-      },
-      {
-        id: "asset-switch",
-        name: "Core Network Switch",
-        type: "network-device",
-        ipAddress: "10.10.0.2",
-        location: "Data Center A",
-        status: "maintenance",
-        lastUpdated: new Date()
-      }
+      { id: "1", name: "PROD-WEB-01", type: "server", ipAddress: "10.0.1.10", location: "DC-East Rack A3", status: "online", os: "Ubuntu 22.04 LTS", cpu: "Intel Xeon E5-2680 v4 (16 cores)", memory: "64 GB DDR4", tags: ["production", "web"], lastUpdated: new Date("2026-04-13T08:30:00Z") },
+      { id: "2", name: "PROD-WEB-02", type: "server", ipAddress: "10.0.1.11", location: "DC-East Rack A3", status: "online", os: "Ubuntu 22.04 LTS", cpu: "Intel Xeon E5-2680 v4 (16 cores)", memory: "64 GB DDR4", tags: ["production", "web"], lastUpdated: new Date("2026-04-13T08:30:00Z") },
+      { id: "3", name: "DB-PRIMARY", type: "server", ipAddress: "10.0.2.5", location: "DC-East Rack B1", status: "online", os: "CentOS 8", cpu: "AMD EPYC 7702 (32 cores)", memory: "256 GB DDR4", tags: ["production", "database"], lastUpdated: new Date("2026-04-13T09:00:00Z") },
+      { id: "4", name: "VM-DEV-01", type: "vm", ipAddress: "10.0.3.20", location: "Hypervisor-01", status: "online", os: "Windows Server 2022", cpu: "4 vCPUs", memory: "16 GB", tags: ["development"], lastUpdated: new Date("2026-04-12T14:00:00Z") },
+      { id: "5", name: "VM-STAGING-01", type: "vm", ipAddress: "10.0.3.30", location: "Hypervisor-02", status: "warning", os: "Ubuntu 20.04", cpu: "8 vCPUs", memory: "32 GB", tags: ["staging"], lastUpdated: new Date("2026-04-13T07:15:00Z") },
+      { id: "6", name: "SW-CORE-01", type: "network", ipAddress: "10.0.0.1", location: "DC-East MDF", status: "online", tags: ["core", "network"], lastUpdated: new Date("2026-04-13T09:10:00Z") },
+      { id: "7", name: "FW-EDGE-01", type: "network", ipAddress: "10.0.0.254", location: "DC-East MDF", status: "online", tags: ["firewall", "edge"], lastUpdated: new Date("2026-04-13T09:10:00Z") },
+      { id: "8", name: "NAS-BACKUP-01", type: "storage", ipAddress: "10.0.4.10", location: "DC-East Rack C2", status: "online", tags: ["backup", "storage"], lastUpdated: new Date("2026-04-13T06:00:00Z") },
+      { id: "9", name: "MAIL-SERVER", type: "server", ipAddress: "10.0.1.50", location: "DC-West Rack A1", status: "offline", os: "Ubuntu 20.04", cpu: "Intel Xeon E3 (4 cores)", memory: "16 GB", tags: ["production", "email"], lastUpdated: new Date("2026-04-12T22:00:00Z") },
+      { id: "10", name: "K8S-NODE-01", type: "server", ipAddress: "10.0.5.10", location: "DC-East Rack D1", status: "online", os: "Ubuntu 22.04", cpu: "AMD EPYC 7502 (16 cores)", memory: "128 GB", tags: ["kubernetes", "production"], lastUpdated: new Date("2026-04-13T08:45:00Z") }
     ]
   });
 
   await prisma.problem.createMany({
     data: [
-      {
-        id: "problem-web-cpu",
-        title: "High CPU on Web VM",
-        description: "Sustained CPU above 85% during peak traffic.",
-        affectedAssets: ["asset-web"],
-        severity: "high",
-        status: "in-progress",
-        solution: "Scale out the front-end workload and tune caching."
-      },
-      {
-        id: "problem-db-pool",
-        title: "DB Pool Saturation",
-        description: "Connection pool saturation during batch jobs.",
-        affectedAssets: ["asset-db"],
-        severity: "critical",
-        status: "open"
-      }
+      { id: "problem-1", title: "Mail server unresponsive", description: "MAIL-SERVER stopped responding to SMTP and IMAP connections. CPU at 100% utilization.", affectedAssets: ["9", "MAIL-SERVER"], severity: "critical", status: "open" },
+      { id: "problem-2", title: "VM-STAGING-01 high memory usage", description: "Memory usage consistently above 90%. Possible memory leak in staging application.", affectedAssets: ["5", "VM-STAGING-01"], severity: "high", status: "investigating" },
+      { id: "problem-3", title: "Intermittent DNS resolution failures", description: "Some internal DNS queries failing intermittently, affecting service discovery.", affectedAssets: ["6", "SW-CORE-01"], severity: "medium", status: "resolved", resolvedAt: new Date("2026-04-11T09:30:00Z"), solution: "Updated DNS forwarder configuration and flushed DNS cache across all nodes." },
+      { id: "problem-4", title: "NAS backup job failed", description: "Nightly backup job to NAS-BACKUP-01 failed with disk space error.", affectedAssets: ["8", "3", "NAS-BACKUP-01", "DB-PRIMARY"], severity: "high", status: "resolved", resolvedAt: new Date("2026-04-09T10:00:00Z"), solution: "Cleaned up old snapshots and expanded storage volume by 2TB." },
+      { id: "problem-5", title: "SSL certificate expiring soon", description: "SSL certificate for production web servers expires in 7 days.", affectedAssets: ["1", "2", "PROD-WEB-01", "PROD-WEB-02"], severity: "medium", status: "open" }
     ]
   });
 
   await prisma.relationship.createMany({
     data: [
-      {
-        id: "rel-web-db",
-        sourceAssetId: "asset-web",
-        targetAssetId: "asset-db",
-        relationshipType: "depends-on",
-        label: "queries database"
-      },
-      {
-        id: "rel-switch-web",
-        sourceAssetId: "asset-switch",
-        targetAssetId: "asset-web",
-        relationshipType: "communicates-with",
-        label: "routes traffic"
-      }
+      { id: "rel-1", sourceAssetId: "1", targetAssetId: "6", relationshipType: "communicates-with", label: "eth0" },
+      { id: "rel-2", sourceAssetId: "2", targetAssetId: "6", relationshipType: "communicates-with", label: "eth0" },
+      { id: "rel-3", sourceAssetId: "3", targetAssetId: "6", relationshipType: "communicates-with", label: "eth0" },
+      { id: "rel-4", sourceAssetId: "6", targetAssetId: "7", relationshipType: "depends-on", label: "trunk" },
+      { id: "rel-5", sourceAssetId: "8", targetAssetId: "6", relationshipType: "communicates-with", label: "eth0" },
+      { id: "rel-6", sourceAssetId: "4", targetAssetId: "6", relationshipType: "hosted-on", label: "vSwitch" },
+      { id: "rel-7", sourceAssetId: "5", targetAssetId: "6", relationshipType: "hosted-on", label: "vSwitch" },
+      { id: "rel-8", sourceAssetId: "9", targetAssetId: "6", relationshipType: "communicates-with", label: "eth0" },
+      { id: "rel-9", sourceAssetId: "10", targetAssetId: "6", relationshipType: "communicates-with", label: "eth0" },
+      { id: "rel-10", sourceAssetId: "3", targetAssetId: "8", relationshipType: "depends-on", label: "backup" },
+      { id: "rel-11", sourceAssetId: "1", targetAssetId: "3", relationshipType: "depends-on", label: "mysql" },
+      { id: "rel-12", sourceAssetId: "2", targetAssetId: "3", relationshipType: "depends-on", label: "mysql" }
     ]
   });
 

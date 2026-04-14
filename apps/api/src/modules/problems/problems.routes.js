@@ -34,7 +34,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", requireRole(["Admin"]), async (req, res) => {
-  const { title, description, affectedAssets, severity, status, solution } = req.body;
+  const { title, description, affectedAssets, severity, status, solution, resolvedAt } = req.body;
 
   if (!title || !description || !severity || !status) {
     return res.status(400).json({ error: "title, description, severity and status are required" });
@@ -48,7 +48,8 @@ router.post("/", requireRole(["Admin"]), async (req, res) => {
         affectedAssets: Array.isArray(affectedAssets) ? affectedAssets.map(String) : [],
         severity: String(severity),
         status: String(status),
-        ...(solution ? { solution: String(solution) } : {})
+        ...(solution ? { solution: String(solution) } : {}),
+        ...(status === "resolved" ? { resolvedAt: resolvedAt ? new Date(resolvedAt) : new Date() } : {})
       }
     });
 
@@ -68,7 +69,12 @@ router.patch("/:id", requireRole(["Admin"]), async (req, res) => {
         ...(Array.isArray(req.body.affectedAssets) ? { affectedAssets: req.body.affectedAssets.map(String) } : {}),
         ...(req.body.severity ? { severity: String(req.body.severity) } : {}),
         ...(req.body.status ? { status: String(req.body.status) } : {}),
-        ...(req.body.solution ? { solution: String(req.body.solution) } : {})
+        ...(req.body.solution ? { solution: String(req.body.solution) } : {}),
+        ...(req.body.status === "resolved"
+          ? { resolvedAt: req.body.resolvedAt ? new Date(req.body.resolvedAt) : new Date() }
+          : req.body.status
+          ? { resolvedAt: null }
+          : {})
       }
     });
 

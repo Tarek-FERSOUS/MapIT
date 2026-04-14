@@ -36,7 +36,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", requireRole(["Admin"]), async (req, res) => {
-  const { name, type, ipAddress, location, status, lastUpdated } = req.body;
+  const { name, type, ipAddress, location, status, lastUpdated, os, cpu, memory, tags } = req.body;
 
   if (!name || !type || !ipAddress || !location || !status) {
     return res.status(400).json({ error: "name, type, ipAddress, location and status are required" });
@@ -50,6 +50,10 @@ router.post("/", requireRole(["Admin"]), async (req, res) => {
         ipAddress: String(ipAddress),
         location: String(location),
         status: String(status),
+        ...(os ? { os: String(os) } : {}),
+        ...(cpu ? { cpu: String(cpu) } : {}),
+        ...(memory ? { memory: String(memory) } : {}),
+        ...(Array.isArray(tags) ? { tags: tags.map(String) } : {}),
         lastUpdated: lastUpdated ? new Date(lastUpdated) : new Date()
       }
     });
@@ -70,6 +74,10 @@ router.patch("/:id", requireRole(["Admin"]), async (req, res) => {
         ...(req.body.ipAddress ? { ipAddress: String(req.body.ipAddress) } : {}),
         ...(req.body.location ? { location: String(req.body.location) } : {}),
         ...(req.body.status ? { status: String(req.body.status) } : {}),
+        ...(req.body.os ? { os: String(req.body.os) } : {}),
+        ...(req.body.cpu ? { cpu: String(req.body.cpu) } : {}),
+        ...(req.body.memory ? { memory: String(req.body.memory) } : {}),
+        ...(Array.isArray(req.body.tags) ? { tags: req.body.tags.map(String) } : {}),
         ...(req.body.lastUpdated ? { lastUpdated: new Date(req.body.lastUpdated) } : {})
       }
     });

@@ -15,6 +15,10 @@ datasource db {
 model User {
   id        String   @id @default(uuid())
   username  String   @unique
+  firstName String?
+  lastName  String?
+  email     String?
+  settings  UserSettings?
   createdAt DateTime @default(now())
 }
 
@@ -39,6 +43,10 @@ model Asset {
   ipAddress   String
   location    String
   status      String
+  os          String?
+  cpu         String?
+  memory      String?
+  tags        String[] @default([])
   lastUpdated DateTime @default(now())
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -52,6 +60,7 @@ model Problem {
   severity       String
   status         String
   solution       String?
+  resolvedAt     DateTime?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
@@ -69,6 +78,7 @@ model Relationship {
 model UserSettings {
   id                     String   @id @default(uuid())
   username               String   @unique
+  user                   User     @relation(fields: [username], references: [username], onDelete: Cascade)
   notificationsEmail     Boolean  @default(true)
   notificationsInApp     Boolean  @default(true)
   notificationsCritical  Boolean  @default(true)

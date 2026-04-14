@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { AlertCircle, Plus } from "lucide-react";
-import { apiClient } from "@/lib/api";
+import { apiClient, getApiErrorMessage } from "@/lib/api";
 import { Incident } from "@/types/api";
 import { ErrorAlert, LoadingSpinner, EmptyState } from "@/components/ui";
 import { formatDateTime } from "@/lib/formatting";
@@ -25,8 +25,8 @@ export default function IncidentsPage() {
         setError(null);
         const data = await apiClient.get<IncidentListResponse>("/incidents");
         setIncidents(data.items || []);
-      } catch (_err) {
-        setError("Failed to load incidents");
+      } catch (error) {
+        setError(getApiErrorMessage(error, "Failed to load incidents"));
       } finally {
         setIsLoading(false);
       }
