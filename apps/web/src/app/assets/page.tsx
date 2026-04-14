@@ -105,7 +105,7 @@ export default function AssetsPage() {
           <h1>Asset Inventory</h1>
           <p className="text-muted-foreground text-sm mt-1">{assets.length} assets registered</p>
         </div>
-        <button className="h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm inline-flex items-center">
+        <button className="h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm inline-flex items-center" title="Add asset" aria-label="Add asset">
           <Plus className="mr-1.5 h-3.5 w-3.5" /> Add Asset
         </button>
       </div>
@@ -117,6 +117,7 @@ export default function AssetsPage() {
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <input
+              aria-label="Search assets"
               placeholder="Search by name, IP, or location..."
               value={search}
               onChange={(event) => {
@@ -130,6 +131,7 @@ export default function AssetsPage() {
           <div className="relative">
             <Filter className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
             <select
+              aria-label="Filter assets by type"
               value={typeFilter}
               onChange={(event) => {
                 setTypeFilter(event.target.value);
@@ -147,6 +149,7 @@ export default function AssetsPage() {
           </div>
 
           <select
+            aria-label="Filter assets by status"
             value={statusFilter}
             onChange={(event) => {
               setStatusFilter(event.target.value);
@@ -173,6 +176,7 @@ export default function AssetsPage() {
                     type="checkbox"
                     checked={selected.size === paged.length && paged.length > 0}
                     onChange={toggleAll}
+                    aria-label="Select all visible assets"
                   />
                 </th>
                 <th className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground text-left">Name</th>
@@ -197,6 +201,7 @@ export default function AssetsPage() {
                         type="checkbox"
                         checked={selected.has(asset.id)}
                         onChange={() => toggleSelect(asset.id)}
+                        aria-label={`Select asset ${asset.name}`}
                       />
                     </td>
                     <td className="px-3 py-2">
@@ -221,13 +226,13 @@ export default function AssetsPage() {
                     </td>
                     <td className="px-3 py-2 text-right" onClick={(event) => event.stopPropagation()}>
                       <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button className="h-7 w-7 inline-flex items-center justify-center rounded hover:bg-muted" onClick={() => router.push(`/assets/${asset.id}`)}>
+                        <button className="h-7 w-7 inline-flex items-center justify-center rounded hover:bg-muted" onClick={() => router.push(`/assets/${asset.id}`)} title={`View asset ${asset.name}`} aria-label={`View asset ${asset.name}`}>
                           <Eye className="h-3.5 w-3.5" />
                         </button>
-                        <button className="h-7 w-7 inline-flex items-center justify-center rounded hover:bg-muted">
+                        <button className="h-7 w-7 inline-flex items-center justify-center rounded hover:bg-muted" title={`Edit asset ${asset.name}`} aria-label={`Edit asset ${asset.name}`}>
                           <Pencil className="h-3.5 w-3.5" />
                         </button>
-                        <button className="h-7 w-7 inline-flex items-center justify-center rounded hover:bg-muted text-destructive">
+                        <button className="h-7 w-7 inline-flex items-center justify-center rounded hover:bg-muted text-destructive" title={`Delete asset ${asset.name}`} aria-label={`Delete asset ${asset.name}`}>
                           <Trash2 className="h-3.5 w-3.5" />
                         </button>
                       </div>
@@ -257,6 +262,8 @@ export default function AssetsPage() {
                 className="h-7 w-7 inline-flex items-center justify-center rounded hover:bg-muted disabled:opacity-40"
                 disabled={page === 1}
                 onClick={() => setPage((current) => current - 1)}
+                title="Previous page"
+                aria-label="Previous page"
               >
                 <ChevronLeft className="h-3.5 w-3.5" />
               </button>
@@ -264,6 +271,8 @@ export default function AssetsPage() {
                 className="h-7 w-7 inline-flex items-center justify-center rounded hover:bg-muted disabled:opacity-40"
                 disabled={page === totalPages}
                 onClick={() => setPage((current) => current + 1)}
+                title="Next page"
+                aria-label="Next page"
               >
                 <ChevronRight className="h-3.5 w-3.5" />
               </button>

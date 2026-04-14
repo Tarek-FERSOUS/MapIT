@@ -92,18 +92,24 @@ export default function RelationshipsPage() {
           <button
             className="h-8 w-8 rounded-md border border-border inline-flex items-center justify-center"
             onClick={() => setZoom((value) => Math.max(0.5, value - 0.1))}
+            aria-label="Zoom out"
+            title="Zoom out"
           >
             <ZoomOut className="h-3.5 w-3.5" />
           </button>
           <button
             className="h-8 w-8 rounded-md border border-border inline-flex items-center justify-center"
             onClick={() => setZoom((value) => Math.min(2, value + 0.1))}
+            aria-label="Zoom in"
+            title="Zoom in"
           >
             <ZoomIn className="h-3.5 w-3.5" />
           </button>
           <button
             className="h-8 w-8 rounded-md border border-border inline-flex items-center justify-center"
             onClick={() => setZoom(1)}
+            aria-label="Reset zoom"
+            title="Reset zoom"
           >
             <Maximize2 className="h-3.5 w-3.5" />
           </button>
@@ -134,51 +140,53 @@ export default function RelationshipsPage() {
         </div>
 
         <div className="flex-1 kpi-shadow border border-border/50 rounded-lg bg-card overflow-hidden">
-          <div className="w-full overflow-auto" style={{ minHeight: 500 }}>
+          <div className="w-full overflow-auto min-h-[500px]">
             <svg
               viewBox="0 0 800 600"
               className="w-full h-auto"
-              style={{ transform: `scale(${zoom})`, transformOrigin: "center center", transition: "transform 0.2s" }}
+              preserveAspectRatio="xMidYMid meet"
             >
-              {visibleConnections.map((connection, index) => {
-                const from = positions[connection.from];
-                const to = positions[connection.to];
-                if (!from || !to) {
-                  return null;
-                }
-                const mx = (from.x + to.x) / 2;
-                const my = (from.y + to.y) / 2;
-                return (
-                  <g key={`${connection.from}-${connection.to}-${index}`}>
-                    <line x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke="hsl(214 20% 85%)" strokeWidth={1.5} />
-                    <text x={mx} y={my - 6} textAnchor="middle" className="text-[9px] fill-muted-foreground">
-                      {connection.label}
-                    </text>
-                  </g>
-                );
-              })}
+              <g transform={`translate(${-(zoom - 1) * 400}, ${-(zoom - 1) * 300}) scale(${zoom})`}>
+                {visibleConnections.map((connection, index) => {
+                  const from = positions[connection.from];
+                  const to = positions[connection.to];
+                  if (!from || !to) {
+                    return null;
+                  }
+                  const mx = (from.x + to.x) / 2;
+                  const my = (from.y + to.y) / 2;
+                  return (
+                    <g key={`${connection.from}-${connection.to}-${index}`}>
+                      <line x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke="hsl(214 20% 85%)" strokeWidth={1.5} />
+                      <text x={mx} y={my - 6} textAnchor="middle" className="text-[9px] fill-muted-foreground">
+                        {connection.label}
+                      </text>
+                    </g>
+                  );
+                })}
 
-              {visibleAssets.map((asset) => {
-                const position = positions[asset.name];
-                if (!position) {
-                  return null;
-                }
-                const statusDot =
-                  asset.status === "online" ? "#10B981" : asset.status === "offline" ? "#EF4444" : "#F59E0B";
-                return (
-                  <g key={asset.id} className="cursor-pointer">
-                    <circle cx={position.x} cy={position.y} r={28} fill="hsl(0 0% 100%)" stroke="hsl(214 20% 88%)" strokeWidth={1.5} />
-                    <circle cx={position.x} cy={position.y} r={26} fill="hsl(210 20% 98%)" />
-                    <text x={position.x} y={position.y - 2} textAnchor="middle" className="text-[9px] font-semibold fill-foreground">
-                      {asset.name.length > 12 ? `${asset.name.slice(0, 12)}…` : asset.name}
-                    </text>
-                    <text x={position.x} y={position.y + 10} textAnchor="middle" className="text-[8px] fill-muted-foreground capitalize">
-                      {asset.type}
-                    </text>
-                    <circle cx={position.x + 20} cy={position.y - 20} r={4} fill={statusDot} />
-                  </g>
-                );
-              })}
+                {visibleAssets.map((asset) => {
+                  const position = positions[asset.name];
+                  if (!position) {
+                    return null;
+                  }
+                  const statusDot =
+                    asset.status === "online" ? "#10B981" : asset.status === "offline" ? "#EF4444" : "#F59E0B";
+                  return (
+                    <g key={asset.id} className="cursor-pointer">
+                      <circle cx={position.x} cy={position.y} r={28} fill="hsl(0 0% 100%)" stroke="hsl(214 20% 88%)" strokeWidth={1.5} />
+                      <circle cx={position.x} cy={position.y} r={26} fill="hsl(210 20% 98%)" />
+                      <text x={position.x} y={position.y - 2} textAnchor="middle" className="text-[9px] font-semibold fill-foreground">
+                        {asset.name.length > 12 ? `${asset.name.slice(0, 12)}…` : asset.name}
+                      </text>
+                      <text x={position.x} y={position.y + 10} textAnchor="middle" className="text-[8px] fill-muted-foreground capitalize">
+                        {asset.type}
+                      </text>
+                      <circle cx={position.x + 20} cy={position.y - 20} r={4} fill={statusDot} />
+                    </g>
+                  );
+                })}
+              </g>
             </svg>
           </div>
         </div>

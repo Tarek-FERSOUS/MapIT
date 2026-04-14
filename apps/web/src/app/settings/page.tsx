@@ -62,6 +62,7 @@ export default function SettingsPage() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
+                  aria-label={tab.label}
                   className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors w-full text-left ${
                     activeTab === tab.id
                       ? "bg-primary/10 text-primary"
@@ -84,8 +85,9 @@ export default function SettingsPage() {
               <h2 className="text-lg font-semibold">Profile</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-sm">First Name</label>
+                  <label htmlFor="first-name" className="text-sm">First Name</label>
                   <input
+                    id="first-name"
                     value={settings?.profile?.firstName || ""}
                     onChange={(event) =>
                       setSettings((prev) =>
@@ -105,8 +107,9 @@ export default function SettingsPage() {
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-sm">Last Name</label>
+                  <label htmlFor="last-name" className="text-sm">Last Name</label>
                   <input
+                    id="last-name"
                     value={settings?.profile?.lastName || ""}
                     onChange={(event) =>
                       setSettings((prev) =>
@@ -126,8 +129,9 @@ export default function SettingsPage() {
                   />
                 </div>
                 <div className="space-y-1.5 sm:col-span-2">
-                  <label className="text-sm">Email</label>
+                  <label htmlFor="email" className="text-sm">Email</label>
                   <input
+                    id="email"
                     value={settings?.profile?.email || ""}
                     onChange={(event) =>
                       setSettings((prev) =>
@@ -147,8 +151,8 @@ export default function SettingsPage() {
                   />
                 </div>
                 <div className="space-y-1.5 sm:col-span-2">
-                  <label className="text-sm">Role</label>
-                  <input defaultValue="IT Administrator" disabled className="h-10 w-full rounded-md border border-input bg-muted px-3" />
+                  <label htmlFor="role" className="text-sm">Role</label>
+                  <input id="role" defaultValue="IT Administrator" disabled className="h-10 w-full rounded-md border border-input bg-muted px-3" />
                 </div>
               </div>
               <div className="flex gap-2 pt-2">
@@ -214,12 +218,12 @@ export default function SettingsPage() {
             <div className="space-y-4">
               <h2 className="text-lg font-semibold">Security</h2>
               <div className="space-y-1.5">
-                <label className="text-sm">Current Password</label>
-                <input type="password" className="h-10 w-full max-w-md rounded-md border border-input bg-background px-3" />
+                <label htmlFor="current-password" className="text-sm">Current Password</label>
+                <input id="current-password" type="password" className="h-10 w-full max-w-md rounded-md border border-input bg-background px-3" />
               </div>
               <div className="space-y-1.5">
-                <label className="text-sm">New Password</label>
-                <input type="password" className="h-10 w-full max-w-md rounded-md border border-input bg-background px-3" />
+                <label htmlFor="new-password" className="text-sm">New Password</label>
+                <input id="new-password" type="password" className="h-10 w-full max-w-md rounded-md border border-input bg-background px-3" />
               </div>
               <button className="h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm">Update Password</button>
             </div>

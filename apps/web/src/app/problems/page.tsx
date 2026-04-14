@@ -76,7 +76,7 @@ export default function ProblemsPage() {
           <h1>Knowledge Base</h1>
           <p className="text-muted-foreground text-sm mt-1">Problems and solutions</p>
         </div>
-        <button className="h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm inline-flex items-center">
+        <button className="h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm inline-flex items-center" title="Add problem" aria-label="Add problem">
           <Plus className="mr-1.5 h-3.5 w-3.5" /> Add Problem
         </button>
       </div>
@@ -98,6 +98,7 @@ export default function ProblemsPage() {
 
             <div className="flex gap-2">
               <select
+                aria-label="Filter problems by severity"
                 value={severityFilter}
                 onChange={(event) => setSeverityFilter(event.target.value)}
                 className="h-8 text-xs flex-1 rounded-md border border-border bg-background px-2"
@@ -109,6 +110,7 @@ export default function ProblemsPage() {
                 <option value="low">Low</option>
               </select>
               <select
+                aria-label="Filter problems by status"
                 value={statusFilter}
                 onChange={(event) => setStatusFilter(event.target.value)}
                 className="h-8 text-xs flex-1 rounded-md border border-border bg-background px-2"

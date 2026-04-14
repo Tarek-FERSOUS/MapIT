@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth";
 import { apiClient } from "@/lib/api";
-import { NotificationItem, NotificationsResponse } from "@/types/api";
+import { NotificationItem, NotificationsResponse, UserSettings } from "@/types/api";
 import {
   LayoutDashboard,
   Server,
@@ -32,11 +32,37 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
   const logout = useAuthStore((state) => state.logout);
   const [collapsed, setCollapsed] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [profile, setProfile] = useState<UserSettings["profile"] | null>(null);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [notificationsLoading, setNotificationsLoading] = useState(false);
   const [notificationsError, setNotificationsError] = useState<string | null>(null);
   const [unreadCount, setUnreadCount] = useState(0);
+
+  const getUserInitials = (value?: string | null) => {
+    const normalized = (value || "U").trim();
+    if (!normalized) {
+      return "U";
+    }
+
+    const parts = normalized.split(/[^a-zA-Z0-9]+/).filter(Boolean);
+    if (parts.length >= 2) {
+      return `${parts[0][0] || "U"}${parts[1][0] || ""}`.toUpperCase();
+    }
+
+    return normalized.slice(0, 2).toUpperCase();
+  };
+
+  const getProfileInitials = () => {
+    const firstName = profile?.firstName?.trim() || "";
+    const lastName = profile?.lastName?.trim() || "";
+
+    if (firstName || lastName) {
+      return `${firstName[0] || ""}${lastName[0] || ""}`.toUpperCase();
+    }
+
+    return getUserInitials(user?.username);
+  };
 
   const loadNotifications = async () => {
     try {
@@ -54,6 +80,19 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
 
   useEffect(() => {
     loadNotifications();
+  }, []);
+
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const data = await apiClient.get<UserSettings>("/settings/me");
+        setProfile(data.profile || null);
+      } catch (_error) {
+        setProfile(null);
+      }
+    };
+
+    loadProfile();
   }, []);
 
   useEffect(() => {
@@ -215,7 +254,7 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
                 aria-label="User menu"
               >
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-semibold">
-                  {user?.username?.[0]?.toUpperCase() || "U"}
+                  {getProfileInitials()}
                 </div>
               </button>
 
