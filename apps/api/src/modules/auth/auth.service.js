@@ -8,16 +8,20 @@ const DEV_CREDENTIALS = {
 
 function authenticateWithAD(username, password) {
   return new Promise((resolve, reject) => {
-    if (!username || !password) {
+    const normalizedUsername = String(username || "").trim();
+    const normalizedPassword = String(password || "");
+
+    if (!normalizedUsername || !normalizedPassword) {
       reject("Username and password are required");
       return;
     }
 
     // Dev mode: allow test credentials without LDAP
     if (process.env.DEV_MODE === "true") {
-      if (DEV_CREDENTIALS[username] && DEV_CREDENTIALS[username] === password) {
-        console.log(`[DEV MODE] Authenticated user: ${username}`);
-        return resolve({ username });
+      const devKey = normalizedUsername.toLowerCase();
+      if (DEV_CREDENTIALS[devKey] && DEV_CREDENTIALS[devKey] === normalizedPassword) {
+        console.log(`[DEV MODE] Authenticated user: ${devKey}`);
+        return resolve({ username: devKey });
       }
       return reject("Invalid dev credentials");
     }
@@ -26,16 +30,16 @@ function authenticateWithAD(username, password) {
       url: process.env.AD_URL
     });
 
-    const userDN = `${username}@${process.env.AD_DOMAIN}`;
+    const userDN = `${normalizedUsername}@${process.env.AD_DOMAIN}`;
 
-    client.bind(userDN, password, (err) => {
+    client.bind(userDN, normalizedPassword, (err) => {
       if (err) {
         client.unbind();
         return reject("Invalid credentials");
       }
 
       client.unbind();
-      resolve({ username });
+      resolve({ username: normalizedUsername });
     });
   });
 }

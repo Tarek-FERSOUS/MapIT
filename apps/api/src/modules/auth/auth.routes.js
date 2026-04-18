@@ -9,8 +9,14 @@ const router = express.Router();
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
+  let user;
   try {
-    const user = await authenticateWithAD(username, password);
+    user = await authenticateWithAD(username, password);
+  } catch (_err) {
+    return res.status(401).json({ error: "Invalid username or password" });
+  }
+
+  try {
     await prisma.user.upsert({
       where: {
         username: String(user.username)
@@ -20,7 +26,12 @@ router.post("/login", async (req, res) => {
         username: String(user.username)
       }
     });
+  } catch (err) {
+    console.error("Login persistence error:", err);
+    return res.status(500).json({ error: "Login failed due to server configuration" });
+  }
 
+  try {
     const admins = (process.env.ADMIN_USERNAMES || "")
       .split(",")
       .map((name) => name.trim().toLowerCase())
@@ -32,9 +43,10 @@ router.post("/login", async (req, res) => {
       expiresIn: "1d"
     });
 
-    res.json({ token, role });
+    return res.json({ token, role });
   } catch (err) {
-    res.status(401).json({ error: err });
+    console.error("Login token error:", err);
+    return res.status(500).json({ error: "Login failed due to server configuration" });
   }
 });
 
