@@ -36,7 +36,27 @@ function createApp() {
     AD_DOMAIN
   };
 
-  app.use(cors());
+  const allowedOrigins = (process.env.CORS_ORIGIN || "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+
+  app.use(
+    cors({
+      origin(origin, callback) {
+        if (!origin) {
+          return callback(null, true);
+        }
+
+        if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+          return callback(null, true);
+        }
+
+        return callback(new Error("Not allowed by CORS"));
+      },
+      credentials: true
+    })
+  );
   app.use(express.json());
 
   app.use("/auth", authRoutes);

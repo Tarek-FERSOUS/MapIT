@@ -23,8 +23,8 @@ export function validateEnv() {
 }
 
 export const config = {
-  apiUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000',
-  apiUrlServer: process.env.API_URL || 'http://localhost:3000',
+  apiUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002',
+  apiUrlServer: process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002',
 };
 
 // Validate on module load (only in development)

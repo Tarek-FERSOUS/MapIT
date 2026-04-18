@@ -1,0 +1,26 @@
+[Unit]
+Description=MapIT API (Express + Prisma)
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=mapit
+Group=mapit
+WorkingDirectory=/opt/mapit
+EnvironmentFile=/opt/mapit/apps/api/.env
+ExecStart=/usr/bin/npm --workspace=apps/api run start:prod
+Restart=always
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=30
+
+# Security hardening (basic)
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/opt/mapit
+
+[Install]
+WantedBy=multi-user.target

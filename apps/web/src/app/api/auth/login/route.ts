@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
-
-const API_URL = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+import { resolveServerApiUrl } from "@/lib/server-api-url";
 
 export async function POST(request: NextRequest) {
   try {
+    const apiUrl = resolveServerApiUrl();
     const { username, password } = await request.json();
 
     if (!username || !password) {
@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Call backend login endpoint
-    const response = await axios.post(`${API_URL}/auth/login`, {
+    const response = await axios.post(`${apiUrl}/auth/login`, {
       username,
       password
     });

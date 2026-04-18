@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
-
-const API_URL = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+import { resolveServerApiUrl } from "@/lib/server-api-url";
 
 export async function GET(request: NextRequest) {
   try {
+    const apiUrl = resolveServerApiUrl();
     const token = request.cookies.get("auth-token")?.value;
 
     if (!token) {
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Validate token with backend
-    const response = await axios.get(`${API_URL}/auth/me`, {
+    const response = await axios.get(`${apiUrl}/auth/me`, {
       headers: {
         Authorization: `Bearer ${token}`
       }

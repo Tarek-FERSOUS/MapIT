@@ -6,6 +6,8 @@
     "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
+    "preflight:env": "node scripts/preflight-env.cjs",
+    "start:prod": "npm run preflight:env && next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "test": "jest",
