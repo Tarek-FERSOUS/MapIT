@@ -1,13 +1,13 @@
 const express = require("express");
 
-const { requireAuth, requireRole } = require("../../middleware/auth.middleware");
+const { requireAuth, requirePermission } = require("../../middleware/auth.middleware");
 const { prisma } = require("../../lib/prisma");
 
 const router = express.Router();
 
 router.use(requireAuth);
 
-router.get("/", async (_req, res) => {
+router.get("/", requirePermission(["incident:view"]), async (_req, res) => {
   try {
     const incidents = await prisma.incident.findMany({
       orderBy: {
@@ -21,7 +21,7 @@ router.get("/", async (_req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", requirePermission(["incident:view"]), async (req, res) => {
   try {
     const incident = await prisma.incident.findUnique({
       where: {
@@ -39,7 +39,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", requirePermission(["incident:create"]), async (req, res) => {
   const { title, description } = req.body;
 
   if (!title || !description) {
@@ -60,7 +60,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.patch("/:id", requireRole(["Admin"]), async (req, res) => {
+router.patch("/:id", requirePermission(["incident:update"]), async (req, res) => {
   const { title, description } = req.body;
 
   if (!title && !description) {

@@ -3,6 +3,7 @@ require("dotenv").config();
 const { PrismaClient } = require("@prisma/client");
 const { PrismaPg } = require("@prisma/adapter-pg");
 const { Pool } = require("pg");
+const { PERMISSIONS, ROLE_TEMPLATES } = require("../src/lib/permissions");
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL
@@ -13,6 +14,12 @@ const prisma = new PrismaClient({
 });
 
 async function main() {
+  await prisma.userPermission.deleteMany();
+  await prisma.userRole.deleteMany();
+  await prisma.rolePermission.deleteMany();
+  await prisma.auditLog.deleteMany();
+  await prisma.role.deleteMany();
+  await prisma.permission.deleteMany();
   await prisma.relationship.deleteMany();
   await prisma.problem.deleteMany();
   await prisma.asset.deleteMany();
@@ -20,6 +27,47 @@ async function main() {
   await prisma.document.deleteMany();
   await prisma.incident.deleteMany();
   await prisma.user.deleteMany();
+
+  const permissionRecords = [];
+  for (const definition of PERMISSIONS) {
+    const permission = await prisma.permission.create({
+      data: {
+        key: definition.key,
+        module: definition.module,
+        action: definition.action,
+        description: definition.description
+      }
+    });
+
+    permissionRecords.push(permission);
+  }
+
+  const permissionByKey = new Map(permissionRecords.map((permission) => [permission.key, permission]));
+
+  const roleRecords = [];
+  for (const template of ROLE_TEMPLATES) {
+    const role = await prisma.role.create({
+      data: {
+        key: template.key,
+        name: template.name,
+        description: template.description,
+        isSystem: template.isSystem
+      }
+    });
+
+    roleRecords.push(role);
+
+    const rolePermissions = template.permissions
+      .map((permissionKey) => permissionByKey.get(permissionKey))
+      .filter(Boolean)
+      .map((permission) => ({ roleId: role.id, permissionId: permission.id }));
+
+    if (rolePermissions.length > 0) {
+      await prisma.rolePermission.createMany({ data: rolePermissions });
+    }
+  }
+
+  const roleByKey = new Map(roleRecords.map((role) => [role.key, role]));
 
   await prisma.user.createMany({
     data: [
@@ -29,6 +77,38 @@ async function main() {
       { username: "michael", firstName: "Michael", lastName: "Torres", email: "michael.torres@company.com" }
     ]
   });
+
+  const seededUsers = await prisma.user.findMany({
+    where: {
+      username: {
+        in: ["admin", "testuser", "sarah", "michael"]
+      }
+    }
+  });
+
+  const userByUsername = new Map(seededUsers.map((user) => [user.username, user]));
+
+  const userRoles = [
+    { username: "admin", roleKey: "admin" },
+    { username: "testuser", roleKey: "operator" },
+    { username: "sarah", roleKey: "viewer" },
+    { username: "michael", roleKey: "manager" }
+  ];
+
+  for (const assignment of userRoles) {
+    const user = userByUsername.get(assignment.username);
+    const role = roleByKey.get(assignment.roleKey);
+
+    if (user && role) {
+      await prisma.userRole.create({
+        data: {
+          userId: user.id,
+          roleId: role.id,
+          assignedBy: "system"
+        }
+      });
+    }
+  }
 
   const incidents = await prisma.incident.createMany({
     data: [

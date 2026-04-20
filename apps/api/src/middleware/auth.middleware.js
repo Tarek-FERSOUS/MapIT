@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { loadUserAccessContext, hasAnyPermission, hasRole } = require("../lib/access-control");
 
 function requireAuth(req, res, next) {
   const authHeader = req.headers.authorization || "";
@@ -18,18 +19,41 @@ function requireAuth(req, res, next) {
 }
 
 function requireRole(allowedRoles) {
-  return (req, res, next) => {
-    const userRole = req.user?.role;
+  return async (req, res, next) => {
+    try {
+      const context = await loadUserAccessContext(req.user?.username);
 
-    if (!userRole || !allowedRoles.includes(userRole)) {
+      if (!context || !hasRole(context, allowedRoles)) {
+        return res.status(403).json({ error: "Insufficient permissions" });
+      }
+
+      req.access = context;
+      next();
+    } catch (_err) {
       return res.status(403).json({ error: "Insufficient permissions" });
     }
+  };
+}
 
-    next();
+function requirePermission(requiredPermissions) {
+  return async (req, res, next) => {
+    try {
+      const context = await loadUserAccessContext(req.user?.username);
+
+      if (!context || !hasAnyPermission(context, requiredPermissions)) {
+        return res.status(403).json({ error: "Insufficient permissions" });
+      }
+
+      req.access = context;
+      next();
+    } catch (_err) {
+      return res.status(403).json({ error: "Insufficient permissions" });
+    }
   };
 }
 
 module.exports = {
   requireAuth,
-  requireRole
+  requireRole,
+  requirePermission
 };

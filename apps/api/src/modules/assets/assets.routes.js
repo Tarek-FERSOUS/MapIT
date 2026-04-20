@@ -1,13 +1,13 @@
 const express = require("express");
 
-const { requireAuth, requireRole } = require("../../middleware/auth.middleware");
+const { requireAuth, requirePermission } = require("../../middleware/auth.middleware");
 const { prisma } = require("../../lib/prisma");
 
 const router = express.Router();
 
 router.use(requireAuth);
 
-router.get("/", async (_req, res) => {
+router.get("/", requirePermission(["asset:view"]), async (_req, res) => {
   try {
     const assets = await prisma.asset.findMany({
       orderBy: [{ createdAt: "desc" }]
@@ -19,7 +19,7 @@ router.get("/", async (_req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", requirePermission(["asset:view"]), async (req, res) => {
   try {
     const asset = await prisma.asset.findUnique({
       where: { id: req.params.id }
@@ -35,7 +35,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", requireRole(["Admin"]), async (req, res) => {
+router.post("/", requirePermission(["asset:create"]), async (req, res) => {
   const { name, type, ipAddress, location, status, lastUpdated, os, cpu, memory, tags } = req.body;
 
   if (!name || !type || !ipAddress || !location || !status) {
@@ -64,7 +64,7 @@ router.post("/", requireRole(["Admin"]), async (req, res) => {
   }
 });
 
-router.patch("/:id", requireRole(["Admin"]), async (req, res) => {
+router.patch("/:id", requirePermission(["asset:update"]), async (req, res) => {
   try {
     const asset = await prisma.asset.update({
       where: { id: req.params.id },
@@ -88,7 +88,7 @@ router.patch("/:id", requireRole(["Admin"]), async (req, res) => {
   }
 });
 
-router.delete("/:id", requireRole(["Admin"]), async (req, res) => {
+router.delete("/:id", requirePermission(["asset:delete"]), async (req, res) => {
   try {
     await prisma.asset.delete({ where: { id: req.params.id } });
     res.json({ success: true });

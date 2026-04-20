@@ -4,14 +4,16 @@ import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft, Server, Monitor, Wifi, HardDrive, Cloud } from "lucide-react";
 import { apiClient, getApiErrorMessage } from "@/lib/api";
-import { Asset, Problem } from "@/types/api";
+import { Asset, Problem, Relationship } from "@/types/api";
 
 export default function AssetDetailPage() {
   const router = useRouter();
   const params = useParams<{ id: string }>();
-  const [activeTab, setActiveTab] = useState<"overview" | "problems">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "problems" | "relationships">("overview");
   const [asset, setAsset] = useState<Asset | null>(null);
+  const [assets, setAssets] = useState<Asset[]>([]);
   const [problems, setProblems] = useState<Problem[]>([]);
+  const [relationships, setRelationships] = useState<Relationship[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const typeIcons: Record<Asset["type"], React.ElementType> = {
@@ -34,12 +36,16 @@ export default function AssetDetailPage() {
     const load = async () => {
       try {
         setError(null);
-        const [assetData, problemsData] = await Promise.all([
+        const [assetData, problemsData, assetsData, relationshipsData] = await Promise.all([
           apiClient.get<Asset>(`/assets/${params.id}`),
-          apiClient.get<{ items: Problem[] }>("/problems")
+          apiClient.get<{ items: Problem[] }>("/problems"),
+          apiClient.get<{ items: Asset[] }>("/assets"),
+          apiClient.get<{ items: Relationship[] }>("/relationships")
         ]);
         setAsset(assetData);
         setProblems(problemsData.items || []);
+        setAssets(assetsData.items || []);
+        setRelationships(relationshipsData.items || []);
       } catch (error) {
         setError(getApiErrorMessage(error, "Failed to load asset details"));
       }
@@ -58,6 +64,53 @@ export default function AssetDetailPage() {
       problem.affectedAssets.includes(asset.id) || problem.affectedAssets.includes(asset.name)
     );
   }, [asset, problems]);
+
+  const relatedAssets = useMemo(() => {
+    if (!asset) {
+      return [] as Array<{
+        id: string;
+        relationshipType: Relationship["relationshipType"];
+        label?: string;
+        direction: "incoming" | "outgoing";
+        asset: Asset;
+      }>;
+    }
+
+    const assetById = new Map(assets.map((item) => [item.id, item]));
+
+    return relationships
+      .filter((relationship) =>
+        relationship.sourceAssetId === asset.id || relationship.targetAssetId === asset.id
+      )
+      .map((relationship) => {
+        const outgoing = relationship.sourceAssetId === asset.id;
+        const relatedId = outgoing ? relationship.targetAssetId : relationship.sourceAssetId;
+        const relatedAsset = assetById.get(relatedId);
+
+        if (!relatedAsset) {
+          return null;
+        }
+
+        return {
+          id: relationship.id,
+          relationshipType: relationship.relationshipType,
+          label: relationship.label,
+          direction: outgoing ? "outgoing" as const : "incoming" as const,
+          asset: relatedAsset
+        };
+      })
+      .filter(
+        (
+          item
+        ): item is {
+          id: string;
+          relationshipType: Relationship["relationshipType"];
+          label?: string;
+          direction: "incoming" | "outgoing";
+          asset: Asset;
+        } => Boolean(item)
+      );
+  }, [asset, assets, relationships]);
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -78,6 +131,8 @@ export default function AssetDetailPage() {
             <button
               className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-muted"
               onClick={() => router.push("/assets")}
+              title="Back to assets"
+              aria-label="Back to assets"
             >
               <ArrowLeft className="h-4 w-4" />
             </button>
@@ -94,6 +149,14 @@ export default function AssetDetailPage() {
                   <span className={`text-[10px] px-1.5 py-0 rounded border capitalize ${statusStyles[asset.status]}`}>
                     {asset.status}
                   </span>
+                  <button
+                    className="text-[11px] px-2 py-0.5 rounded border border-border bg-background hover:bg-muted"
+                    onClick={() => router.push(`/relationships?asset=${asset.id}`)}
+                    title="View this asset in relationship map"
+                    aria-label="View this asset in relationship map"
+                  >
+                    View in Map
+                  </button>
                 </div>
                 <p className="text-sm text-muted-foreground capitalize">
                   {asset.type} · {asset.location}
@@ -120,6 +183,14 @@ export default function AssetDetailPage() {
               >
                 Problems ({relatedProblems.length})
               </button>
+              <button
+                className={`px-3 py-1.5 rounded text-sm ${
+                  activeTab === "relationships" ? "bg-background text-foreground" : "text-muted-foreground"
+                }`}
+                onClick={() => setActiveTab("relationships")}
+              >
+                Relationships ({relatedAssets.length})
+              </button>
             </div>
 
             {activeTab === "overview" ? (
@@ -142,7 +213,7 @@ export default function AssetDetailPage() {
                   </div>
                 </div>
               </div>
-            ) : (
+            ) : activeTab === "problems" ? (
               <div className="kpi-shadow border border-border/50 rounded-lg bg-card p-4 space-y-3">
                 {relatedProblems.length === 0 ? (
                   <p className="text-sm text-muted-foreground text-center py-8">No problems recorded for this asset.</p>
@@ -165,6 +236,35 @@ export default function AssetDetailPage() {
                         </div>
                       )}
                     </div>
+                  ))
+                )}
+              </div>
+            ) : (
+              <div className="kpi-shadow border border-border/50 rounded-lg bg-card p-4 space-y-3">
+                {relatedAssets.length === 0 ? (
+                  <p className="text-sm text-muted-foreground text-center py-8">No related assets found.</p>
+                ) : (
+                  relatedAssets.map((relationship) => (
+                    <button
+                      key={relationship.id}
+                      className="w-full text-left p-3 rounded-lg bg-muted/50 border border-border/50 hover:border-primary/40 transition-colors"
+                      onClick={() => router.push(`/assets/${relationship.asset.id}`)}
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-sm font-medium text-foreground">{relationship.asset.name}</p>
+                          <p className="text-xs text-muted-foreground mt-1 capitalize">
+                            {relationship.direction} · {relationship.relationshipType}
+                          </p>
+                          {relationship.label && (
+                            <p className="text-xs text-muted-foreground mt-1">{relationship.label}</p>
+                          )}
+                        </div>
+                        <span className="text-[10px] px-1.5 py-0 rounded border border-border bg-background capitalize">
+                          {relationship.asset.type}
+                        </span>
+                      </div>
+                    </button>
                   ))
                 )}
               </div>

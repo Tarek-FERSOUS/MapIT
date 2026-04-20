@@ -4,23 +4,39 @@ import { useMemo, useState } from "react";
 import { useEffect } from "react";
 import { Search, Plus, AlertTriangle, CheckCircle2, Clock } from "lucide-react";
 import { apiClient, getApiErrorMessage } from "@/lib/api";
-import { Problem } from "@/types/api";
+import { Asset, Problem } from "@/types/api";
 
 export default function ProblemsPage() {
   const [problems, setProblems] = useState<Problem[]>([]);
+  const [assets, setAssets] = useState<Asset[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [createError, setCreateError] = useState<string | null>(null);
+  const [creating, setCreating] = useState(false);
   const [search, setSearch] = useState("");
   const [severityFilter, setSeverityFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    severity: "medium" as Problem["severity"],
+    status: "open" as Problem["status"],
+    solution: "",
+    affectedAssets: [] as string[]
+  });
 
   useEffect(() => {
     const loadProblems = async () => {
       try {
         setError(null);
-        const data = await apiClient.get<{ items: Problem[] }>("/problems");
-        const next = data.items || [];
+        const [problemData, assetData] = await Promise.all([
+          apiClient.get<{ items: Problem[] }>("/problems"),
+          apiClient.get<{ items: Asset[] }>("/assets")
+        ]);
+        const next = problemData.items || [];
         setProblems(next);
+        setAssets(assetData.items || []);
         setSelectedId((current) => {
           if (current) {
             return current;
@@ -69,6 +85,64 @@ export default function ProblemsPage() {
 
   const selected = useMemo(() => problems.find((problem) => problem.id === selectedId), [problems, selectedId]);
 
+  const assetNameById = useMemo(() => {
+    const nameMap: Record<string, string> = {};
+    assets.forEach((asset) => {
+      nameMap[asset.id] = asset.name;
+    });
+    return nameMap;
+  }, [assets]);
+
+  const toggleAffectedAsset = (assetId: string) => {
+    setForm((previous) => {
+      const exists = previous.affectedAssets.includes(assetId);
+      return {
+        ...previous,
+        affectedAssets: exists
+          ? previous.affectedAssets.filter((id) => id !== assetId)
+          : [...previous.affectedAssets, assetId]
+      };
+    });
+  };
+
+  const resetForm = () => {
+    setForm({
+      title: "",
+      description: "",
+      severity: "medium",
+      status: "open",
+      solution: "",
+      affectedAssets: []
+    });
+    setCreateError(null);
+  };
+
+  const handleCreateProblem = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setCreateError(null);
+    setCreating(true);
+
+    try {
+      const created = await apiClient.post<Problem>("/problems", {
+        title: form.title,
+        description: form.description,
+        severity: form.severity,
+        status: form.status,
+        affectedAssets: form.affectedAssets,
+        ...(form.solution.trim() ? { solution: form.solution.trim() } : {})
+      });
+
+      setProblems((previous) => [created, ...previous]);
+      setSelectedId(created.id);
+      setShowCreateForm(false);
+      resetForm();
+    } catch (err) {
+      setCreateError(getApiErrorMessage(err, "Failed to create problem"));
+    } finally {
+      setCreating(false);
+    }
+  };
+
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -76,12 +150,145 @@ export default function ProblemsPage() {
           <h1>Knowledge Base</h1>
           <p className="text-muted-foreground text-sm mt-1">Problems and solutions</p>
         </div>
-        <button className="h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm inline-flex items-center" title="Add problem" aria-label="Add problem">
+        <button
+          className="h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm inline-flex items-center"
+          title="Add problem"
+          aria-label="Add problem"
+          onClick={() => {
+            setShowCreateForm((previous) => !previous);
+            if (showCreateForm) {
+              resetForm();
+            }
+          }}
+        >
           <Plus className="mr-1.5 h-3.5 w-3.5" /> Add Problem
         </button>
       </div>
 
       {error && <div className="rounded-md border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive">{error}</div>}
+
+      {showCreateForm && (
+        <div className="kpi-shadow border border-border/50 rounded-lg bg-card p-4">
+          <form onSubmit={handleCreateProblem} className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="sm:col-span-2">
+                <label className="text-xs text-muted-foreground">Title</label>
+                <input
+                  title="Problem title"
+                  aria-label="Problem title"
+                  required
+                  value={form.title}
+                  onChange={(event) => setForm((previous) => ({ ...previous, title: event.target.value }))}
+                  className="mt-1 w-full h-9 rounded-md border border-border bg-background px-3 text-sm"
+                />
+              </div>
+              <div className="sm:col-span-2">
+                <label className="text-xs text-muted-foreground">Description</label>
+                <textarea
+                  title="Problem description"
+                  aria-label="Problem description"
+                  required
+                  value={form.description}
+                  onChange={(event) => setForm((previous) => ({ ...previous, description: event.target.value }))}
+                  className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
+                  rows={3}
+                />
+              </div>
+              <div>
+                <label className="text-xs text-muted-foreground">Severity</label>
+                <select
+                  title="Problem severity"
+                  aria-label="Problem severity"
+                  value={form.severity}
+                  onChange={(event) =>
+                    setForm((previous) => ({ ...previous, severity: event.target.value as Problem["severity"] }))
+                  }
+                  className="mt-1 w-full h-9 rounded-md border border-border bg-background px-3 text-sm"
+                >
+                  <option value="critical">Critical</option>
+                  <option value="high">High</option>
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                </select>
+              </div>
+              <div>
+                <label className="text-xs text-muted-foreground">Status</label>
+                <select
+                  title="Problem status"
+                  aria-label="Problem status"
+                  value={form.status}
+                  onChange={(event) =>
+                    setForm((previous) => ({ ...previous, status: event.target.value as Problem["status"] }))
+                  }
+                  className="mt-1 w-full h-9 rounded-md border border-border bg-background px-3 text-sm"
+                >
+                  <option value="open">Open</option>
+                  <option value="investigating">Investigating</option>
+                  <option value="in-progress">In Progress</option>
+                  <option value="resolved">Resolved</option>
+                </select>
+              </div>
+              <div className="sm:col-span-2">
+                <label className="text-xs text-muted-foreground">Solution (optional)</label>
+                <textarea
+                  title="Problem solution"
+                  aria-label="Problem solution"
+                  value={form.solution}
+                  onChange={(event) => setForm((previous) => ({ ...previous, solution: event.target.value }))}
+                  className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
+                  rows={2}
+                />
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-semibold mb-2">Affected Assets</h3>
+              {assets.length === 0 ? (
+                <p className="text-xs text-muted-foreground">No assets available.</p>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-44 overflow-auto p-2 border border-border/50 rounded-md">
+                  {assets.map((asset) => (
+                    <label key={asset.id} className="flex items-center gap-2 text-sm">
+                      <input
+                        type="checkbox"
+                        checked={form.affectedAssets.includes(asset.id)}
+                        onChange={() => toggleAffectedAsset(asset.id)}
+                      />
+                      <span>{asset.name}</span>
+                    </label>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {createError && (
+              <div className="rounded-md border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive">
+                {createError}
+              </div>
+            )}
+
+            <div className="flex gap-2">
+              <button
+                type="submit"
+                disabled={creating}
+                className="h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm disabled:opacity-60"
+              >
+                {creating ? "Logging..." : "Log Problem"}
+              </button>
+              <button
+                type="button"
+                className="h-9 px-4 rounded-md border border-border bg-background text-sm"
+                onClick={() => {
+                  setShowCreateForm(false);
+                  resetForm();
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
 
       <div className="flex flex-col lg:flex-row gap-4">
         <div className="w-full lg:w-[380px] shrink-0 space-y-3">
@@ -184,9 +391,9 @@ export default function ProblemsPage() {
                 <div>
                   <h3 className="text-sm font-semibold text-foreground mb-1">Affected Assets</h3>
                   <div className="flex flex-wrap gap-1.5">
-                    {selected.affectedAssets.map((asset) => (
-                      <span key={asset} className="text-xs px-2 py-0.5 rounded-full bg-muted">
-                        {asset}
+                    {selected.affectedAssets.map((assetId) => (
+                      <span key={assetId} className="text-xs px-2 py-0.5 rounded-full bg-muted">
+                        {assetNameById[assetId] || assetId}
                       </span>
                     ))}
                   </div>

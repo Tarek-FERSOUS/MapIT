@@ -9,6 +9,8 @@ services:
       POSTGRES_DB: itdocs
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U user -d itdocs"]
       interval: 5s
@@ -26,6 +28,7 @@ services:
       - ./apps/api/.env
     environment:
       DATABASE_URL: postgresql://user:password@db:5432/itdocs
+      PORT: "3000"
     command: sh -c "npm run prisma:migrate:deploy && npm run start"
     restart: always
     depends_on:
@@ -43,3 +46,6 @@ services:
       timeout: 5s
       retries: 10
       start_period: 15s
+
+volumes:
+  postgres_data:

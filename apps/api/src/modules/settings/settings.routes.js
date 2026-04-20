@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { requireAuth } = require("../../middleware/auth.middleware");
+const { requireAuth, requirePermission } = require("../../middleware/auth.middleware");
 const { prisma } = require("../../lib/prisma");
 
 const router = express.Router();
@@ -23,7 +23,7 @@ function toResponse(settings) {
   };
 }
 
-router.get("/me", async (req, res) => {
+router.get("/me", requirePermission(["settings:view-own", "settings:view-any"]), async (req, res) => {
   try {
     const settings = await prisma.userSettings.upsert({
       where: { username: String(req.user.username) },
@@ -42,7 +42,7 @@ router.get("/me", async (req, res) => {
   }
 });
 
-router.patch("/me", async (req, res) => {
+router.patch("/me", requirePermission(["settings:update-own", "settings:update-any"]), async (req, res) => {
   try {
     const current = await prisma.userSettings.upsert({
       where: { username: String(req.user.username) },

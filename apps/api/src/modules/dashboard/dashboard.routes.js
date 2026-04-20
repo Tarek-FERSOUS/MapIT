@@ -1,13 +1,13 @@
 const express = require("express");
 
-const { requireAuth } = require("../../middleware/auth.middleware");
+const { requireAuth, requirePermission } = require("../../middleware/auth.middleware");
 const { prisma } = require("../../lib/prisma");
 
 const router = express.Router();
 
 router.use(requireAuth);
 
-router.get("/summary", async (_req, res) => {
+router.get("/summary", requirePermission(["dashboard:view"]), async (_req, res) => {
   try {
     const [incidentCount, documentCount, userCount, assetCount, activeServerCount, openProblemCount, resolvedProblemCount, recentIncidents, recentDocuments, openProblems] = await Promise.all([
       prisma.incident.count(),

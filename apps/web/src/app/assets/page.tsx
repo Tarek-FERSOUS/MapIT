@@ -7,6 +7,7 @@ import {
   Search,
   Plus,
   Filter,
+  X,
   Server,
   Monitor,
   Wifi,
@@ -19,17 +20,34 @@ import {
   ChevronRight
 } from "lucide-react";
 import { apiClient, getApiErrorMessage } from "@/lib/api";
-import { Asset } from "@/types/api";
+import { Asset, Relationship } from "@/types/api";
 
 export default function AssetsPage() {
   const router = useRouter();
   const [assets, setAssets] = useState<Asset[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [createError, setCreateError] = useState<string | null>(null);
+  const [creating, setCreating] = useState(false);
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [page, setPage] = useState(1);
+  const [form, setForm] = useState({
+    name: "",
+    type: "server" as Asset["type"],
+    ipAddress: "",
+    location: "",
+    status: "online" as Asset["status"],
+    os: "",
+    cpu: "",
+    memory: "",
+    tags: ""
+  });
+  const [relationships, setRelationships] = useState<
+    Array<{ targetAssetId: string; relationshipType: Relationship["relationshipType"] }>
+  >([]);
 
   const typeIcons: Record<Asset["type"], React.ElementType> = {
     server: Server,
@@ -98,6 +116,86 @@ export default function AssetsPage() {
     setSelected(new Set(paged.map((asset) => asset.id)));
   };
 
+  const resetForm = () => {
+    setForm({
+      name: "",
+      type: "server",
+      ipAddress: "",
+      location: "",
+      status: "online",
+      os: "",
+      cpu: "",
+      memory: "",
+      tags: ""
+    });
+    setRelationships([]);
+    setCreateError(null);
+  };
+
+  const addRelationshipRow = () => {
+    setRelationships((previous) => [
+      ...previous,
+      {
+        targetAssetId: "",
+        relationshipType: "depends-on"
+      }
+    ]);
+  };
+
+  const updateRelationshipRow = (
+    index: number,
+    patch: Partial<{ targetAssetId: string; relationshipType: Relationship["relationshipType"] }>
+  ) => {
+    setRelationships((previous) => previous.map((row, idx) => (idx === index ? { ...row, ...patch } : row)));
+  };
+
+  const removeRelationshipRow = (index: number) => {
+    setRelationships((previous) => previous.filter((_, idx) => idx !== index));
+  };
+
+  const handleCreateAsset = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setCreateError(null);
+    setCreating(true);
+
+    try {
+      const newAsset = await apiClient.post<Asset>("/assets", {
+        name: form.name,
+        type: form.type,
+        ipAddress: form.ipAddress,
+        location: form.location,
+        status: form.status,
+        ...(form.os.trim() ? { os: form.os.trim() } : {}),
+        ...(form.cpu.trim() ? { cpu: form.cpu.trim() } : {}),
+        ...(form.memory.trim() ? { memory: form.memory.trim() } : {}),
+        ...(form.tags.trim()
+          ? { tags: form.tags.split(",").map((tag) => tag.trim()).filter(Boolean) }
+          : {})
+      });
+
+      const relationshipPayloads = relationships
+        .filter((row) => row.targetAssetId)
+        .map((row) => ({
+          sourceAssetId: newAsset.id,
+          targetAssetId: row.targetAssetId,
+          relationshipType: row.relationshipType
+        }));
+
+      if (relationshipPayloads.length > 0) {
+        await Promise.all(relationshipPayloads.map((payload) => apiClient.post("/relationships", payload)));
+      }
+
+      setAssets((previous) => [newAsset, ...previous]);
+      setPage(1);
+      setShowCreateForm(false);
+      resetForm();
+    } catch (err) {
+      setCreateError(getApiErrorMessage(err, "Failed to create asset"));
+    } finally {
+      setCreating(false);
+    }
+  };
+
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -105,12 +203,228 @@ export default function AssetsPage() {
           <h1>Asset Inventory</h1>
           <p className="text-muted-foreground text-sm mt-1">{assets.length} assets registered</p>
         </div>
-        <button className="h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm inline-flex items-center" title="Add asset" aria-label="Add asset">
+        <button
+          className="h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm inline-flex items-center"
+          title="Add asset"
+          aria-label="Add asset"
+          onClick={() => {
+            setShowCreateForm((previous) => !previous);
+            if (showCreateForm) {
+              resetForm();
+            }
+          }}
+        >
           <Plus className="mr-1.5 h-3.5 w-3.5" /> Add Asset
         </button>
       </div>
 
       {error && <div className="rounded-md border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive">{error}</div>}
+
+      {showCreateForm && (
+        <div className="kpi-shadow border border-border/50 rounded-lg bg-card p-4">
+          <form onSubmit={handleCreateAsset} className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="text-xs text-muted-foreground">Name</label>
+                <input
+                  title="Asset name"
+                  aria-label="Asset name"
+                  required
+                  value={form.name}
+                  onChange={(event) => setForm((previous) => ({ ...previous, name: event.target.value }))}
+                  className="mt-1 w-full h-9 rounded-md border border-border bg-background px-3 text-sm"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-muted-foreground">IP Address</label>
+                <input
+                  title="Asset IP address"
+                  aria-label="Asset IP address"
+                  required
+                  value={form.ipAddress}
+                  onChange={(event) => setForm((previous) => ({ ...previous, ipAddress: event.target.value }))}
+                  className="mt-1 w-full h-9 rounded-md border border-border bg-background px-3 text-sm"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-muted-foreground">Type</label>
+                <select
+                  title="Asset type"
+                  aria-label="Asset type"
+                  value={form.type}
+                  onChange={(event) =>
+                    setForm((previous) => ({ ...previous, type: event.target.value as Asset["type"] }))
+                  }
+                  className="mt-1 w-full h-9 rounded-md border border-border bg-background px-3 text-sm"
+                >
+                  <option value="server">Server</option>
+                  <option value="vm">VM</option>
+                  <option value="network">Network</option>
+                  <option value="network-device">Network Device</option>
+                  <option value="storage">Storage</option>
+                  <option value="service">Service</option>
+                </select>
+              </div>
+              <div>
+                <label className="text-xs text-muted-foreground">Status</label>
+                <select
+                  title="Asset status"
+                  aria-label="Asset status"
+                  value={form.status}
+                  onChange={(event) =>
+                    setForm((previous) => ({ ...previous, status: event.target.value as Asset["status"] }))
+                  }
+                  className="mt-1 w-full h-9 rounded-md border border-border bg-background px-3 text-sm"
+                >
+                  <option value="online">Online</option>
+                  <option value="offline">Offline</option>
+                  <option value="warning">Warning</option>
+                  <option value="maintenance">Maintenance</option>
+                </select>
+              </div>
+              <div>
+                <label className="text-xs text-muted-foreground">Location</label>
+                <input
+                  title="Asset location"
+                  aria-label="Asset location"
+                  required
+                  value={form.location}
+                  onChange={(event) => setForm((previous) => ({ ...previous, location: event.target.value }))}
+                  className="mt-1 w-full h-9 rounded-md border border-border bg-background px-3 text-sm"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-muted-foreground">Tags (comma separated)</label>
+                <input
+                  title="Asset tags"
+                  aria-label="Asset tags"
+                  value={form.tags}
+                  onChange={(event) => setForm((previous) => ({ ...previous, tags: event.target.value }))}
+                  className="mt-1 w-full h-9 rounded-md border border-border bg-background px-3 text-sm"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-muted-foreground">OS</label>
+                <input
+                  title="Asset operating system"
+                  aria-label="Asset operating system"
+                  value={form.os}
+                  onChange={(event) => setForm((previous) => ({ ...previous, os: event.target.value }))}
+                  className="mt-1 w-full h-9 rounded-md border border-border bg-background px-3 text-sm"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-muted-foreground">CPU</label>
+                <input
+                  title="Asset CPU"
+                  aria-label="Asset CPU"
+                  value={form.cpu}
+                  onChange={(event) => setForm((previous) => ({ ...previous, cpu: event.target.value }))}
+                  className="mt-1 w-full h-9 rounded-md border border-border bg-background px-3 text-sm"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-muted-foreground">Memory</label>
+                <input
+                  title="Asset memory"
+                  aria-label="Asset memory"
+                  value={form.memory}
+                  onChange={(event) => setForm((previous) => ({ ...previous, memory: event.target.value }))}
+                  className="mt-1 w-full h-9 rounded-md border border-border bg-background px-3 text-sm"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-semibold">Relationships From This Asset</h3>
+                <button
+                  type="button"
+                  className="h-8 px-3 rounded-md border border-border bg-background text-sm"
+                  onClick={addRelationshipRow}
+                >
+                  <Plus className="mr-1.5 h-3.5 w-3.5 inline" /> Add Relationship
+                </button>
+              </div>
+
+              {relationships.length === 0 ? (
+                <p className="text-xs text-muted-foreground">No related assets selected.</p>
+              ) : (
+                <div className="space-y-2">
+                  {relationships.map((row, index) => (
+                    <div key={index} className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] gap-2 p-2 rounded-md border border-border/50">
+                      <select
+                        title="Related asset"
+                        aria-label="Related asset"
+                        value={row.targetAssetId}
+                        onChange={(event) => updateRelationshipRow(index, { targetAssetId: event.target.value })}
+                        className="h-9 rounded-md border border-border bg-background px-3 text-sm"
+                      >
+                        <option value="">Select related asset</option>
+                        {assets.map((asset) => (
+                          <option key={asset.id} value={asset.id}>
+                            {asset.name}
+                          </option>
+                        ))}
+                      </select>
+                      <select
+                        title="Relationship type"
+                        aria-label="Relationship type"
+                        value={row.relationshipType}
+                        onChange={(event) =>
+                          updateRelationshipRow(index, {
+                            relationshipType: event.target.value as Relationship["relationshipType"]
+                          })
+                        }
+                        className="h-9 rounded-md border border-border bg-background px-3 text-sm"
+                      >
+                        <option value="depends-on">depends-on</option>
+                        <option value="hosted-on">hosted-on</option>
+                        <option value="communicates-with">communicates-with</option>
+                      </select>
+                      <button
+                        type="button"
+                        className="h-9 w-9 inline-flex items-center justify-center rounded-md border border-border bg-background"
+                        onClick={() => removeRelationshipRow(index)}
+                        title="Remove relationship"
+                        aria-label="Remove relationship"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {createError && (
+              <div className="rounded-md border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive">
+                {createError}
+              </div>
+            )}
+
+            <div className="flex gap-2">
+              <button
+                type="submit"
+                disabled={creating}
+                className="h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm disabled:opacity-60"
+              >
+                {creating ? "Creating..." : "Create Asset"}
+              </button>
+              <button
+                type="button"
+                className="h-9 px-4 rounded-md border border-border bg-background text-sm"
+                onClick={() => {
+                  setShowCreateForm(false);
+                  resetForm();
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
 
       <div className="kpi-shadow border border-border/50 rounded-lg bg-card p-4">
         <div className="flex flex-col sm:flex-row gap-3">
