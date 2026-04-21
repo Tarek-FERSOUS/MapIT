@@ -2,62 +2,27 @@ const express = require("express");
 
 const { requireAuth, requirePermission } = require("../../middleware/auth.middleware");
 const { prisma } = require("../../lib/prisma");
-const { PERMISSIONS, ROLE_TEMPLATES } = require("../../lib/permissions");
 const { loadUserAccessContext } = require("../../lib/access-control");
+const { ensureRolesAndPermissions } = require("../../lib/rbac-bootstrap");
 
 const router = express.Router();
 
 router.use(requireAuth);
 router.use(requirePermission(["user:manage", "permission:manage"]));
 
-async function ensureRolesAndPermissions() {
-  const permissionRecords = [];
-
-  for (const definition of PERMISSIONS) {
-    const permission = await prisma.permission.upsert({
-      where: { key: definition.key },
-      update: {
-        module: definition.module,
-        action: definition.action,
-        description: definition.description
-      },
-      create: {
-        key: definition.key,
-        module: definition.module,
-        action: definition.action,
-        description: definition.description
+async function createAuditLog({ actorUsername, targetUsername, action, resource, metadata }) {
+  try {
+    await prisma.auditLog.create({
+      data: {
+        actorUsername,
+        targetUsername,
+        action,
+        resource,
+        metadata: metadata || undefined
       }
     });
-
-    permissionRecords.push(permission);
-  }
-
-  const permissionByKey = new Map(permissionRecords.map((permission) => [permission.key, permission]));
-
-  for (const roleTemplate of ROLE_TEMPLATES) {
-    const role = await prisma.role.upsert({
-      where: { key: roleTemplate.key },
-      update: {
-        name: roleTemplate.name,
-        description: roleTemplate.description,
-        isSystem: roleTemplate.isSystem
-      },
-      create: {
-        key: roleTemplate.key,
-        name: roleTemplate.name,
-        description: roleTemplate.description,
-        isSystem: roleTemplate.isSystem
-      }
-    });
-
-    const permissionLinks = roleTemplate.permissions
-      .map((permissionKey) => permissionByKey.get(permissionKey))
-      .filter(Boolean)
-      .map((permission) => ({ roleId: role.id, permissionId: permission.id }));
-
-    if (permissionLinks.length > 0) {
-      await prisma.rolePermission.createMany({ data: permissionLinks, skipDuplicates: true });
-    }
+  } catch (_error) {
+    // Ignore audit failures so main action still succeeds.
   }
 }
 
@@ -171,6 +136,13 @@ router.patch("/roles/:key", async (req, res) => {
         permissions: updated.permissions.map((entry) => entry.permission.key)
       }
     });
+
+    await createAuditLog({
+      actorUsername: req.user?.username,
+      action: "role.permissions.updated",
+      resource: `role:${role.key}`,
+      metadata: { permissionKeys }
+    });
   } catch (error) {
     console.error("Role update failed:", error);
     res.status(500).json({ error: "Failed to update role permissions" });
@@ -236,9 +208,50 @@ router.patch("/users/:username", async (req, res) => {
         permissions: access?.permissions || []
       }
     });
+
+    await createAuditLog({
+      actorUsername: req.user?.username,
+      targetUsername: user.username,
+      action: "user.access.updated",
+      resource: `user:${user.username}`,
+      metadata: { roleKeys, allowPermissions, denyPermissions }
+    });
   } catch (error) {
     console.error("User access update failed:", error);
     res.status(500).json({ error: "Failed to update user access" });
+  }
+});
+
+router.get("/audit-logs", async (req, res) => {
+  try {
+    const limit = Math.min(parseInt(req.query.limit || "100"), 500);
+    const offset = parseInt(req.query.offset || "0");
+
+    const logs = await prisma.auditLog.findMany({
+      orderBy: { createdAt: "desc" },
+      take: limit,
+      skip: offset
+    });
+
+    const total = await prisma.auditLog.count();
+
+    res.json({
+      logs: logs.map((log) => ({
+        id: log.id,
+        actorUsername: log.actorUsername,
+        targetUsername: log.targetUsername,
+        action: log.action,
+        resource: log.resource,
+        metadata: log.metadata,
+        createdAt: log.createdAt.toISOString()
+      })),
+      total,
+      limit,
+      offset
+    });
+  } catch (error) {
+    console.error("Failed to fetch audit logs:", error);
+    res.status(500).json({ error: "Failed to fetch audit logs" });
   }
 });
 

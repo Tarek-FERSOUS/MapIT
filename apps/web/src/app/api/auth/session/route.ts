@@ -21,10 +21,10 @@ export async function GET(request: NextRequest) {
       }
     });
 
-    const { username, role } = response.data;
+    const { username, role, roles, permissions } = response.data;
 
     return NextResponse.json({
-      user: { username, role }
+      user: { username, role, roles, permissions }
     });
   } catch (error: any) {
     console.error("Session check error:", error);

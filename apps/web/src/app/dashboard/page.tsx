@@ -15,9 +15,15 @@ import {
 } from "lucide-react";
 import { apiClient, getApiErrorMessage } from "@/lib/api";
 import { DashboardSummary } from "@/types/api";
+import { useAuthStore } from "@/store/auth";
 
 export default function DashboardPage() {
   const router = useRouter();
+  const user = useAuthStore((state) => state.user);
+  const canViewDashboard = Boolean(user?.permissions?.includes("dashboard:view"));
+  const canCreateAsset = Boolean(user?.permissions?.includes("asset:create"));
+  const canCreateProblem = Boolean(user?.permissions?.includes("problem:create"));
+  
   const [summary, setSummary] = useState<DashboardSummary | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -45,6 +51,20 @@ export default function DashboardPage() {
 
   const cardClass = "kpi-shadow border border-border/50 rounded-lg bg-card";
 
+  if (!canViewDashboard) {
+    return (
+      <div className="space-y-6 animate-fade-in">
+        <div>
+          <h1>Dashboard</h1>
+          <p className="text-muted-foreground text-sm mt-1">Infrastructure overview and monitoring</p>
+        </div>
+        <div className="rounded-md border border-destructive/20 bg-destructive/10 p-4 text-sm text-destructive">
+          You do not have permission to view the dashboard. Please contact your administrator if you believe this is an error.
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -53,18 +73,22 @@ export default function DashboardPage() {
           <p className="text-muted-foreground text-sm mt-1">Infrastructure overview and monitoring</p>
         </div>
         <div className="flex items-center gap-2">
-          <button
-            className="h-8 px-3 inline-flex items-center rounded-md border border-border bg-card text-sm"
-            onClick={() => router.push("/assets")}
-          >
-            <Plus className="mr-1.5 h-3.5 w-3.5" /> Add Asset
-          </button>
-          <button
-            className="h-8 px-3 inline-flex items-center rounded-md bg-primary text-primary-foreground text-sm"
-            onClick={() => router.push("/problems")}
-          >
-            <FileText className="mr-1.5 h-3.5 w-3.5" /> Log Problem
-          </button>
+          {canCreateAsset && (
+            <button
+              className="h-8 px-3 inline-flex items-center rounded-md border border-border bg-card text-sm"
+              onClick={() => router.push("/assets")}
+            >
+              <Plus className="mr-1.5 h-3.5 w-3.5" /> Add Asset
+            </button>
+          )}
+          {canCreateProblem && (
+            <button
+              className="h-8 px-3 inline-flex items-center rounded-md bg-primary text-primary-foreground text-sm"
+              onClick={() => router.push("/problems")}
+            >
+              <FileText className="mr-1.5 h-3.5 w-3.5" /> Log Problem
+            </button>
+          )}
         </div>
       </div>
 

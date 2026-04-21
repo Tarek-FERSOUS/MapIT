@@ -20,7 +20,7 @@ export default function IncidentDetailPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const isAdmin = user?.role === "Admin";
+  const canEditIncident = Boolean(user?.permissions?.includes("incident:update"));
 
   useEffect(() => {
     const loadIncident = async () => {
@@ -45,7 +45,7 @@ export default function IncidentDetailPage() {
 
   const handleSave = async (event: FormEvent) => {
     event.preventDefault();
-    if (!isAdmin) {
+    if (!canEditIncident) {
       return;
     }
 
@@ -103,7 +103,7 @@ export default function IncidentDetailPage() {
               id="incident-title"
               className="input"
               value={title}
-              disabled={!isAdmin}
+              disabled={!canEditIncident}
               onChange={(event) => setTitle(event.target.value)}
             />
           </div>
@@ -116,18 +116,18 @@ export default function IncidentDetailPage() {
               id="incident-description"
               className="input min-h-40"
               value={description}
-              disabled={!isAdmin}
+              disabled={!canEditIncident}
               onChange={(event) => setDescription(event.target.value)}
             />
           </div>
 
           <div className="flex items-center gap-3 pt-2">
-            {isAdmin ? (
+            {canEditIncident ? (
               <button type="submit" className="btn btn-primary" disabled={isSaving}>
                 {isSaving ? "Saving..." : "Save Changes"}
               </button>
             ) : (
-              <p className="text-sm text-slate-500">Read-only for non-admin users.</p>
+              <p className="text-sm text-slate-500">Read-only for your current access level.</p>
             )}
             <Link href="/incidents" className="btn btn-secondary">
               Back

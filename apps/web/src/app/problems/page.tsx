@@ -5,8 +5,14 @@ import { useEffect } from "react";
 import { Search, Plus, AlertTriangle, CheckCircle2, Clock } from "lucide-react";
 import { apiClient, getApiErrorMessage } from "@/lib/api";
 import { Asset, Problem } from "@/types/api";
+import { useAuthStore } from "@/store/auth";
 
 export default function ProblemsPage() {
+  const user = useAuthStore((state) => state.user);
+  const canCreate = Boolean(user?.permissions?.includes("problem:create"));
+  const canUpdate = Boolean(user?.permissions?.includes("problem:update"));
+  const canDelete = Boolean(user?.permissions?.includes("problem:delete"));
+  
   const [problems, setProblems] = useState<Problem[]>([]);
   const [assets, setAssets] = useState<Asset[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -150,19 +156,21 @@ export default function ProblemsPage() {
           <h1>Knowledge Base</h1>
           <p className="text-muted-foreground text-sm mt-1">Problems and solutions</p>
         </div>
-        <button
-          className="h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm inline-flex items-center"
-          title="Add problem"
-          aria-label="Add problem"
-          onClick={() => {
-            setShowCreateForm((previous) => !previous);
-            if (showCreateForm) {
-              resetForm();
-            }
-          }}
-        >
-          <Plus className="mr-1.5 h-3.5 w-3.5" /> Add Problem
-        </button>
+        {canCreate && (
+          <button
+            className="h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm inline-flex items-center"
+            title="Add problem"
+            aria-label="Add problem"
+            onClick={() => {
+              setShowCreateForm((previous) => !previous);
+              if (showCreateForm) {
+                resetForm();
+              }
+            }}
+          >
+            <Plus className="mr-1.5 h-3.5 w-3.5" /> Add Problem
+          </button>
+        )}
       </div>
 
       {error && <div className="rounded-md border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive">{error}</div>}

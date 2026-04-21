@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { apiClient, getApiErrorMessage } from "@/lib/api";
+import { useAuthStore } from "@/store/auth";
 
 interface ReportsSummary {
   assetsByType: { type: string; count: number }[];
@@ -9,6 +10,9 @@ interface ReportsSummary {
 }
 
 export default function ReportsPage() {
+  const user = useAuthStore((state) => state.user);
+  const canViewReports = Boolean(user?.permissions?.includes("report:view"));
+  
   const [summary, setSummary] = useState<ReportsSummary>({
     assetsByType: [],
     problemsBySeverity: []
@@ -37,6 +41,20 @@ export default function ReportsPage() {
     () => Math.max(...summary.problemsBySeverity.map((item) => item.count), 1),
     [summary.problemsBySeverity]
   );
+
+  if (!canViewReports) {
+    return (
+      <div className="space-y-6 animate-fade-in">
+        <div>
+          <h1>Reports</h1>
+          <p className="text-muted-foreground text-sm mt-1">Infrastructure analytics and insights</p>
+        </div>
+        <div className="rounded-md border border-destructive/20 bg-destructive/10 p-4 text-sm text-destructive">
+          You do not have permission to view reports. Please contact your administrator if you believe this is an error.
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 animate-fade-in">

@@ -20,6 +20,7 @@ const PERMISSIONS = [
   { key: "relationship:create", module: "relationships", action: "create", description: "Create relationships" },
   { key: "relationship:delete", module: "relationships", action: "delete", description: "Delete relationships" },
   { key: "report:view", module: "reports", action: "view", description: "View reports" },
+  { key: "notification:view", module: "notifications", action: "view", description: "View notifications" },
   { key: "settings:view-own", module: "settings", action: "view-own", description: "View own settings" },
   { key: "settings:update-own", module: "settings", action: "update-own", description: "Update own settings" },
   { key: "settings:view-any", module: "settings", action: "view-any", description: "View any user's settings" },
@@ -58,6 +59,7 @@ const ROLE_TEMPLATES = [
       "document:update",
       "relationship:view",
       "report:view",
+      "notification:view",
       "settings:view-own",
       "settings:update-own"
     ],
@@ -78,6 +80,7 @@ const ROLE_TEMPLATES = [
       "document:view",
       "document:create",
       "relationship:view",
+      "notification:view",
       "settings:view-own",
       "settings:update-own"
     ],
@@ -95,6 +98,7 @@ const ROLE_TEMPLATES = [
       "document:view",
       "relationship:view",
       "report:view",
+      "notification:view",
       "settings:view-own",
       "settings:update-own"
     ],

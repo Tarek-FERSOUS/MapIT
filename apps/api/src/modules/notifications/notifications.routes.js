@@ -1,13 +1,13 @@
 const express = require("express");
 
-const { requireAuth } = require("../../middleware/auth.middleware");
+const { requireAuth, requirePermission } = require("../../middleware/auth.middleware");
 const { prisma } = require("../../lib/prisma");
 
 const router = express.Router();
 
 router.use(requireAuth);
 
-router.get("/recent", async (req, res) => {
+router.get("/recent", requirePermission(["notification:view"]), async (req, res) => {
   try {
     const requested = Number.parseInt(String(req.query.limit || "10"), 10);
     const limit = Number.isFinite(requested)

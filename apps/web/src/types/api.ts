@@ -1,13 +1,70 @@
-export type UserRole = "Admin" | "User";
+export type UserRole = "Admin" | "Manager" | "Operator" | "Viewer" | string;
+
+export interface AssignedRole {
+  key: string;
+  name: string;
+}
 
 export interface User {
   username: string;
   role: UserRole;
+  roles?: AssignedRole[];
+  permissions?: string[];
 }
 
 export interface AuthSession {
   token: string;
   user: User;
+}
+
+export interface PermissionDefinition {
+  id: string;
+  key: string;
+  module: string;
+  action: string;
+  description?: string | null;
+}
+
+export interface RoleDefinition {
+  key: string;
+  name: string;
+  description?: string | null;
+  isSystem?: boolean;
+  permissions: string[];
+}
+
+export interface AccessUserSummary {
+  username: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  email?: string | null;
+  roles: AssignedRole[];
+  allowPermissions: string[];
+  denyPermissions: string[];
+  permissions: string[];
+}
+
+export interface AccessControlPayload {
+  roles: RoleDefinition[];
+  permissions: PermissionDefinition[];
+  users: AccessUserSummary[];
+}
+
+export interface AuditLogEntry {
+  id: string;
+  actorUsername: string | null;
+  targetUsername: string | null;
+  action: string;
+  resource: string | null;
+  metadata?: Record<string, any> | null;
+  createdAt: string;
+}
+
+export interface AuditLogsResponse {
+  logs: AuditLogEntry[];
+  total: number;
+  limit: number;
+  offset: number;
 }
 
 export interface Incident {

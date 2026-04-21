@@ -21,9 +21,14 @@ import {
 } from "lucide-react";
 import { apiClient, getApiErrorMessage } from "@/lib/api";
 import { Asset, Relationship } from "@/types/api";
+import { useAuthStore } from "@/store/auth";
 
 export default function AssetsPage() {
   const router = useRouter();
+  const user = useAuthStore((state) => state.user);
+  const canCreate = Boolean(user?.permissions?.includes("asset:create"));
+  const canUpdate = Boolean(user?.permissions?.includes("asset:update"));
+  const canDelete = Boolean(user?.permissions?.includes("asset:delete"));
   const [assets, setAssets] = useState<Asset[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [showCreateForm, setShowCreateForm] = useState(false);
@@ -203,19 +208,21 @@ export default function AssetsPage() {
           <h1>Asset Inventory</h1>
           <p className="text-muted-foreground text-sm mt-1">{assets.length} assets registered</p>
         </div>
-        <button
-          className="h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm inline-flex items-center"
-          title="Add asset"
-          aria-label="Add asset"
-          onClick={() => {
-            setShowCreateForm((previous) => !previous);
-            if (showCreateForm) {
-              resetForm();
-            }
-          }}
-        >
-          <Plus className="mr-1.5 h-3.5 w-3.5" /> Add Asset
-        </button>
+        {canCreate && (
+          <button
+            className="h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm inline-flex items-center"
+            title="Add asset"
+            aria-label="Add asset"
+            onClick={() => {
+              setShowCreateForm((previous) => !previous);
+              if (showCreateForm) {
+                resetForm();
+              }
+            }}
+          >
+            <Plus className="mr-1.5 h-3.5 w-3.5" /> Add Asset
+          </button>
+        )}
       </div>
 
       {error && <div className="rounded-md border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive">{error}</div>}
@@ -543,12 +550,16 @@ export default function AssetsPage() {
                         <button className="h-7 w-7 inline-flex items-center justify-center rounded hover:bg-muted" onClick={() => router.push(`/assets/${asset.id}`)} title={`View asset ${asset.name}`} aria-label={`View asset ${asset.name}`}>
                           <Eye className="h-3.5 w-3.5" />
                         </button>
-                        <button className="h-7 w-7 inline-flex items-center justify-center rounded hover:bg-muted" title={`Edit asset ${asset.name}`} aria-label={`Edit asset ${asset.name}`}>
-                          <Pencil className="h-3.5 w-3.5" />
-                        </button>
-                        <button className="h-7 w-7 inline-flex items-center justify-center rounded hover:bg-muted text-destructive" title={`Delete asset ${asset.name}`} aria-label={`Delete asset ${asset.name}`}>
-                          <Trash2 className="h-3.5 w-3.5" />
-                        </button>
+                        {canUpdate && (
+                          <button className="h-7 w-7 inline-flex items-center justify-center rounded hover:bg-muted" title={`Edit asset ${asset.name}`} aria-label={`Edit asset ${asset.name}`}>
+                            <Pencil className="h-3.5 w-3.5" />
+                          </button>
+                        )}
+                        {canDelete && (
+                          <button className="h-7 w-7 inline-flex items-center justify-center rounded hover:bg-muted text-destructive" title={`Delete asset ${asset.name}`} aria-label={`Delete asset ${asset.name}`}>
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        )}
                       </div>
                     </td>
                   </tr>

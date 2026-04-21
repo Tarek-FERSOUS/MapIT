@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { ZoomIn, ZoomOut, Maximize2, LayoutGrid, Filter } from "lucide-react";
 import { apiClient, getApiErrorMessage } from "@/lib/api";
 import { Asset, Relationship } from "@/types/api";
+import { useAuthStore } from "@/store/auth";
 
 type NodePoint = { x: number; y: number };
 
@@ -41,6 +42,10 @@ function getAutoLayout(assets: Asset[]): Record<string, NodePoint> {
 export default function RelationshipsPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const user = useAuthStore((state) => state.user);
+  const canCreate = Boolean(user?.permissions?.includes("relationship:create"));
+  const canDelete = Boolean(user?.permissions?.includes("relationship:delete"));
+  
   const [assets, setAssets] = useState<Asset[]>([]);
   const [relationships, setRelationships] = useState<Relationship[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -111,34 +116,31 @@ export default function RelationshipsPage() {
     return map;
   }, [assets]);
 
-  const visibleConnections = relationships
-    .filter(
-      (relationship) =>
-        visibleIds.has(relationship.sourceAssetId) && visibleIds.has(relationship.targetAssetId)
-    )
-    .map((relationship) => {
+  const visibleConnections = relationships.reduce<Array<{
+    id: string;
+    source: Asset;
+    target: Asset;
+    relationshipType: Relationship["relationshipType"];
+  }>>((acc, relationship) => {
+    if (!visibleIds.has(relationship.sourceAssetId) || !visibleIds.has(relationship.targetAssetId)) {
+      return acc;
+    }
+
       const source = assetById.get(relationship.sourceAssetId);
       const target = assetById.get(relationship.targetAssetId);
       if (!source || !target || !nodePositions[source.id] || !nodePositions[target.id]) {
-        return null;
+        return acc;
       }
-      return {
+
+      acc.push({
         id: relationship.id,
         source,
         target,
         relationshipType: relationship.relationshipType
-      };
-    })
-    .filter(
-      (
-        connection
-      ): connection is {
-        id: string;
-        source: Asset;
-        target: Asset;
-        relationshipType: string;
-      } => Boolean(connection)
-    );
+      });
+
+      return acc;
+    }, []);
 
   const startDragging = (event: React.MouseEvent<SVGGElement>, assetId: string) => {
     event.preventDefault();

@@ -5,6 +5,7 @@ const { requireAuth } = require("../../middleware/auth.middleware");
 const { prisma } = require("../../lib/prisma");
 const { loadUserAccessContext } = require("../../lib/access-control");
 const { ROLE_LOOKUP } = require("../../lib/permissions");
+const { ensureRolesAndPermissions } = require("../../lib/rbac-bootstrap");
 
 const router = express.Router();
 
@@ -21,6 +22,8 @@ router.post("/login", async (req, res) => {
   }
 
   try {
+    await ensureRolesAndPermissions();
+
     await prisma.user.upsert({
       where: {
         username: String(user.username)

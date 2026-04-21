@@ -70,7 +70,7 @@ export default function AssetDetailPage() {
       return [] as Array<{
         id: string;
         relationshipType: Relationship["relationshipType"];
-        label?: string;
+        label: string | undefined;
         direction: "incoming" | "outgoing";
         asset: Asset;
       }>;
@@ -78,38 +78,35 @@ export default function AssetDetailPage() {
 
     const assetById = new Map(assets.map((item) => [item.id, item]));
 
-    return relationships
-      .filter((relationship) =>
-        relationship.sourceAssetId === asset.id || relationship.targetAssetId === asset.id
-      )
-      .map((relationship) => {
+    return relationships.reduce<Array<{
+      id: string;
+      relationshipType: Relationship["relationshipType"];
+      label: string | undefined;
+      direction: "incoming" | "outgoing";
+      asset: Asset;
+    }>>((acc, relationship) => {
+      if (relationship.sourceAssetId !== asset.id && relationship.targetAssetId !== asset.id) {
+        return acc;
+      }
+
         const outgoing = relationship.sourceAssetId === asset.id;
         const relatedId = outgoing ? relationship.targetAssetId : relationship.sourceAssetId;
         const relatedAsset = assetById.get(relatedId);
 
         if (!relatedAsset) {
-          return null;
+          return acc;
         }
 
-        return {
+        acc.push({
           id: relationship.id,
           relationshipType: relationship.relationshipType,
           label: relationship.label,
           direction: outgoing ? "outgoing" as const : "incoming" as const,
           asset: relatedAsset
-        };
-      })
-      .filter(
-        (
-          item
-        ): item is {
-          id: string;
-          relationshipType: Relationship["relationshipType"];
-          label?: string;
-          direction: "incoming" | "outgoing";
-          asset: Asset;
-        } => Boolean(item)
-      );
+        });
+
+        return acc;
+      }, []);
   }, [asset, assets, relationships]);
 
   return (

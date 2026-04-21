@@ -7,12 +7,15 @@ import { apiClient, getApiErrorMessage } from "@/lib/api";
 import { Incident } from "@/types/api";
 import { ErrorAlert, LoadingSpinner, EmptyState } from "@/components/ui";
 import { formatDateTime } from "@/lib/formatting";
+import { useAuthStore } from "@/store/auth";
 
 interface IncidentListResponse {
   items: Incident[];
 }
 
 export default function IncidentsPage() {
+  const user = useAuthStore((state) => state.user);
+  const canCreate = Boolean(user?.permissions?.includes("incident:create"));
   const [incidents, setIncidents] = useState<Incident[]>([]);
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -55,10 +58,12 @@ export default function IncidentsPage() {
           <h1 className="text-3xl font-bold text-slate-900">Incidents</h1>
           <p className="text-slate-600 mt-2">Track and manage active incidents.</p>
         </div>
-        <Link href="/incidents/new" className="btn btn-primary inline-flex gap-2">
-          <Plus className="h-4 w-4" />
-          New Incident
-        </Link>
+        {canCreate && (
+          <Link href="/incidents/new" className="btn btn-primary inline-flex gap-2">
+            <Plus className="h-4 w-4" />
+            New Incident
+          </Link>
+        )}
       </div>
 
       <div className="card">
@@ -85,7 +90,7 @@ export default function IncidentsPage() {
               ? "Try a different keyword."
               : "Create your first incident to get started."
           }
-          action={<Link href="/incidents/new" className="btn btn-primary">Create Incident</Link>}
+          action={canCreate ? <Link href="/incidents/new" className="btn btn-primary">Create Incident</Link> : undefined}
         />
       ) : (
         <div className="grid grid-cols-1 gap-4">

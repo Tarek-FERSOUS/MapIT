@@ -20,13 +20,13 @@ export async function POST(request: NextRequest) {
       password
     });
 
-    const { token, role } = response.data;
+    const { token, role, roles, permissions } = response.data;
 
     // Create response with secure HttpOnly cookie
     const res = NextResponse.json(
       {
         success: true,
-        user: { username, role }
+        user: { username, role, roles, permissions }
       },
       { status: 200 }
     );
