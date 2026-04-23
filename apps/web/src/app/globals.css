@@ -34,6 +34,48 @@
     --sidebar-accent-foreground: 210 20% 92%;
     --sidebar-border: 220 15% 18%;
     --sidebar-ring: 224 76% 55%;
+    --chart-1: 224 76% 48%;
+    --chart-2: 160 64% 43%;
+    --chart-3: 38 92% 50%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+
+  .dark {
+    --background: 222 24% 7%;
+    --foreground: 210 20% 96%;
+    --card: 222 22% 10%;
+    --card-foreground: 210 20% 96%;
+    --popover: 222 22% 10%;
+    --popover-foreground: 210 20% 96%;
+    --primary: 224 80% 62%;
+    --primary-foreground: 222 24% 7%;
+    --secondary: 215 16% 60%;
+    --secondary-foreground: 222 24% 7%;
+    --muted: 222 18% 14%;
+    --muted-foreground: 215 16% 65%;
+    --accent: 160 64% 48%;
+    --accent-foreground: 222 24% 7%;
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --warning: 38 92% 55%;
+    --warning-foreground: 222 24% 7%;
+    --border: 222 18% 18%;
+    --input: 222 18% 18%;
+    --ring: 224 80% 62%;
+    --sidebar-background: 222 28% 5%;
+    --sidebar-foreground: 210 20% 80%;
+    --sidebar-primary: 224 80% 62%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 22% 12%;
+    --sidebar-accent-foreground: 210 20% 92%;
+    --sidebar-border: 222 18% 14%;
+    --sidebar-ring: 224 80% 62%;
+    --chart-1: 224 80% 65%;
+    --chart-2: 160 64% 55%;
+    --chart-3: 38 92% 60%;
+    --chart-4: 280 70% 70%;
+    --chart-5: 340 75% 65%;
   }
 
   * {
@@ -87,6 +129,17 @@
 
   .kpi-shadow {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  }
+
+  .widget-shadow {
+    box-shadow: 0 1px 2px hsl(var(--foreground) / 0.04), 0 4px 16px -4px hsl(var(--foreground) / 0.06);
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.5) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.5) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
 
   .gradient-login {

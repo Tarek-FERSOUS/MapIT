@@ -7,6 +7,7 @@ import { ZoomIn, ZoomOut, Maximize2, LayoutGrid, Filter } from "lucide-react";
 import { apiClient, getApiErrorMessage } from "@/lib/api";
 import { Asset, Relationship } from "@/types/api";
 import { useAuthStore } from "@/store/auth";
+import { useTheme } from "@/components/theme-provider";
 
 type NodePoint = { x: number; y: number };
 
@@ -43,6 +44,7 @@ export default function RelationshipsPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const user = useAuthStore((state) => state.user);
+  const { theme } = useTheme();
   const canCreate = Boolean(user?.permissions?.includes("relationship:create"));
   const canDelete = Boolean(user?.permissions?.includes("relationship:delete"));
   
@@ -57,9 +59,22 @@ export default function RelationshipsPage() {
   const [dragOffset, setDragOffset] = useState<NodePoint>({ x: 0, y: 0 });
   const [dragDistance, setDragDistance] = useState(0);
   const [zoom, setZoom] = useState(1);
+  const [pan, setPan] = useState<NodePoint>({ x: 0, y: 0 });
+  const [isPanning, setIsPanning] = useState(false);
+  const [panStartMouse, setPanStartMouse] = useState<NodePoint>({ x: 0, y: 0 });
+  const [panStartOffset, setPanStartOffset] = useState<NodePoint>({ x: 0, y: 0 });
   const [hoveredAssetId, setHoveredAssetId] = useState<string | null>(null);
 
   const highlightedAssetId = searchParams.get("asset");
+  const isDark = theme === "dark";
+  const edgeColor = isDark ? "hsl(215 18% 72%)" : "hsl(214 20% 78%)";
+  const edgeLabelColor = isDark ? "hsl(215 18% 74%)" : "hsl(215 14% 46%)";
+  const nodeOuterFill = isDark ? "hsl(210 45% 97%)" : "hsl(0 0% 100%)";
+  const nodeInnerFill = isDark ? "hsl(210 26% 92%)" : "hsl(210 20% 98%)";
+  const nodeTextFill = isDark ? "hsl(221 39% 11%)" : "hsl(215 25% 12%)";
+  const nodeTypeFill = isDark ? "hsl(215 18% 30%)" : "hsl(215 14% 46%)";
+  const nodeStrokeDefault = isDark ? "hsl(214 23% 66%)" : "hsl(214 20% 88%)";
+  const nodeStrokeHover = isDark ? "hsl(214 44% 52%)" : "hsl(214 30% 62%)";
 
   useEffect(() => {
     const loadRelationships = async () => {
@@ -158,8 +173,8 @@ export default function RelationshipsPage() {
     const rect = svg.getBoundingClientRect();
     const svgX = ((event.clientX - rect.left) / rect.width) * LAYOUT_WIDTH;
     const svgY = ((event.clientY - rect.top) / rect.height) * LAYOUT_HEIGHT;
-    const tx = (LAYOUT_WIDTH / 2) * (1 - zoom);
-    const ty = (LAYOUT_HEIGHT / 2) * (1 - zoom);
+    const tx = (LAYOUT_WIDTH / 2) * (1 - zoom) + pan.x;
+    const ty = (LAYOUT_HEIGHT / 2) * (1 - zoom) + pan.y;
     const x = (svgX - tx) / zoom;
     const y = (svgY - ty) / zoom;
 
@@ -168,8 +183,28 @@ export default function RelationshipsPage() {
     setDragOffset({ x: x - point.x, y: y - point.y });
   };
 
+  const startPanning = (event: React.MouseEvent<SVGSVGElement>) => {
+    if (event.target !== event.currentTarget) {
+      return;
+    }
+
+    event.preventDefault();
+    setIsPanning(true);
+    setPanStartMouse({ x: event.clientX, y: event.clientY });
+    setPanStartOffset(pan);
+  };
+
   const onPointerMove = (event: React.MouseEvent<SVGSVGElement>) => {
     if (!draggingNodeId) {
+      if (!isPanning) {
+        return;
+      }
+
+      const svg = event.currentTarget;
+      const rect = svg.getBoundingClientRect();
+      const dx = ((event.clientX - panStartMouse.x) / rect.width) * LAYOUT_WIDTH;
+      const dy = ((event.clientY - panStartMouse.y) / rect.height) * LAYOUT_HEIGHT;
+      setPan({ x: panStartOffset.x + dx, y: panStartOffset.y + dy });
       return;
     }
 
@@ -177,8 +212,8 @@ export default function RelationshipsPage() {
     const rect = svg.getBoundingClientRect();
     const svgX = ((event.clientX - rect.left) / rect.width) * LAYOUT_WIDTH;
     const svgY = ((event.clientY - rect.top) / rect.height) * LAYOUT_HEIGHT;
-    const tx = (LAYOUT_WIDTH / 2) * (1 - zoom);
-    const ty = (LAYOUT_HEIGHT / 2) * (1 - zoom);
+    const tx = (LAYOUT_WIDTH / 2) * (1 - zoom) + pan.x;
+    const ty = (LAYOUT_HEIGHT / 2) * (1 - zoom) + pan.y;
     const worldX = (svgX - tx) / zoom;
     const worldY = (svgY - ty) / zoom;
     const rawX = worldX - dragOffset.x;
@@ -200,6 +235,7 @@ export default function RelationshipsPage() {
   const stopDragging = () => {
     setDraggingNodeId(null);
     setDragOffset({ x: 0, y: 0 });
+    setIsPanning(false);
   };
 
   const resetLayout = () => {
@@ -232,7 +268,10 @@ export default function RelationshipsPage() {
           </button>
           <button
             className="h-8 w-8 rounded-md border border-border inline-flex items-center justify-center"
-            onClick={() => setZoom(1)}
+            onClick={() => {
+              setZoom(1);
+              setPan({ x: 0, y: 0 });
+            }}
             aria-label="Reset zoom"
             title="Reset zoom"
           >
@@ -276,13 +315,14 @@ export default function RelationshipsPage() {
           <div className="w-full overflow-auto min-h-[500px]">
             <svg
               viewBox={`0 0 ${LAYOUT_WIDTH} ${LAYOUT_HEIGHT}`}
-              className="w-full h-auto"
+              className={`w-full h-auto ${isPanning ? "cursor-grabbing" : "cursor-grab"}`}
               preserveAspectRatio="xMidYMid meet"
+              onMouseDown={startPanning}
               onMouseMove={onPointerMove}
               onMouseUp={stopDragging}
               onMouseLeave={stopDragging}
             >
-              <g transform={`translate(${(LAYOUT_WIDTH / 2) * (1 - zoom)}, ${(LAYOUT_HEIGHT / 2) * (1 - zoom)}) scale(${zoom})`}>
+              <g transform={`translate(${(LAYOUT_WIDTH / 2) * (1 - zoom) + pan.x}, ${(LAYOUT_HEIGHT / 2) * (1 - zoom) + pan.y}) scale(${zoom})`}>
               {visibleConnections.map((connection, index) => {
                 const sourcePos = nodePositions[connection.source.id];
                 const targetPos = nodePositions[connection.target.id];
@@ -302,12 +342,12 @@ export default function RelationshipsPage() {
                   <g key={`${connection.id}-${index}`}>
                     <path
                       d={`M ${sourcePos.x} ${sourcePos.y} Q ${cx} ${cy} ${targetPos.x} ${targetPos.y}`}
-                      stroke="hsl(214 20% 78%)"
+                      stroke={edgeColor}
                       strokeWidth={1.5}
                       fill="none"
                       opacity={0.85}
                     />
-                    <text x={cx} y={cy - 4} textAnchor="middle" className="text-[9px] fill-muted-foreground">
+                    <text x={cx} y={cy - 4} textAnchor="middle" className="text-[9px]" fill={edgeLabelColor}>
                       {connection.relationshipType}
                     </text>
                   </g>
@@ -345,15 +385,15 @@ export default function RelationshipsPage() {
                       cx={position.x}
                       cy={position.y}
                       r={34}
-                      fill="hsl(0 0% 100%)"
-                      stroke={isHighlighted ? "#3B82F6" : isHovered ? "hsl(214 30% 62%)" : "hsl(214 20% 88%)"}
+                      fill={nodeOuterFill}
+                      stroke={isHighlighted ? "#3B82F6" : isHovered ? nodeStrokeHover : nodeStrokeDefault}
                       strokeWidth={isHighlighted ? 2.5 : isHovered ? 2 : 1.5}
                     />
-                    <circle cx={position.x} cy={position.y} r={32} fill={isHovered ? "hsl(210 40% 95%)" : "hsl(210 20% 98%)"} />
-                    <text x={position.x} y={position.y - 5} textAnchor="middle" className="text-[10px] font-semibold fill-foreground">
+                    <circle cx={position.x} cy={position.y} r={32} fill={isHovered ? "hsl(210 40% 89%)" : nodeInnerFill} />
+                    <text x={position.x} y={position.y - 5} textAnchor="middle" className="text-[10px] font-semibold" fill={nodeTextFill}>
                       {asset.name.length > 14 ? `${asset.name.slice(0, 14)}...` : asset.name}
                     </text>
-                    <text x={position.x} y={position.y + 9} textAnchor="middle" className="text-[9px] fill-muted-foreground capitalize">
+                    <text x={position.x} y={position.y + 9} textAnchor="middle" className="text-[9px] capitalize" fill={nodeTypeFill}>
                       {asset.type}
                     </text>
                     <circle cx={position.x + 24} cy={position.y - 24} r={5} fill={statusDot} />

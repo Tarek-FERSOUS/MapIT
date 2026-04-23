@@ -17,9 +17,12 @@ import {
   LogOut,
   Search,
   Bell,
-  User
+  User,
+  Moon,
+  Sun
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTheme } from "@/components/theme-provider";
 
 interface SidebarLayoutProps {
   children: React.ReactNode;
@@ -30,6 +33,7 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
   const pathname = usePathname();
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
+  const { theme, toggleTheme, isSaving } = useTheme();
   const [collapsed, setCollapsed] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [profile, setProfile] = useState<UserSettings["profile"] | null>(null);
@@ -140,8 +144,8 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
   ];
 
   return (
-    <div className="min-h-screen flex w-full bg-background">
-      <aside className={`${collapsed ? "w-[72px]" : "w-64"} hidden md:flex flex-col bg-sidebar border-r border-sidebar-border transition-all duration-200`}>
+    <div className="h-screen overflow-hidden flex w-full bg-background">
+      <aside className={`${collapsed ? "w-[72px]" : "w-64"} hidden md:flex flex-col bg-sidebar border-r border-sidebar-border transition-all duration-200 sticky top-0 h-screen`}>
         <div className="flex items-center gap-2 px-4 py-5 border-b border-sidebar-border">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sidebar-primary">
             <Share2 className="h-4 w-4 text-sidebar-primary-foreground" />
@@ -182,8 +186,8 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
         </div>
       </aside>
 
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b border-border bg-card px-4 lg:px-6">
+      <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
+        <header className="sticky top-0 z-30 shrink-0 flex h-14 items-center gap-4 border-b border-border bg-card px-4 lg:px-6">
           <div className="relative flex-1 max-w-md">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <input
@@ -194,6 +198,15 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
           </div>
 
           <div className="flex items-center gap-2 ml-auto">
+            <button
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
+              onClick={() => void toggleTheme()}
+              title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              disabled={isSaving}
+            >
+              {theme === "dark" ? <Sun className="h-[18px] w-[18px]" /> : <Moon className="h-[18px] w-[18px]" />}
+            </button>
             <div className="relative">
               <button
                 className="relative inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
@@ -283,7 +296,7 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
           </div>
         </header>
 
-        <main id="main-content" className="flex-1 p-4 lg:p-6 overflow-auto page-enter">
+        <main id="main-content" className="flex-1 min-h-0 overflow-y-auto p-4 lg:p-6 page-enter">
           {children}
         </main>
       </div>

@@ -6,6 +6,7 @@ import { User, Shield, Bell, Plug, Key, FileText } from "lucide-react";
 import { apiClient, getApiErrorMessage } from "@/lib/api";
 import { AccessControlPayload, UserSettings, AuditLogsResponse } from "@/types/api";
 import { useAuthStore } from "@/store/auth";
+import { useTheme } from "@/components/theme-provider";
 
 const tabs = [
   { id: "profile", label: "Profile", icon: User },
@@ -19,6 +20,7 @@ const tabs = [
 
 export default function SettingsPage() {
   const user = useAuthStore((state) => state.user);
+  const { theme, setTheme: setAppTheme } = useTheme();
   const [activeTab, setActiveTab] = useState<(typeof tabs)[number]["id"]>("profile");
   const [settings, setSettings] = useState<UserSettings | null>(null);
   const [accessControl, setAccessControl] = useState<AccessControlPayload | null>(null);
@@ -291,6 +293,23 @@ export default function SettingsPage() {
                 <div className="space-y-1.5 sm:col-span-2">
                   <label htmlFor="role" className="text-sm">Role</label>
                   <input id="role" defaultValue="IT Administrator" disabled className="h-10 w-full rounded-md border border-input bg-muted px-3" />
+                </div>
+                <div className="space-y-1.5 sm:col-span-2">
+                  <label htmlFor="theme" className="text-sm">Theme Mode</label>
+                  <select
+                    id="theme"
+                    value={settings?.theme === "auto" ? theme : settings?.theme || theme}
+                    onChange={(event) => {
+                      const nextTheme = event.target.value as "light" | "dark";
+                      setSettings((prev) => (prev ? { ...prev, theme: nextTheme } : prev));
+                      void setAppTheme(nextTheme);
+                    }}
+                    className="h-10 w-full rounded-md border border-input bg-background px-3"
+                  >
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                  </select>
+                  <p className="text-xs text-muted-foreground">Theme preference is saved to your user settings.</p>
                 </div>
               </div>
               <div className="flex gap-2 pt-2">
