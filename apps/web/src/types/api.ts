@@ -65,6 +65,31 @@ export interface AuditLogsResponse {
   total: number;
   limit: number;
   offset: number;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
+}
+
+export type GlobalSearchEntityType = "asset" | "problem" | "incident" | "document";
+
+export interface GlobalSearchResultItem {
+  type: GlobalSearchEntityType;
+  id: string;
+  title: string;
+  subtitle?: string | null;
+  href: string;
+  createdAt: string;
+}
+
+export interface GlobalSearchResponse {
+  query: string;
+  total: number;
+  results: GlobalSearchResultItem[];
+  grouped: {
+    assets: GlobalSearchResultItem[];
+    problems: GlobalSearchResultItem[];
+    incidents: GlobalSearchResultItem[];
+    documents: GlobalSearchResultItem[];
+  };
 }
 
 export type IncidentStatus = "OPEN" | "IN_PROGRESS" | "BLOCKED" | "RESOLVED" | "CLOSED";

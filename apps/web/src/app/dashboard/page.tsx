@@ -6,6 +6,7 @@ import { apiClient, getApiErrorMessage } from "@/lib/api";
 import { Asset, DashboardSummary, Problem } from "@/types/api";
 import { useAuthStore } from "@/store/auth";
 import { OpsDashboard } from "@/components/dashboard/ops-dashboard";
+import { ExportMenu } from "@/components/ui";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -40,6 +41,66 @@ export default function DashboardPage() {
 
     loadDashboard();
   }, []);
+
+  const exportDashboardCsv = () => {
+    if (!summary) return;
+
+    const lines = ["key,value"];
+    lines.push(`Total Assets,${assets.length}`);
+    lines.push(`Total Problems,${problems.length}`);
+    lines.push(`Active Servers,${summary.kpis.activeServers ?? 0}`);
+    lines.push(`Open Problems,${summary.kpis.openProblems ?? 0}`);
+    lines.push(`Export Date,${new Date().toISOString()}`);
+
+    const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8" });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `dashboard-summary-${Date.now()}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+  };
+
+  const exportDashboardPdf = () => {
+    if (!summary) return;
+
+    const win = window.open("", "_blank", "width=1100,height=800");
+    if (!win) return;
+
+    win.document.write(`
+      <html>
+        <head>
+          <title>Dashboard Export</title>
+          <style>
+            body { font-family: Arial, sans-serif; padding: 24px; }
+            h1 { margin-bottom: 8px; }
+            table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background: #f5f5f5; }
+          </style>
+        </head>
+        <body>
+          <h1>Dashboard Summary</h1>
+          <p>Generated at ${new Date().toLocaleString()}</p>
+          <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+              <tr><td>Total Assets</td><td>${assets.length}</td></tr>
+              <tr><td>Total Problems</td><td>${problems.length}</td></tr>
+              <tr><td>Active Servers</td><td>${summary.kpis.activeServers ?? 0}</td></tr>
+              <tr><td>Open Problems</td><td>${summary.kpis.openProblems ?? 0}</td></tr>
+            </tbody>
+          </table>
+        </body>
+      </html>
+    `);
+
+    win.document.close();
+    win.focus();
+    win.print();
+  };
 
   if (!canViewDashboard) {
     return (
@@ -95,6 +156,8 @@ export default function DashboardPage() {
         }
       }}
       onViewProblems={() => router.push("/problems")}
+      onExportCsv={exportDashboardCsv}
+      onExportPdf={exportDashboardPdf}
     />
   );
 }

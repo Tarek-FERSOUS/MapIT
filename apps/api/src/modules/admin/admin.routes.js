@@ -12,18 +12,125 @@ router.use(requirePermission(["user:manage", "permission:manage"]));
 
 async function createAuditLog({ actorUsername, targetUsername, action, resource, metadata }) {
   try {
+    const normalizedMetadata = {
+      type: "change",
+      ...(metadata || {})
+    };
+
     await prisma.auditLog.create({
       data: {
         actorUsername,
         targetUsername,
         action,
         resource,
-        metadata: metadata || undefined
+        metadata: normalizedMetadata
       }
     });
   } catch (_error) {
     // Ignore audit failures so main action still succeeds.
   }
+}
+
+function normalizeSortField(value) {
+  const allowed = new Set(["createdAt", "actorUsername", "action", "resource"]);
+  const next = String(value || "createdAt");
+  return allowed.has(next) ? next : "createdAt";
+}
+
+function normalizeSortOrder(value) {
+  const next = String(value || "desc").toLowerCase();
+  return next === "asc" ? "asc" : "desc";
+}
+
+function parseDate(value, endOfDay = false) {
+  if (!value) {
+    return null;
+  }
+
+  const parsed = new Date(String(value));
+  if (Number.isNaN(parsed.getTime())) {
+    return null;
+  }
+
+  if (endOfDay) {
+    parsed.setHours(23, 59, 59, 999);
+  } else {
+    parsed.setHours(0, 0, 0, 0);
+  }
+
+  return parsed;
+}
+
+function csvEscape(value) {
+  const normalized = String(value ?? "");
+  return `"${normalized.replace(/"/g, '""')}"`;
+}
+
+function formatAuditLog(log) {
+  return {
+    id: log.id,
+    actorUsername: log.actorUsername,
+    targetUsername: log.targetUsername,
+    action: log.action,
+    resource: log.resource,
+    metadata: log.metadata,
+    createdAt: log.createdAt.toISOString()
+  };
+}
+
+function buildAuditWhereClause(query) {
+  const q = String(query.q || "").trim();
+  const actor = String(query.actor || "").trim();
+  const action = String(query.action || "").trim();
+  const resource = String(query.resource || "").trim();
+  const type = String(query.type || "").trim();
+  const from = parseDate(query.from, false);
+  const to = parseDate(query.to, true);
+
+  const where = {};
+  const andConditions = [];
+
+  if (actor) {
+    andConditions.push({ actorUsername: { contains: actor, mode: "insensitive" } });
+  }
+
+  if (action) {
+    andConditions.push({ action: { contains: action, mode: "insensitive" } });
+  }
+
+  if (resource) {
+    andConditions.push({ resource: { contains: resource, mode: "insensitive" } });
+  }
+
+  if (type) {
+    andConditions.push({ metadata: { path: ["type"], equals: type } });
+  }
+
+  if (q) {
+    andConditions.push({
+      OR: [
+        { actorUsername: { contains: q, mode: "insensitive" } },
+        { targetUsername: { contains: q, mode: "insensitive" } },
+        { action: { contains: q, mode: "insensitive" } },
+        { resource: { contains: q, mode: "insensitive" } }
+      ]
+    });
+  }
+
+  if (from || to) {
+    andConditions.push({
+      createdAt: {
+        ...(from ? { gte: from } : {}),
+        ...(to ? { lte: to } : {})
+      }
+    });
+  }
+
+  if (andConditions.length > 0) {
+    where.AND = andConditions;
+  }
+
+  return where;
 }
 
 router.get("/access", async (_req, res) => {
@@ -222,32 +329,99 @@ router.patch("/users/:username", async (req, res) => {
   }
 });
 
+router.get("/audit-logs/suggestions", async (req, res) => {
+  try {
+    const field = String(req.query.field || "").trim();
+    const q = String(req.query.q || "").trim();
+    const limit = Math.min(Math.max(parseInt(req.query.limit || "10", 10) || 10, 1), 50);
+
+    const fieldMap = {
+      actor: "actorUsername",
+      action: "action",
+      resource: "resource"
+    };
+
+    const column = fieldMap[field];
+    if (!column) {
+      return res.status(400).json({ error: "Invalid suggestion field" });
+    }
+
+    const where = {
+      [column]: {
+        not: null,
+        ...(q ? { contains: q, mode: "insensitive" } : {})
+      }
+    };
+
+    const rows = await prisma.auditLog.findMany({
+      where,
+      distinct: [column],
+      select: { [column]: true },
+      orderBy: { [column]: "asc" },
+      take: limit
+    });
+
+    const items = rows
+      .map((row) => row[column])
+      .filter(Boolean)
+      .map(String);
+
+    res.json({ items });
+  } catch (error) {
+    console.error("Failed to fetch audit log suggestions:", error);
+    res.status(500).json({ error: "Failed to fetch audit log suggestions" });
+  }
+});
+
 router.get("/audit-logs", async (req, res) => {
   try {
-    const limit = Math.min(parseInt(req.query.limit || "100"), 500);
-    const offset = parseInt(req.query.offset || "0");
+    const limit = Math.min(parseInt(req.query.limit || "100", 10) || 100, 1000);
+    const offset = parseInt(req.query.offset || "0", 10) || 0;
+    const sortBy = normalizeSortField(req.query.sortBy);
+    const sortOrder = normalizeSortOrder(req.query.sortOrder);
+    const where = buildAuditWhereClause(req.query);
+    const exportFormat = String(req.query.format || "").toLowerCase();
 
     const logs = await prisma.auditLog.findMany({
-      orderBy: { createdAt: "desc" },
+      where,
+      orderBy: { [sortBy]: sortOrder },
       take: limit,
       skip: offset
     });
 
-    const total = await prisma.auditLog.count();
+    const total = await prisma.auditLog.count({ where });
+
+    if (exportFormat === "csv") {
+      const lines = [
+        ["id", "createdAt", "actorUsername", "targetUsername", "action", "resource", "metadata"].join(",")
+      ];
+
+      for (const log of logs) {
+        lines.push(
+          [
+            csvEscape(log.id),
+            csvEscape(log.createdAt.toISOString()),
+            csvEscape(log.actorUsername || ""),
+            csvEscape(log.targetUsername || ""),
+            csvEscape(log.action || ""),
+            csvEscape(log.resource || ""),
+            csvEscape(log.metadata ? JSON.stringify(log.metadata) : "")
+          ].join(",")
+        );
+      }
+
+      res.setHeader("Content-Type", "text/csv; charset=utf-8");
+      res.setHeader("Content-Disposition", `attachment; filename=\"audit-logs-${Date.now()}.csv\"`);
+      return res.status(200).send(lines.join("\n"));
+    }
 
     res.json({
-      logs: logs.map((log) => ({
-        id: log.id,
-        actorUsername: log.actorUsername,
-        targetUsername: log.targetUsername,
-        action: log.action,
-        resource: log.resource,
-        metadata: log.metadata,
-        createdAt: log.createdAt.toISOString()
-      })),
+      logs: logs.map(formatAuditLog),
       total,
       limit,
-      offset
+      offset,
+      sortBy,
+      sortOrder
     });
   } catch (error) {
     console.error("Failed to fetch audit logs:", error);

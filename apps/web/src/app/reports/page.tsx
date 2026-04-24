@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { apiClient, getApiErrorMessage } from "@/lib/api";
 import { useAuthStore } from "@/store/auth";
+import { ExportMenu } from "@/components/ui";
 
 interface ReportsSummary {
   assetsByType: { type: string; count: number }[];
@@ -42,6 +43,78 @@ export default function ReportsPage() {
     [summary.problemsBySeverity]
   );
 
+  const exportCsv = () => {
+    const lines = ["section,label,count"];
+
+    for (const item of summary.assetsByType) {
+      lines.push(`assets_by_type,${JSON.stringify(item.type)},${item.count}`);
+    }
+
+    for (const item of summary.problemsBySeverity) {
+      lines.push(`problems_by_severity,${JSON.stringify(item.severity)},${item.count}`);
+    }
+
+    const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8" });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `reports-summary-${Date.now()}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+  };
+
+  const exportPdf = () => {
+    const win = window.open("", "_blank", "width=1100,height=800");
+    if (!win) {
+      return;
+    }
+
+    const assetsRows = summary.assetsByType
+      .map((item) => `<tr><td>${item.type}</td><td>${item.count}</td></tr>`)
+      .join("");
+    const problemsRows = summary.problemsBySeverity
+      .map((item) => `<tr><td>${item.severity}</td><td>${item.count}</td></tr>`)
+      .join("");
+
+    win.document.write(`
+      <html>
+        <head>
+          <title>Reports Summary</title>
+          <style>
+            body { font-family: Arial, sans-serif; padding: 24px; }
+            h1 { margin-bottom: 8px; }
+            h2 { margin-top: 24px; }
+            table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+            th, td { border: 1px solid #ddd; padding: 6px; text-align: left; }
+            th { background: #f5f5f5; }
+          </style>
+        </head>
+        <body>
+          <h1>Reports Summary</h1>
+          <p>Generated at ${new Date().toLocaleString()}</p>
+
+          <h2>Assets by Type</h2>
+          <table>
+            <thead><tr><th>Type</th><th>Count</th></tr></thead>
+            <tbody>${assetsRows || "<tr><td colspan='2'>No data</td></tr>"}</tbody>
+          </table>
+
+          <h2>Problems by Severity</h2>
+          <table>
+            <thead><tr><th>Severity</th><th>Count</th></tr></thead>
+            <tbody>${problemsRows || "<tr><td colspan='2'>No data</td></tr>"}</tbody>
+          </table>
+        </body>
+      </html>
+    `);
+
+    win.document.close();
+    win.focus();
+    win.print();
+  };
+
   if (!canViewReports) {
     return (
       <div className="space-y-6 animate-fade-in">
@@ -61,6 +134,10 @@ export default function ReportsPage() {
       <div>
         <h1>Reports</h1>
         <p className="text-muted-foreground text-sm mt-1">Infrastructure analytics and insights</p>
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        <ExportMenu onExportCsv={exportCsv} onExportPdf={exportPdf} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">

@@ -13,6 +13,7 @@ const settingsRoutes = require("./modules/settings/settings.routes");
 const reportsRoutes = require("./modules/reports/reports.routes");
 const notificationsRoutes = require("./modules/notifications/notifications.routes");
 const adminRoutes = require("./modules/admin/admin.routes");
+const searchRoutes = require("./modules/search/search.routes");
 
 function getRequiredEnv(name) {
   const value = process.env[name];
@@ -71,6 +72,7 @@ function createApp() {
   app.use("/reports", reportsRoutes);
   app.use("/notifications", notificationsRoutes);
   app.use("/admin", adminRoutes);
+  app.use("/search", searchRoutes);
 
   app.get("/health", (_req, res) => {
     res.send("API is running");

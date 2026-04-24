@@ -83,13 +83,18 @@ function canTransitionStatus(currentStatus, nextStatus) {
 
 async function logAudit({ actorUsername, targetUsername, action, resource, metadata }) {
   try {
+    const normalizedMetadata = {
+      type: "change",
+      ...(metadata || {})
+    };
+
     await prisma.auditLog.create({
       data: {
         actorUsername,
         targetUsername,
         action,
         resource,
-        metadata: metadata || undefined
+        metadata: normalizedMetadata
       }
     });
   } catch (_error) {

@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth";
 import { apiClient } from "@/lib/api";
 import { NotificationItem, NotificationsResponse, UserSettings } from "@/types/api";
+import { GlobalSearchResponse } from "@/types/api";
 import {
   LayoutDashboard,
   Server,
@@ -24,6 +25,7 @@ import {
   NotebookPen
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { useTheme } from "@/components/theme-provider";
 
 interface SidebarLayoutProps {
@@ -44,6 +46,10 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
   const [notificationsLoading, setNotificationsLoading] = useState(false);
   const [notificationsError, setNotificationsError] = useState<string | null>(null);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [globalQuery, setGlobalQuery] = useState("");
+  const [globalSearchLoading, setGlobalSearchLoading] = useState(false);
+  const [globalSearchOpen, setGlobalSearchOpen] = useState(false);
+  const [globalSearchResults, setGlobalSearchResults] = useState<GlobalSearchResponse | null>(null);
 
   const getUserInitials = (value?: string | null) => {
     const normalized = (value || "U").trim();
@@ -106,6 +112,64 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
       loadNotifications();
     }
   }, [notificationsOpen]);
+
+  useEffect(() => {
+    const trimmed = globalQuery.trim();
+
+    if (trimmed.length < 2) {
+      setGlobalSearchResults(null);
+      setGlobalSearchLoading(false);
+      return;
+    }
+
+    let cancelled = false;
+    const timeoutId = window.setTimeout(async () => {
+      try {
+        setGlobalSearchLoading(true);
+        const data = await apiClient.get<GlobalSearchResponse>("/search/global", { q: trimmed, limit: 12 });
+        if (!cancelled) {
+          setGlobalSearchResults(data);
+          setGlobalSearchOpen(true);
+        }
+      } catch (_error) {
+        if (!cancelled) {
+          setGlobalSearchResults({
+            query: trimmed,
+            total: 0,
+            results: [],
+            grouped: { assets: [], problems: [], incidents: [], documents: [] }
+          });
+          setGlobalSearchOpen(true);
+        }
+      } finally {
+        if (!cancelled) {
+          setGlobalSearchLoading(false);
+        }
+      }
+    }, 300);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timeoutId);
+    };
+  }, [globalQuery]);
+
+  useEffect(() => {
+    setGlobalSearchOpen(false);
+  }, [pathname]);
+
+  const groupedPreview = useMemo(() => {
+    if (!globalSearchResults) {
+      return [];
+    }
+
+    return [
+      { label: "Assets", items: globalSearchResults.grouped.assets.slice(0, 2) },
+      { label: "Problems", items: globalSearchResults.grouped.problems.slice(0, 2) },
+      { label: "Incidents", items: globalSearchResults.grouped.incidents.slice(0, 2) },
+      { label: "Documents", items: globalSearchResults.grouped.documents.slice(0, 2) }
+    ].filter((group) => group.items.length > 0);
+  }, [globalSearchResults]);
 
   const handleLogout = async () => {
     try {
@@ -199,9 +263,79 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Search assets, problems..."
+              placeholder="Search everywhere..."
+              value={globalQuery}
+              onFocus={() => {
+                if (globalQuery.trim().length >= 2) {
+                  setGlobalSearchOpen(true);
+                }
+              }}
+              onChange={(event) => setGlobalQuery(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Escape") {
+                  setGlobalSearchOpen(false);
+                  return;
+                }
+
+                if (event.key === "Enter") {
+                  const q = globalQuery.trim();
+                  if (q.length >= 2) {
+                    setGlobalSearchOpen(false);
+                    router.push(`/search?q=${encodeURIComponent(q)}`);
+                  }
+                }
+              }}
               className="w-full h-9 rounded-md border-0 bg-muted pl-9 pr-3 text-sm text-foreground focus:outline-none focus-visible:ring-1 focus-visible:ring-primary"
             />
+
+            {globalSearchOpen && (
+              <div className="absolute left-0 right-0 mt-2 rounded-md border border-border bg-card p-2 shadow-lg z-40">
+                {globalSearchLoading && (
+                  <p className="px-2 py-3 text-xs text-muted-foreground">Searching...</p>
+                )}
+
+                {!globalSearchLoading && globalSearchResults && groupedPreview.length === 0 && (
+                  <p className="px-2 py-3 text-xs text-muted-foreground">No results found.</p>
+                )}
+
+                {!globalSearchLoading && groupedPreview.length > 0 && (
+                  <div className="max-h-[320px] overflow-auto space-y-2">
+                    {groupedPreview.map((group) => (
+                      <div key={group.label}>
+                        <p className="px-2 py-1 text-[11px] uppercase tracking-wide text-muted-foreground">{group.label}</p>
+                        <div className="space-y-1">
+                          {group.items.map((item) => (
+                            <Link
+                              key={`${item.type}-${item.id}`}
+                              href={item.href}
+                              onClick={() => setGlobalSearchOpen(false)}
+                              className="block rounded-sm px-2 py-2 hover:bg-muted"
+                            >
+                              <p className="text-sm text-foreground line-clamp-1">{item.title}</p>
+                              {item.subtitle && <p className="text-xs text-muted-foreground line-clamp-1">{item.subtitle}</p>}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const q = globalQuery.trim();
+                        if (q.length >= 2) {
+                          setGlobalSearchOpen(false);
+                          router.push(`/search?q=${encodeURIComponent(q)}`);
+                        }
+                      }}
+                      className="w-full rounded-md border border-border bg-background px-2 py-2 text-xs text-foreground"
+                    >
+                      View all results
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-2 ml-auto">

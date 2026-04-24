@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import { useEffect } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { User, Shield, Bell, Plug, Key, FileText } from "lucide-react";
 import { apiClient, getApiErrorMessage } from "@/lib/api";
 import { AccessControlPayload, UserSettings, AuditLogsResponse } from "@/types/api";
 import { useAuthStore } from "@/store/auth";
 import { useTheme } from "@/components/theme-provider";
+import { ExportMenu } from "@/components/ui";
 
 const tabs = [
   { id: "profile", label: "Profile", icon: User },
@@ -29,6 +29,21 @@ export default function SettingsPage() {
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [auditSearch, setAuditSearch] = useState("");
+  const [auditActorFilter, setAuditActorFilter] = useState("");
+  const [auditActionFilter, setAuditActionFilter] = useState("");
+  const [auditResourceFilter, setAuditResourceFilter] = useState("");
+  const [auditFrom, setAuditFrom] = useState("");
+  const [auditTo, setAuditTo] = useState("");
+  const [auditTypeFilter, setAuditTypeFilter] = useState("");
+  const [auditSortBy, setAuditSortBy] = useState<"createdAt" | "actorUsername" | "action" | "resource">("createdAt");
+  const [auditSortOrder, setAuditSortOrder] = useState<"asc" | "desc">("desc");
+  const [auditPage, setAuditPage] = useState(1);
+  const [auditPageSize, setAuditPageSize] = useState(50);
+  const [expandedAuditLogId, setExpandedAuditLogId] = useState<string | null>(null);
+  const [auditActorSuggestions, setAuditActorSuggestions] = useState<string[]>([]);
+  const [auditActionSuggestions, setAuditActionSuggestions] = useState<string[]>([]);
+  const [auditResourceSuggestions, setAuditResourceSuggestions] = useState<string[]>([]);
 
   const canManageAccess = Boolean(user?.permissions?.includes("user:manage") || user?.permissions?.includes("permission:manage"));
 
@@ -69,18 +84,217 @@ export default function SettingsPage() {
 
   const loadAuditLogs = async () => {
     try {
-      const data = await apiClient.get<AuditLogsResponse>("/admin/audit-logs?limit=100");
+      const data = await apiClient.get<AuditLogsResponse>("/admin/audit-logs", {
+        limit: auditPageSize,
+        offset: (auditPage - 1) * auditPageSize,
+        q: auditSearch.trim() || undefined,
+        actor: auditActorFilter.trim() || undefined,
+        action: auditActionFilter.trim() || undefined,
+        resource: auditResourceFilter.trim() || undefined,
+        type: auditTypeFilter || undefined,
+        from: auditFrom || undefined,
+        to: auditTo || undefined,
+        sortBy: auditSortBy,
+        sortOrder: auditSortOrder
+      });
       setAuditLogs(data);
     } catch (error) {
       setError(getApiErrorMessage(error, "Failed to load audit logs"));
     }
   };
 
+  const loadAuditSuggestions = async (field: "actor" | "action" | "resource", value: string) => {
+    try {
+      const data = await apiClient.get<{ items: string[] }>("/admin/audit-logs/suggestions", {
+        field,
+        q: value.trim() || undefined,
+        limit: 10
+      });
+
+      if (field === "actor") {
+        setAuditActorSuggestions(data.items || []);
+      } else if (field === "action") {
+        setAuditActionSuggestions(data.items || []);
+      } else {
+        setAuditResourceSuggestions(data.items || []);
+      }
+    } catch (_error) {
+      if (field === "actor") {
+        setAuditActorSuggestions([]);
+      } else if (field === "action") {
+        setAuditActionSuggestions([]);
+      } else {
+        setAuditResourceSuggestions([]);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab !== "audit" || !canManageAccess) {
+      return;
+    }
+
+    const id = window.setTimeout(() => {
+      void loadAuditSuggestions("actor", auditActorFilter);
+    }, 180);
+
+    return () => window.clearTimeout(id);
+  }, [auditActorFilter, activeTab, canManageAccess]);
+
+  useEffect(() => {
+    if (activeTab !== "audit" || !canManageAccess) {
+      return;
+    }
+
+    const id = window.setTimeout(() => {
+      void loadAuditSuggestions("action", auditActionFilter);
+    }, 180);
+
+    return () => window.clearTimeout(id);
+  }, [auditActionFilter, activeTab, canManageAccess]);
+
+  useEffect(() => {
+    if (activeTab !== "audit" || !canManageAccess) {
+      return;
+    }
+
+    const id = window.setTimeout(() => {
+      void loadAuditSuggestions("resource", auditResourceFilter);
+    }, 180);
+
+    return () => window.clearTimeout(id);
+  }, [auditResourceFilter, activeTab, canManageAccess]);
+
+  useEffect(() => {
+    setAuditPage(1);
+  }, [auditSearch, auditActorFilter, auditActionFilter, auditResourceFilter, auditTypeFilter, auditFrom, auditTo, auditSortBy, auditSortOrder, auditPageSize]);
+
   useEffect(() => {
     if (activeTab === "audit" && canManageAccess) {
       loadAuditLogs();
     }
-  }, [activeTab, canManageAccess]);
+  }, [activeTab, canManageAccess, auditSearch, auditActorFilter, auditActionFilter, auditResourceFilter, auditTypeFilter, auditFrom, auditTo, auditSortBy, auditSortOrder, auditPage, auditPageSize]);
+
+  const auditTotalPages = useMemo(() => {
+    if (!auditLogs || auditPageSize <= 0) {
+      return 1;
+    }
+
+    return Math.max(1, Math.ceil(auditLogs.total / auditPageSize));
+  }, [auditLogs, auditPageSize]);
+
+  const exportAuditCsv = async () => {
+    try {
+      const params = new URLSearchParams({
+        limit: "1000",
+        format: "csv",
+        sortBy: auditSortBy,
+        sortOrder: auditSortOrder
+      });
+
+      if (auditSearch.trim()) {
+        params.set("q", auditSearch.trim());
+      }
+      if (auditActorFilter.trim()) {
+        params.set("actor", auditActorFilter.trim());
+      }
+      if (auditActionFilter.trim()) {
+        params.set("action", auditActionFilter.trim());
+      }
+      if (auditResourceFilter.trim()) {
+        params.set("resource", auditResourceFilter.trim());
+      }
+      if (auditTypeFilter) {
+        params.set("type", auditTypeFilter);
+      }
+      if (auditFrom) {
+        params.set("from", auditFrom);
+      }
+      if (auditTo) {
+        params.set("to", auditTo);
+      }
+
+      const response = await fetch(`/api/backend/admin/audit-logs?${params.toString()}`, {
+        method: "GET",
+        credentials: "include"
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to export CSV");
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `audit-logs-${Date.now()}.csv`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      setError(getApiErrorMessage(error, "Failed to export audit CSV"));
+    }
+  };
+
+  const exportAuditPdf = () => {
+    if (!auditLogs || auditLogs.logs.length === 0) {
+      return;
+    }
+
+    const rows = auditLogs.logs
+      .map(
+        (log) => `
+          <tr>
+            <td>${new Date(log.createdAt).toLocaleString()}</td>
+            <td>${log.actorUsername || "-"}</td>
+            <td>${log.action}</td>
+            <td>${log.targetUsername || "-"}</td>
+            <td>${log.resource || "-"}</td>
+          </tr>`
+      )
+      .join("");
+
+    const win = window.open("", "_blank", "width=1200,height=800");
+    if (!win) {
+      return;
+    }
+
+    win.document.write(`
+      <html>
+        <head>
+          <title>Audit Logs Export</title>
+          <style>
+            body { font-family: Arial, sans-serif; padding: 24px; }
+            h1 { margin-bottom: 8px; }
+            .meta { color: #666; margin-bottom: 16px; font-size: 12px; }
+            table { width: 100%; border-collapse: collapse; font-size: 12px; }
+            th, td { border: 1px solid #ddd; padding: 6px; text-align: left; vertical-align: top; }
+            th { background: #f5f5f5; }
+          </style>
+        </head>
+        <body>
+          <h1>Audit Logs</h1>
+          <div class="meta">Generated at ${new Date().toLocaleString()}</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Actor</th>
+                <th>Action</th>
+                <th>Target</th>
+                <th>Resource</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </body>
+      </html>
+    `);
+    win.document.close();
+    win.focus();
+    win.print();
+  };
 
   const saveSettings = async (next: UserSettings) => {
     try {
@@ -568,40 +782,210 @@ export default function SettingsPage() {
 
               {canManageAccess && auditLogs && (
                 <div className="space-y-3">
-                  <p className="text-xs text-muted-foreground">{auditLogs.total} total audit log entries</p>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                    <input
+                      value={auditSearch}
+                      onChange={(event) => setAuditSearch(event.target.value)}
+                      placeholder="Search actor/action/resource"
+                      className="h-9 rounded-md border border-input bg-background px-3 text-sm"
+                    />
+                    <input
+                      value={auditActorFilter}
+                      onChange={(event) => setAuditActorFilter(event.target.value)}
+                      list="audit-actor-suggestions"
+                      placeholder="Filter actor"
+                      className="h-9 rounded-md border border-input bg-background px-3 text-sm"
+                    />
+                    <input
+                      value={auditActionFilter}
+                      onChange={(event) => setAuditActionFilter(event.target.value)}
+                      list="audit-action-suggestions"
+                      placeholder="Filter action"
+                      className="h-9 rounded-md border border-input bg-background px-3 text-sm"
+                    />
+                    <input
+                      value={auditResourceFilter}
+                      onChange={(event) => setAuditResourceFilter(event.target.value)}
+                      list="audit-resource-suggestions"
+                      placeholder="Filter resource"
+                      className="h-9 rounded-md border border-input bg-background px-3 text-sm"
+                    />
+                    <select
+                      value={auditTypeFilter}
+                      onChange={(event) => setAuditTypeFilter(event.target.value)}
+                      className="h-9 rounded-md border border-input bg-background px-3 text-sm"
+                    >
+                      <option value="">All event types</option>
+                      <option value="access">Access events</option>
+                      <option value="change">Change events</option>
+                    </select>
+                    <input
+                      type="date"
+                      value={auditFrom}
+                      onChange={(event) => setAuditFrom(event.target.value)}
+                      className="h-9 rounded-md border border-input bg-background px-3 text-sm"
+                    />
+                    <input
+                      type="date"
+                      value={auditTo}
+                      onChange={(event) => setAuditTo(event.target.value)}
+                      className="h-9 rounded-md border border-input bg-background px-3 text-sm"
+                    />
+                  </div>
+
+                  <datalist id="audit-actor-suggestions">
+                    {auditActorSuggestions.map((item) => (
+                      <option key={item} value={item} />
+                    ))}
+                  </datalist>
+                  <datalist id="audit-action-suggestions">
+                    {auditActionSuggestions.map((item) => (
+                      <option key={item} value={item} />
+                    ))}
+                  </datalist>
+                  <datalist id="audit-resource-suggestions">
+                    {auditResourceSuggestions.map((item) => (
+                      <option key={item} value={item} />
+                    ))}
+                  </datalist>
+
+                  <div className="flex flex-wrap items-center gap-2">
+                    <select
+                      title="Sort audit logs"
+                      value={auditSortBy}
+                      onChange={(event) => setAuditSortBy(event.target.value as "createdAt" | "actorUsername" | "action" | "resource")}
+                      className="h-8 rounded-md border border-border bg-background px-2 text-xs"
+                    >
+                      <option value="createdAt">Sort by date</option>
+                      <option value="actorUsername">Sort by actor</option>
+                      <option value="action">Sort by action</option>
+                      <option value="resource">Sort by resource</option>
+                    </select>
+                    <select
+                      title="Sort order"
+                      value={auditSortOrder}
+                      onChange={(event) => setAuditSortOrder(event.target.value as "asc" | "desc")}
+                      className="h-8 rounded-md border border-border bg-background px-2 text-xs"
+                    >
+                      <option value="desc">Newest first</option>
+                      <option value="asc">Oldest first</option>
+                    </select>
+                    <ExportMenu
+                      onExportCsv={exportAuditCsv}
+                      onExportPdf={exportAuditPdf}
+                      label="Export"
+                      className=""
+                      menuClassName="text-xs"
+                    />
+                  </div>
+
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-muted-foreground">
+                    <p>{auditLogs.total} total audit log entries</p>
+                    <div className="flex items-center gap-2">
+                      <span>Rows</span>
+                      <select
+                        title="Rows per page"
+                        value={auditPageSize}
+                        onChange={(event) => setAuditPageSize(parseInt(event.target.value, 10) || 50)}
+                        className="h-8 rounded-md border border-border bg-background px-2 text-xs"
+                      >
+                        <option value={25}>25</option>
+                        <option value={50}>50</option>
+                        <option value={100}>100</option>
+                        <option value={200}>200</option>
+                      </select>
+                    </div>
+                  </div>
                   <div className="overflow-auto border border-border rounded-lg">
                     <table className="w-full text-sm">
                       <thead className="bg-muted sticky top-0">
                         <tr>
-                          <th className="px-3 py-2 text-left font-medium">Date</th>
-                          <th className="px-3 py-2 text-left font-medium">Actor</th>
-                          <th className="px-3 py-2 text-left font-medium">Action</th>
+                          <th className="px-3 py-2 text-left font-medium">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setAuditSortBy("createdAt");
+                                setAuditSortOrder((prev) => (auditSortBy === "createdAt" ? (prev === "asc" ? "desc" : "asc") : "desc"));
+                              }}
+                              className="inline-flex items-center gap-1"
+                            >
+                              Date {auditSortBy === "createdAt" ? (auditSortOrder === "asc" ? "↑" : "↓") : ""}
+                            </button>
+                          </th>
+                          <th className="px-3 py-2 text-left font-medium">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setAuditSortBy("actorUsername");
+                                setAuditSortOrder((prev) => (auditSortBy === "actorUsername" ? (prev === "asc" ? "desc" : "asc") : "asc"));
+                              }}
+                              className="inline-flex items-center gap-1"
+                            >
+                              Actor {auditSortBy === "actorUsername" ? (auditSortOrder === "asc" ? "↑" : "↓") : ""}
+                            </button>
+                          </th>
+                          <th className="px-3 py-2 text-left font-medium">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setAuditSortBy("action");
+                                setAuditSortOrder((prev) => (auditSortBy === "action" ? (prev === "asc" ? "desc" : "asc") : "asc"));
+                              }}
+                              className="inline-flex items-center gap-1"
+                            >
+                              Action {auditSortBy === "action" ? (auditSortOrder === "asc" ? "↑" : "↓") : ""}
+                            </button>
+                          </th>
                           <th className="px-3 py-2 text-left font-medium">Target</th>
-                          <th className="px-3 py-2 text-left font-medium">Resource</th>
+                          <th className="px-3 py-2 text-left font-medium">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setAuditSortBy("resource");
+                                setAuditSortOrder((prev) => (auditSortBy === "resource" ? (prev === "asc" ? "desc" : "asc") : "asc"));
+                              }}
+                              className="inline-flex items-center gap-1"
+                            >
+                              Resource {auditSortBy === "resource" ? (auditSortOrder === "asc" ? "↑" : "↓") : ""}
+                            </button>
+                          </th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-border">
                         {auditLogs.logs.length > 0 ? (
                           auditLogs.logs.map((log) => (
-                            <tr key={log.id} className="hover:bg-muted/50">
-                              <td className="px-3 py-2 text-xs">
-                                {new Date(log.createdAt).toLocaleString()}
-                              </td>
-                              <td className="px-3 py-2 text-xs font-mono">
-                                {log.actorUsername || "—"}
-                              </td>
-                              <td className="px-3 py-2 text-xs">
-                                <span className="inline-block px-2 py-1 rounded bg-slate-100 text-slate-800">
-                                  {log.action}
-                                </span>
-                              </td>
-                              <td className="px-3 py-2 text-xs font-mono">
-                                {log.targetUsername || "—"}
-                              </td>
-                              <td className="px-3 py-2 text-xs truncate max-w-xs" title={log.resource || ""}>
-                                {log.resource || "—"}
-                              </td>
-                            </tr>
+                            <Fragment key={log.id}>
+                              <tr
+                                className="hover:bg-muted/50 cursor-pointer"
+                                onClick={() => setExpandedAuditLogId((prev) => (prev === log.id ? null : log.id))}
+                              >
+                                <td className="px-3 py-2 text-xs">
+                                  {new Date(log.createdAt).toLocaleString()}
+                                </td>
+                                <td className="px-3 py-2 text-xs font-mono">
+                                  {log.actorUsername || "—"}
+                                </td>
+                                <td className="px-3 py-2 text-xs">
+                                  <span className="inline-block px-2 py-1 rounded bg-slate-100 text-slate-800">
+                                    {log.action}
+                                  </span>
+                                </td>
+                                <td className="px-3 py-2 text-xs font-mono">
+                                  {log.targetUsername || "—"}
+                                </td>
+                                <td className="px-3 py-2 text-xs truncate max-w-xs" title={log.resource || ""}>
+                                  {log.resource || "—"}
+                                </td>
+                              </tr>
+                              {expandedAuditLogId === log.id && (
+                                <tr className="bg-muted/30">
+                                  <td colSpan={5} className="px-3 py-2 text-xs">
+                                    <p className="font-semibold text-foreground mb-1">Metadata</p>
+                                    <pre className="rounded-md border border-border bg-background p-2 overflow-auto max-h-56">{JSON.stringify(log.metadata || {}, null, 2)}</pre>
+                                  </td>
+                                </tr>
+                              )}
+                            </Fragment>
                           ))
                         ) : (
                           <tr>
@@ -612,6 +996,28 @@ export default function SettingsPage() {
                         )}
                       </tbody>
                     </table>
+                  </div>
+
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <p className="text-xs text-muted-foreground">Page {auditPage} of {auditTotalPages}</p>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setAuditPage((prev) => Math.max(1, prev - 1))}
+                        disabled={auditPage <= 1}
+                        className="h-8 px-3 rounded-md border border-border bg-background text-xs disabled:opacity-50"
+                      >
+                        Previous
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setAuditPage((prev) => Math.min(auditTotalPages, prev + 1))}
+                        disabled={auditPage >= auditTotalPages}
+                        className="h-8 px-3 rounded-md border border-border bg-background text-xs disabled:opacity-50"
+                      >
+                        Next
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}

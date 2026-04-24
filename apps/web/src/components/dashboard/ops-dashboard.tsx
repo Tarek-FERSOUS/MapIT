@@ -46,6 +46,7 @@ import {
   buildServiceHealth,
   buildUptimeHeatmap
 } from "@/lib/dashboard-transformers";
+import { ExportMenu } from "@/components/ui";
 
 type WidgetId =
   | "incident-trends"
@@ -64,6 +65,8 @@ interface OpsDashboardProps {
   onAddAsset: () => void;
   onLogProblem: () => void;
   onViewProblems: () => void;
+  onExportCsv: () => void;
+  onExportPdf: () => void;
 }
 
 interface DashboardLayout {
@@ -169,7 +172,7 @@ function loadLayout(): DashboardLayout {
   }
 }
 
-export function OpsDashboard({ summary, assets, problems, onAddAsset, onLogProblem, onViewProblems }: OpsDashboardProps) {
+export function OpsDashboard({ summary, assets, problems, onAddAsset, onLogProblem, onViewProblems, onExportCsv, onExportPdf }: OpsDashboardProps) {
   const [layout, setLayout] = useState<DashboardLayout>(() => loadLayout());
 
   const incidentTrends = useMemo(() => buildIncidentTrends(summary), [summary]);
@@ -436,6 +439,7 @@ export function OpsDashboard({ summary, assets, problems, onAddAsset, onLogProbl
             <button className="h-8 px-3 inline-flex items-center rounded-md bg-primary text-primary-foreground text-sm" onClick={onLogProblem}>
               <FileText className="mr-1.5 h-3.5 w-3.5" /> Log Problem
             </button>
+            <ExportMenu onExportCsv={onExportCsv} onExportPdf={onExportPdf} />
           </div>
         </div>
       </div>

@@ -13,6 +13,8 @@ export { LoadingSpinner, EmptyState, ErrorAlert, Card } from './util-components'
 export { Modal, useModal } from './modal';
 export type { ModalProps } from './modal';
 
+export { ExportMenu } from './export-menu';
+
 export { Pagination, Breadcrumb } from './pagination';
 export type { PaginationProps, BreadcrumbProps, PaginationMeta } from './pagination';
 
