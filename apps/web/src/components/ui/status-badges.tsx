@@ -5,13 +5,15 @@ import React from 'react';
  * Status badge component for incidents
  */
 export interface IncidentStatusBadgeProps {
-  status: 'open' | 'in_progress' | 'resolved' | 'closed';
+  status: 'open' | 'in_progress' | 'blocked' | 'resolved' | 'closed' | 'OPEN' | 'IN_PROGRESS' | 'BLOCKED' | 'RESOLVED' | 'CLOSED';
 }
 
 export function IncidentStatusBadge({ status }: IncidentStatusBadgeProps) {
+  const normalized = String(status).toLowerCase();
   const variants: Record<string, 'default' | 'success' | 'warning' | 'error' | 'info' | 'primary'> = {
     open: 'error',
     in_progress: 'warning',
+    blocked: 'warning',
     resolved: 'success',
     closed: 'default',
   };
@@ -19,15 +21,39 @@ export function IncidentStatusBadge({ status }: IncidentStatusBadgeProps) {
   const labels: Record<string, string> = {
     open: 'Open',
     in_progress: 'In Progress',
+    blocked: 'Blocked',
     resolved: 'Resolved',
     closed: 'Closed',
   };
 
   return (
-    <Badge variant={variants[status] || 'default'}>
-      {labels[status] || status}
+    <Badge variant={variants[normalized] || 'default'}>
+      {labels[normalized] || String(status).replace(/_/g, ' ')}
     </Badge>
   );
+}
+
+export interface IncidentPriorityBadgeProps {
+  priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL' | 'low' | 'medium' | 'high' | 'critical';
+}
+
+export function IncidentPriorityBadge({ priority }: IncidentPriorityBadgeProps) {
+  const normalized = String(priority).toLowerCase();
+  const variants: Record<string, 'default' | 'success' | 'warning' | 'error' | 'info' | 'primary'> = {
+    low: 'info',
+    medium: 'warning',
+    high: 'error',
+    critical: 'primary'
+  };
+
+  const labels: Record<string, string> = {
+    low: 'Low',
+    medium: 'Medium',
+    high: 'High',
+    critical: 'Critical'
+  };
+
+  return <Badge variant={variants[normalized] || 'default'}>{labels[normalized] || String(priority)}</Badge>;
 }
 
 /**

@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { AlertCircle, Plus } from "lucide-react";
 import { apiClient, getApiErrorMessage } from "@/lib/api";
 import { Incident } from "@/types/api";
-import { ErrorAlert, LoadingSpinner, EmptyState } from "@/components/ui";
+import { ErrorAlert, LoadingSpinner, EmptyState, IncidentPriorityBadge, IncidentStatusBadge } from "@/components/ui";
 import { formatDateTime } from "@/lib/formatting";
 import { useAuthStore } from "@/store/auth";
 
@@ -52,23 +52,23 @@ export default function IncidentsPage() {
   }, [incidents, search]);
 
   return (
-    <div className="container py-8 space-y-6">
+    <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">Incidents</h1>
-          <p className="text-slate-600 mt-2">Track and manage active incidents.</p>
+          <h1>Incidents</h1>
+          <p className="text-muted-foreground text-sm mt-1">Track, assign, and resolve operational incidents.</p>
         </div>
         {canCreate && (
-          <Link href="/incidents/new" className="btn btn-primary inline-flex gap-2">
+          <Link href="/incidents/new" className="h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm inline-flex items-center gap-2">
             <Plus className="h-4 w-4" />
             New Incident
           </Link>
         )}
       </div>
 
-      <div className="card">
+      <div className="kpi-shadow border border-border/50 rounded-lg bg-card p-3">
         <input
-          className="input"
+          className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
           placeholder="Search incidents by title or description"
           value={search}
           onChange={(event) => setSearch(event.target.value)}
@@ -78,7 +78,7 @@ export default function IncidentsPage() {
       {error && <ErrorAlert message={error} onDismiss={() => setError(null)} />}
 
       {isLoading ? (
-        <div className="card py-12">
+        <div className="kpi-shadow border border-border/50 rounded-lg bg-card py-12">
           <LoadingSpinner />
         </div>
       ) : filtered.length === 0 ? (
@@ -98,18 +98,24 @@ export default function IncidentsPage() {
             <Link
               key={incident.id}
               href={`/incidents/${incident.id}`}
-              className="card hover:shadow-md transition-shadow"
+              className="kpi-shadow border border-border/50 rounded-lg bg-card p-4 hover:border-primary/40 transition-colors"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="space-y-2">
-                  <h2 className="text-lg font-semibold text-slate-900">{incident.title}</h2>
-                  <p className="text-sm text-slate-600 line-clamp-2">{incident.description}</p>
+                  <h2 className="text-base font-semibold text-foreground">{incident.title}</h2>
+                  <p className="text-sm text-muted-foreground line-clamp-2">{incident.description}</p>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <IncidentStatusBadge status={incident.status} />
+                    <IncidentPriorityBadge priority={incident.priority} />
+                    {incident.assignedTo && (
+                      <span className="text-xs text-muted-foreground">
+                        Assigned to {incident.assignedTo.username}
+                      </span>
+                    )}
+                  </div>
                 </div>
-                <span className="inline-flex items-center rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-800">
-                  Open
-                </span>
               </div>
-              <p className="mt-4 text-xs text-slate-500">Created {formatDateTime(incident.createdAt)}</p>
+              <p className="mt-3 text-xs text-muted-foreground">Created {formatDateTime(incident.createdAt)}</p>
             </Link>
           ))}
         </div>

@@ -67,11 +67,60 @@ export interface AuditLogsResponse {
   offset: number;
 }
 
+export type IncidentStatus = "OPEN" | "IN_PROGRESS" | "BLOCKED" | "RESOLVED" | "CLOSED";
+
+export type IncidentPriority = "LOW" | "MEDIUM" | "HIGH" | "CRITICAL";
+
+export interface IncidentAssignee {
+  id: string;
+  username: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  email?: string | null;
+}
+
 export interface Incident {
   id: string;
   title: string;
   description: string;
+  status: IncidentStatus;
+  priority: IncidentPriority;
+  assignedTeam?: string | null;
+  assignedTo?: IncidentAssignee | null;
   createdAt: string;
+}
+
+export type KnowledgeSuggestionSourceType = "incident" | "problem";
+
+export interface KnowledgeSuggestion {
+  sourceType: KnowledgeSuggestionSourceType;
+  sourceId: string;
+  title: string;
+  description: string;
+  solution?: string | null;
+  status?: string | null;
+  priority?: string | null;
+  createdAt: string;
+  resolvedAt?: string | null;
+  score: number;
+  helpfulCount: number;
+  notHelpfulCount: number;
+  helpfulRate: number;
+  reason: string;
+}
+
+export interface KnowledgeSuggestionResponse {
+  incidentId?: string | null;
+  query: {
+    title: string;
+    description: string;
+  };
+  solutions: KnowledgeSuggestion[];
+  similarIncidents: KnowledgeSuggestion[];
+}
+
+export interface KnowledgeFeedbackResponse {
+  success: boolean;
 }
 
 export interface Document {

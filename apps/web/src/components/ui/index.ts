@@ -18,12 +18,14 @@ export type { PaginationProps, BreadcrumbProps, PaginationMeta } from './paginat
 
 export {
   IncidentStatusBadge,
+  IncidentPriorityBadge,
   SeverityBadge,
   RoleBadge,
   DocumentTypeBadge,
 } from './status-badges';
 export type {
   IncidentStatusBadgeProps,
+  IncidentPriorityBadgeProps,
   SeverityBadgeProps,
   RoleBadgeProps,
   DocumentTypeBadgeProps,

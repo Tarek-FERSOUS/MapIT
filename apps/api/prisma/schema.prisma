@@ -21,14 +21,22 @@ model User {
   settings  UserSettings?
   userRoles UserRole[]
   permissionOverrides UserPermission[]
+  assignedIncidents Incident[] @relation("IncidentAssignee")
+  knowledgeFeedback IncidentKnowledgeFeedback[]
   createdAt DateTime @default(now())
 }
 
 model Incident {
-  id          String   @id @default(uuid())
-  title       String
-  description String
-  createdAt   DateTime @default(now())
+  id               String           @id @default(uuid())
+  title            String
+  description      String
+  status           IncidentStatus   @default(OPEN)
+  priority         IncidentPriority @default(MEDIUM)
+  assignedTeam     String?
+  assignedToUserId  String?
+  assignedTo       User?            @relation("IncidentAssignee", fields: [assignedToUserId], references: [id], onDelete: SetNull)
+  knowledgeFeedback IncidentKnowledgeFeedback[]
+  createdAt        DateTime         @default(now())
 }
 
 model Document {
@@ -166,5 +174,38 @@ model AuditLog {
   resource       String?
   metadata       Json?
   createdAt      DateTime @default(now())
+}
+
+model IncidentKnowledgeFeedback {
+  id         String   @id @default(uuid())
+  incidentId String
+  sourceType String
+  sourceId   String
+  userId     String
+  helpful    Boolean
+  createdAt  DateTime @default(now())
+
+  incident Incident @relation(fields: [incidentId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([incidentId, sourceType, sourceId, userId])
+  @@index([incidentId])
+  @@index([sourceType, sourceId])
+  @@index([userId])
+}
+
+enum IncidentStatus {
+  OPEN
+  IN_PROGRESS
+  BLOCKED
+  RESOLVED
+  CLOSED
+}
+
+enum IncidentPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
 }
 

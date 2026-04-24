@@ -60,22 +60,54 @@ router.post("/", requirePermission(["problem:create"]), async (req, res) => {
 });
 
 router.patch("/:id", requirePermission(["problem:update"]), async (req, res) => {
+  const updates = {};
+
+  if (Object.prototype.hasOwnProperty.call(req.body || {}, "title")) {
+    const nextTitle = String(req.body.title || "").trim();
+    if (!nextTitle) {
+      return res.status(400).json({ error: "title cannot be empty" });
+    }
+    updates.title = nextTitle;
+  }
+
+  if (Object.prototype.hasOwnProperty.call(req.body || {}, "description")) {
+    const nextDescription = String(req.body.description || "").trim();
+    if (!nextDescription) {
+      return res.status(400).json({ error: "description cannot be empty" });
+    }
+    updates.description = nextDescription;
+  }
+
+  if (Array.isArray(req.body?.affectedAssets)) {
+    updates.affectedAssets = req.body.affectedAssets.map(String);
+  }
+
+  if (Object.prototype.hasOwnProperty.call(req.body || {}, "severity")) {
+    updates.severity = String(req.body.severity);
+  }
+
+  if (Object.prototype.hasOwnProperty.call(req.body || {}, "status")) {
+    updates.status = String(req.body.status);
+    if (updates.status === "resolved") {
+      updates.resolvedAt = req.body.resolvedAt ? new Date(req.body.resolvedAt) : new Date();
+    } else {
+      updates.resolvedAt = null;
+    }
+  }
+
+  if (Object.prototype.hasOwnProperty.call(req.body || {}, "solution")) {
+    const nextSolution = String(req.body.solution || "").trim();
+    updates.solution = nextSolution || null;
+  }
+
+  if (Object.keys(updates).length === 0) {
+    return res.status(400).json({ error: "No fields to update" });
+  }
+
   try {
     const problem = await prisma.problem.update({
       where: { id: req.params.id },
-      data: {
-        ...(req.body.title ? { title: String(req.body.title) } : {}),
-        ...(req.body.description ? { description: String(req.body.description) } : {}),
-        ...(Array.isArray(req.body.affectedAssets) ? { affectedAssets: req.body.affectedAssets.map(String) } : {}),
-        ...(req.body.severity ? { severity: String(req.body.severity) } : {}),
-        ...(req.body.status ? { status: String(req.body.status) } : {}),
-        ...(req.body.solution ? { solution: String(req.body.solution) } : {}),
-        ...(req.body.status === "resolved"
-          ? { resolvedAt: req.body.resolvedAt ? new Date(req.body.resolvedAt) : new Date() }
-          : req.body.status
-          ? { resolvedAt: null }
-          : {})
-      }
+      data: updates
     });
 
     res.json(problem);

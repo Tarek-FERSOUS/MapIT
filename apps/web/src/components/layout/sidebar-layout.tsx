@@ -9,6 +9,7 @@ import {
   LayoutDashboard,
   Server,
   AlertTriangle,
+  AlertCircle,
   Share2,
   BarChart3,
   Settings,
@@ -19,7 +20,8 @@ import {
   Bell,
   User,
   Moon,
-  Sun
+  Sun,
+  NotebookPen
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTheme } from "@/components/theme-provider";
@@ -128,8 +130,13 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
     },
     {
       href: "/problems",
-      label: "Problems",
-      icon: AlertTriangle
+      label: "Knowledge Base",
+      icon: NotebookPen
+    },
+    {
+      href: "/incidents",
+      label: "Incidents",
+      icon: AlertCircle
     },
     {
       href: "/relationships",

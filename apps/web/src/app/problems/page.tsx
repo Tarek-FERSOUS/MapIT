@@ -9,9 +9,13 @@ import { useAuthStore } from "@/store/auth";
 
 export default function ProblemsPage() {
   const user = useAuthStore((state) => state.user);
-  const canCreate = Boolean(user?.permissions?.includes("problem:create"));
-  const canUpdate = Boolean(user?.permissions?.includes("problem:update"));
-  const canDelete = Boolean(user?.permissions?.includes("problem:delete"));
+  const isAdmin = Boolean(
+    user?.role?.toLowerCase?.() === "admin" ||
+    user?.roles?.some((role) => role.key?.toLowerCase?.() === "admin" || role.name?.toLowerCase?.() === "admin")
+  );
+  const canCreate = Boolean(isAdmin || user?.permissions?.includes("problem:create"));
+  const canUpdate = Boolean(isAdmin || user?.permissions?.includes("problem:update"));
+  const canDelete = Boolean(isAdmin || user?.permissions?.includes("problem:delete"));
   
   const [problems, setProblems] = useState<Problem[]>([]);
   const [assets, setAssets] = useState<Asset[]>([]);
@@ -23,7 +27,19 @@ export default function ProblemsPage() {
   const [severityFilter, setSeverityFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [isEditingSelected, setIsEditingSelected] = useState(false);
+  const [isUpdatingSelected, setIsUpdatingSelected] = useState(false);
+  const [isDeletingSelected, setIsDeletingSelected] = useState(false);
+  const [selectedActionError, setSelectedActionError] = useState<string | null>(null);
   const [form, setForm] = useState({
+    title: "",
+    description: "",
+    severity: "medium" as Problem["severity"],
+    status: "open" as Problem["status"],
+    solution: "",
+    affectedAssets: [] as string[]
+  });
+  const [selectedForm, setSelectedForm] = useState({
     title: "",
     description: "",
     severity: "medium" as Problem["severity"],
@@ -91,6 +107,33 @@ export default function ProblemsPage() {
 
   const selected = useMemo(() => problems.find((problem) => problem.id === selectedId), [problems, selectedId]);
 
+  useEffect(() => {
+    if (!selected) {
+      setIsEditingSelected(false);
+      setSelectedActionError(null);
+      setSelectedForm({
+        title: "",
+        description: "",
+        severity: "medium",
+        status: "open",
+        solution: "",
+        affectedAssets: []
+      });
+      return;
+    }
+
+    setIsEditingSelected(false);
+    setSelectedActionError(null);
+    setSelectedForm({
+      title: selected.title,
+      description: selected.description,
+      severity: selected.severity,
+      status: selected.status,
+      solution: selected.solution || "",
+      affectedAssets: selected.affectedAssets
+    });
+  }, [selected]);
+
   const assetNameById = useMemo(() => {
     const nameMap: Record<string, string> = {};
     assets.forEach((asset) => {
@@ -101,6 +144,18 @@ export default function ProblemsPage() {
 
   const toggleAffectedAsset = (assetId: string) => {
     setForm((previous) => {
+      const exists = previous.affectedAssets.includes(assetId);
+      return {
+        ...previous,
+        affectedAssets: exists
+          ? previous.affectedAssets.filter((id) => id !== assetId)
+          : [...previous.affectedAssets, assetId]
+      };
+    });
+  };
+
+  const toggleSelectedAffectedAsset = (assetId: string) => {
+    setSelectedForm((previous) => {
       const exists = previous.affectedAssets.includes(assetId);
       return {
         ...previous,
@@ -146,6 +201,62 @@ export default function ProblemsPage() {
       setCreateError(getApiErrorMessage(err, "Failed to create problem"));
     } finally {
       setCreating(false);
+    }
+  };
+
+  const handleUpdateSelectedProblem = async () => {
+    if (!selected || !canUpdate) {
+      return;
+    }
+
+    try {
+      setIsUpdatingSelected(true);
+      setSelectedActionError(null);
+
+      const updated = await apiClient.patch<Problem>(`/problems/${selected.id}`, {
+        title: selectedForm.title,
+        description: selectedForm.description,
+        severity: selectedForm.severity,
+        status: selectedForm.status,
+        solution: selectedForm.solution,
+        affectedAssets: selectedForm.affectedAssets
+      });
+
+      setProblems((previous) => previous.map((problem) => (problem.id === updated.id ? updated : problem)));
+      setIsEditingSelected(false);
+    } catch (err) {
+      setSelectedActionError(getApiErrorMessage(err, "Failed to update problem"));
+    } finally {
+      setIsUpdatingSelected(false);
+    }
+  };
+
+  const handleDeleteSelectedProblem = async () => {
+    if (!selected || !canDelete) {
+      return;
+    }
+
+    const shouldDelete = window.confirm(`Delete problem \"${selected.title}\"? This cannot be undone.`);
+    if (!shouldDelete) {
+      return;
+    }
+
+    try {
+      setIsDeletingSelected(true);
+      setSelectedActionError(null);
+
+      await apiClient.delete(`/problems/${selected.id}`);
+
+      const deletedId = selected.id;
+      setProblems((previous) => {
+        const remaining = previous.filter((problem) => problem.id !== deletedId);
+        setSelectedId((current) => (current === deletedId ? (remaining.length > 0 ? remaining[0].id : null) : current));
+        return remaining;
+      });
+    } catch (err) {
+      setSelectedActionError(getApiErrorMessage(err, "Failed to delete problem"));
+    } finally {
+      setIsDeletingSelected(false);
     }
   };
 
@@ -391,27 +502,176 @@ export default function ProblemsPage() {
                   </p>
                 </div>
 
-                <div>
-                  <h3 className="text-sm font-semibold text-foreground mb-1">Description</h3>
-                  <p className="text-sm text-muted-foreground">{selected.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {canUpdate && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsEditingSelected((previous) => !previous);
+                        setSelectedActionError(null);
+                      }}
+                      className="h-8 px-3 rounded-md border border-border bg-background text-sm"
+                    >
+                      {isEditingSelected ? "Cancel Edit" : "Edit Problem"}
+                    </button>
+                  )}
+                  {canDelete && (
+                    <button
+                      type="button"
+                      disabled={isDeletingSelected}
+                      onClick={() => void handleDeleteSelectedProblem()}
+                      className="h-8 px-3 rounded-md border border-destructive/40 bg-destructive/10 text-destructive text-sm disabled:opacity-60"
+                    >
+                      {isDeletingSelected ? "Deleting..." : "Delete Problem"}
+                    </button>
+                  )}
                 </div>
 
-                <div>
-                  <h3 className="text-sm font-semibold text-foreground mb-1">Affected Assets</h3>
-                  <div className="flex flex-wrap gap-1.5">
-                    {selected.affectedAssets.map((assetId) => (
-                      <span key={assetId} className="text-xs px-2 py-0.5 rounded-full bg-muted">
-                        {assetNameById[assetId] || assetId}
-                      </span>
-                    ))}
+                {selectedActionError && (
+                  <div className="rounded-md border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive">
+                    {selectedActionError}
                   </div>
-                </div>
+                )}
 
-                {selected.solution && (
-                  <div className="p-4 rounded-lg bg-accent/5 border border-accent/15">
-                    <h3 className="text-sm font-semibold text-accent mb-1">✓ Solution</h3>
-                    <p className="text-sm text-foreground">{selected.solution}</p>
+                {isEditingSelected && canUpdate ? (
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="sm:col-span-2">
+                        <label className="text-xs text-muted-foreground">Title</label>
+                        <input
+                          value={selectedForm.title}
+                          onChange={(event) => setSelectedForm((previous) => ({ ...previous, title: event.target.value }))}
+                          className="mt-1 w-full h-9 rounded-md border border-border bg-background px-3 text-sm"
+                        />
+                      </div>
+                      <div className="sm:col-span-2">
+                        <label className="text-xs text-muted-foreground">Description</label>
+                        <textarea
+                          value={selectedForm.description}
+                          onChange={(event) => setSelectedForm((previous) => ({ ...previous, description: event.target.value }))}
+                          className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
+                          rows={3}
+                        />
+                      </div>
+                      <div>
+                        <label className="text-xs text-muted-foreground">Severity</label>
+                        <select
+                          value={selectedForm.severity}
+                          onChange={(event) =>
+                            setSelectedForm((previous) => ({ ...previous, severity: event.target.value as Problem["severity"] }))
+                          }
+                          className="mt-1 w-full h-9 rounded-md border border-border bg-background px-3 text-sm"
+                        >
+                          <option value="critical">Critical</option>
+                          <option value="high">High</option>
+                          <option value="medium">Medium</option>
+                          <option value="low">Low</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="text-xs text-muted-foreground">Status</label>
+                        <select
+                          value={selectedForm.status}
+                          onChange={(event) =>
+                            setSelectedForm((previous) => ({ ...previous, status: event.target.value as Problem["status"] }))
+                          }
+                          className="mt-1 w-full h-9 rounded-md border border-border bg-background px-3 text-sm"
+                        >
+                          <option value="open">Open</option>
+                          <option value="investigating">Investigating</option>
+                          <option value="in-progress">In Progress</option>
+                          <option value="resolved">Resolved</option>
+                        </select>
+                      </div>
+                      <div className="sm:col-span-2">
+                        <label className="text-xs text-muted-foreground">Solution</label>
+                        <textarea
+                          value={selectedForm.solution}
+                          onChange={(event) => setSelectedForm((previous) => ({ ...previous, solution: event.target.value }))}
+                          className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
+                          rows={2}
+                        />
+                        <p className="text-xs text-muted-foreground mt-1">Leave blank to remove an existing solution.</p>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-sm font-semibold text-foreground mb-1">Affected Assets</h3>
+                      {assets.length === 0 ? (
+                        <p className="text-xs text-muted-foreground">No assets available.</p>
+                      ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-44 overflow-auto p-2 border border-border/50 rounded-md">
+                          {assets.map((asset) => (
+                            <label key={asset.id} className="flex items-center gap-2 text-sm">
+                              <input
+                                type="checkbox"
+                                checked={selectedForm.affectedAssets.includes(asset.id)}
+                                onChange={() => toggleSelectedAffectedAsset(asset.id)}
+                              />
+                              <span>{asset.name}</span>
+                            </label>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        disabled={isUpdatingSelected}
+                        onClick={() => void handleUpdateSelectedProblem()}
+                        className="h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm disabled:opacity-60"
+                      >
+                        {isUpdatingSelected ? "Saving..." : "Save Changes"}
+                      </button>
+                      <button
+                        type="button"
+                        className="h-9 px-4 rounded-md border border-border bg-background text-sm"
+                        onClick={() => {
+                          setIsEditingSelected(false);
+                          setSelectedActionError(null);
+                          if (!selected) {
+                            return;
+                          }
+                          setSelectedForm({
+                            title: selected.title,
+                            description: selected.description,
+                            severity: selected.severity,
+                            status: selected.status,
+                            solution: selected.solution || "",
+                            affectedAssets: selected.affectedAssets
+                          });
+                        }}
+                      >
+                        Cancel
+                      </button>
+                    </div>
                   </div>
+                ) : (
+                  <>
+                    <div>
+                      <h3 className="text-sm font-semibold text-foreground mb-1">Description</h3>
+                      <p className="text-sm text-muted-foreground">{selected.description}</p>
+                    </div>
+
+                    <div>
+                      <h3 className="text-sm font-semibold text-foreground mb-1">Affected Assets</h3>
+                      <div className="flex flex-wrap gap-1.5">
+                        {selected.affectedAssets.map((assetId) => (
+                          <span key={assetId} className="text-xs px-2 py-0.5 rounded-full bg-muted">
+                            {assetNameById[assetId] || assetId}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {selected.solution && (
+                      <div className="p-4 rounded-lg bg-accent/5 border border-accent/15">
+                        <h3 className="text-sm font-semibold text-accent mb-1">✓ Solution</h3>
+                        <p className="text-sm text-foreground">{selected.solution}</p>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             ) : (
