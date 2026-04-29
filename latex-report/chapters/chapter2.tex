@@ -1,0 +1,41 @@
+\chapter{Study of Existing Solutions}
+
+\section{Introduction}
+This chapter reviews existing tools and platforms that address part or all of the problem space targeted by MapIT. The purpose of the study is not only to list popular software, but also to understand how current products handle documentation, incident traceability, collaboration, and knowledge reuse. The conclusions drawn here serve as a foundation for the design choices presented in the following chapters.
+
+\section{Methodology for Comparing Existing Solutions}
+The comparison is based on criteria that are directly relevant to an IT documentation and knowledge management platform. These criteria include the ability to organize knowledge in a structured way, the quality of search and retrieval, support for incident traceability, collaboration features, access control, auditability, deployment flexibility, and licensing constraints. Using these criteria makes it possible to compare products with different primary goals on a common functional basis.
+
+\section{Review of Existing Platforms}
+Platforms such as ServiceNow, Jira Service Management, Confluence, GLPI, BookStack, Notion, SharePoint, and IT Glue show that the market already offers mature solutions for ticketing, documentation, or knowledge sharing. However, these platforms usually optimize one dominant workflow: service desk management, collaborative writing, enterprise content management, or generic note organization. For a project like MapIT, the key question is therefore not whether such tools are powerful, but whether they provide a focused and lightweight environment where infrastructure documentation and incident knowledge can be managed together without unnecessary complexity.
+
+\section{Comparative Analysis}
+The comparison table inserted in this section should make the differences visible at a glance. In many cases, enterprise tools are stronger in governance and workflow control, while lightweight tools are easier to adopt but weaker in traceability and structured access control. The analysis should therefore emphasize that the value of MapIT lies in balancing clarity, focused functionality, and academic feasibility rather than trying to reproduce the full breadth of a large commercial platform.
+
+% TODO: Replace this reconstructed table with the exact Table 1 from page 7 of pfe.pdf if that source is provided.
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.35cm}|>{\raggedright\arraybackslash}p{3.85cm}|>{\raggedright\arraybackslash}p{3.85cm}|>{\raggedright\arraybackslash}p{3.85cm}|}
+\hline
+\textbf{Solution} & \textbf{Main strengths} & \textbf{Main limits} & \textbf{Relevance for MapIT} \\ \hline
+\textbf{ServiceNow} & Mature ITSM workflows, governance, and automation. & Heavy, costly, and broader than the project scope. & Benchmark for rigor and access control. \\ \hline
+\textbf{GLPI} & Open-source service desk with asset management. & Less oriented to relationship maps and reusable knowledge. & Useful for compact IT support comparison. \\ \hline
+\textbf{Confluence} / BookStack & Strong structured documentation and collaboration. & Keeps documentation apart from incidents and dependencies. & Good reference for knowledge-base organization. \\ \hline
+\textbf{Notion} & Flexible and easy for note-taking. & Weak structure, traceability, and IT-specific workflow control. & Shows limits of generic knowledge tools. \\ \hline
+\textbf{MapIT} & Integrates assets, incidents, problems, relationships, search, and access control. & Deliberately narrower than enterprise suites. & Target solution of the study. \\ \hline
+\end{tabularx}
+\caption{Feature comparison of existing solutions}
+\label{tab:feature-comparison}
+\end{table}
+
+\section{Limitations of the Existing Approaches}
+The reviewed approaches reveal several recurring limitations. Some tools are expensive or too heavy for a compact academic deployment, while others are flexible but too generic to enforce a meaningful relationship between incidents and technical knowledge. In addition, documentation often remains separated from operational history, which means that the learning value of previous incidents is not fully preserved in everyday practice.
+
+\section{Positioning of MapIT}
+MapIT is positioned as a focused web application that covers the essential needs of infrastructure documentation and incident knowledge management without the overhead of a large enterprise suite. Its contribution is not to replace the market leaders, but to demonstrate a coherent solution tailored to the specific workflow of an IT team that needs controlled access, a clear relational model, and a direct connection between incidents and reusable knowledge.
+
+\section{Chapter Conclusion}
+This chapter showed that existing solutions address the problem only partially or at a broader scale than what the project requires. The comparison supports the decision to build MapIT as a compact, role-aware, and documentation-centric platform. The next chapter introduces the theoretical concepts that define the project domain.

@@ -1,0 +1,73 @@
+\chapter{General Context and Introduction}
+
+\section{Introduction}
+MapIT is a full-stack platform designed to support IT infrastructure documentation, incident handling, asset inventory, relationship mapping, and knowledge reuse. Unlike a generic document repository, the project is built around the operational lifecycle of an IT support team: identify an asset, relate it to other components, track incidents against it, preserve the resulting knowledge, and make that knowledge searchable for later reuse. This chapter introduces the project context, states the problem precisely, and explains why the work is academically and professionally relevant.
+
+\section{Host Organization: SNTF}
+\subsection{Short presentation}
+The host organization for this project is the \emph{Société nationale des transports ferroviaires} (SNTF), the Algerian public railway company responsible for passenger and freight transport, as well as the operation and maintenance of the national rail network. According to the company presentation and public references, SNTF was created in 1976 and later became an EPIC in 1990. Its headquarters are in Algiers, and its activity covers rail operations across the country \cite{sntf_official,sntf_wikipedia}.
+
+\subsection{Visual identity}
+Figure~\ref{fig:sntf-logo} presents the official SNTF logo used as a visual reference for the host organization.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.62\textwidth]{figures/sntf.png}
+	\caption{Official logo of SNTF}
+	\label{fig:sntf-logo}
+\end{figure}
+
+\subsection{DSI organigramme}
+The DSI organigramme shows how the Information Systems Department is organized around several complementary missions: project management, network administration, systems development, web activities, database administration, security-oriented messaging and workstation support, and computer maintenance. This structure is useful for understanding where an internal documentation platform such as MapIT can support coordination between technical teams.
+
+\begin{landscape}
+\begin{figure}[p]
+	\centering
+	\includegraphics[height=0.86\textheight,keepaspectratio]{figures/dsi-organigramme.png}
+	\caption{Organigramme of the SNTF DSI}
+	\label{fig:sntf-dsi-organigramme}
+\end{figure}
+\end{landscape}
+
+\subsection{Why SNTF is relevant to MapIT}
+SNTF is a natural context for a platform like MapIT because railway operations depend on infrastructure documentation, service continuity, traceability, and coordination between technical teams. The organization manages a geographically distributed transport network, which makes structured knowledge and clear visibility over assets, incidents, and dependencies especially valuable. MapIT is therefore aligned with the documentation needs of an operational and asset-intensive enterprise.
+
+\section{General Context}
+Modern IT infrastructures are distributed across servers, virtual machines, services, network devices, knowledge articles, and incident records. In MapIT, this complexity is visible in the codebase itself: the web app exposes dedicated routes for \texttt{/assets}, \texttt{/incidents}, \texttt{/problems}, \texttt{/relationships}, \texttt{/search}, \texttt{/reports}, and \texttt{/settings}, while the backend defines matching API modules for each domain. A platform in this context must do more than display data; it must organize technical memory so that support teams can understand dependencies, resolve incidents faster, and preserve the reasoning behind corrective actions.
+
+\section{Problem Statement}
+\subsection{The operational gap}
+The main problem solved by MapIT is the absence of a centralized and visual knowledge management environment for IT assets and incidents. In many real teams, asset data is kept in one tool, incident records in another, and solutions in a separate document or chat history. That fragmentation prevents a support engineer from seeing the full operational picture: which component failed, what depends on it, which incident already documented the failure, and which solution should be reused.
+
+\subsection{Why the gap matters}
+When documentation is fragmented, the same diagnostic effort is repeated several times, response time increases, and the organization loses institutional memory. It also becomes hard to audit decisions, assign responsibility, or track the evolution of a problem from its first symptom to its final resolution. In MapIT, this issue is addressed by connecting incidents to assets, problems, documents, and relationships, while also logging access and permission-sensitive actions in an audit trail.
+
+\subsection{What is specific to MapIT}
+MapIT does not aim to be a generic content management platform. It addresses an IT operations problem: the need to centralize technical knowledge in a form that is both textual and visual. The relationship map, the global search page, the incident knowledge suggestions, the asset/problem linkage, and the role-based restrictions on editing are all designed to solve this exact problem. The project therefore focuses on the lack of centralized, visual knowledge management for IT assets, which is the real operational gap behind the application.
+
+\section{Motivations and Project Relevance}
+\subsection{Academic motivation}
+The project is academically valuable because it combines the main themes expected in a Computer Systems specialization: information systems analysis, relational data modeling, API design, authentication, permissions, and a modern web user interface. It follows a clear progression from problem definition to modeling and implementation, which is appropriate for a final-year project of this scope.
+
+\subsection{Professional motivation}
+Professionally, MapIT reflects the kind of system used by technical support teams that need to keep track of infrastructure knowledge, incident history, and operational dependencies. The implementation includes a dashboard with summary metrics, an asset inventory, an incident lifecycle workflow, a problem/solution knowledge layer, a graph-based relationship view, reporting, and settings with access control and audit logs. This is the behavior expected from an operational knowledge platform, not from a simple brochure website.
+
+\section{Our Role as Computer Science Students Specializing in Computer Systems}
+\subsection{Academic role}
+As Computer Science students specializing in Computer Systems, our role was to turn a real operational need into a formal software architecture and then into a working implementation. This involved understanding the domain, defining the data model, specifying the access rules, and implementing the frontend and backend in a way that remains coherent and maintainable.
+
+\subsection{Technical role}
+The code shows that our technical role was broader than writing pages: we had to design the Prisma schema, implement JWT-based authentication with LDAP support in production and dev credentials in development, enforce permissions through middleware, and make the frontend consume the API through a Next.js proxy route. These tasks reflect a systems-oriented skill set because they connect infrastructure understanding with application engineering.
+
+\section{Project Objectives and Scope}
+\subsection{Functional objectives}
+The immediate objectives of MapIT are to authenticate users, show an operational dashboard, manage assets, track incidents, document reusable problems and solutions, display infrastructure relationships, search across all knowledge types, and provide reporting and settings screens. The codebase confirms that each of these capabilities has a dedicated route and user interface.
+
+\subsection{Scope of the first phase}
+The current phase focuses on the essential operational workflow. It already includes login, dashboard summaries, incident list and detail views, asset inventory, knowledge/problem pages, relationship visualization, global search, reports, and settings. More advanced features such as richer analytics, automated workflows, or deeper notification logic can be introduced later without changing the core model.
+
+\subsection{Planning and work organization}
+A Gantt chart can be inserted here to show the sequence of work: analysis, study of existing solutions, theoretical study, conception, modeling, implementation, and validation. This helps the jury understand the development chronology of the project.
+
+\section{Chapter Conclusion}
+This chapter established that MapIT solves a concrete infrastructure knowledge problem: the absence of a centralized, visual, and role-aware place to manage assets, incidents, and reusable technical knowledge. The next chapter reviews the theoretical concepts that justify this architecture, especially information systems, knowledge management, incident tracking, and relationship mapping.

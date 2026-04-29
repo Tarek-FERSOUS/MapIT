@@ -1,0 +1,137 @@
+\documentclass[12pt,a4paper]{report}
+\pdfminorversion=7
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{amsmath,amssymb}
+\usepackage[unicode,pdfpagelabels,plainpages=false]{hyperref}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{pdfpages}
+\usepackage{pdflscape}
+\usepackage{rotating}
+\usepackage{adjustbox}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue, 
+    urlcolor=blue,
+    citecolor=blue,
+    pdftitle={MapIT - IT Infrastructure Documentation and Incident Knowledge Management},
+    pdfauthor={MapIT Project Team}
+}
+
+\graphicspath{{figures/}{chapters/figures/}}
+
+\setstretch{1.5}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{MapIT}
+\fancyhead[R]{\leftmark}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{28pt}
+
+\begin{document}
+
+% -----------------------------------------------------------------------------
+% Front matter
+% -----------------------------------------------------------------------------
+\hypersetup{pageanchor=false}
+\includepdf[pages=1,fitpaper=true]{figures/page de garde.pdf}
+\clearpage
+\hypersetup{pageanchor=true}
+
+\pagenumbering{roman}
+
+\chapter*{Dedication}
+\addcontentsline{toc}{chapter}{Dedication}
+% TODO: Add your personal dedication text here.
+
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+% TODO: Replace only if your supervisor requests a different abstract wording.
+MapIT is a web-based platform designed to centralize IT infrastructure documentation and incident knowledge management in a single, secure workspace. The project addresses the common operational problem of fragmented notes, duplicated troubleshooting, and weak traceability between incidents and the knowledge used to resolve them. The proposed solution combines a structured data model, role-based access control, and a clear user interface to support incident registration, document maintenance, and knowledge reuse. The system is implemented as a full-stack application with a separated frontend, backend API, and relational database, making it suitable for teams that need a lightweight but disciplined documentation environment.
+
+\textbf{Keywords:} IT infrastructure, incident management, knowledge management, documentation platform, role-based access control.
+
+\chapter*{Acknowledgements}
+\addcontentsline{toc}{chapter}{Acknowledgements}
+% TODO: Add names of supervisors, reviewers, and institution staff if your final submission requires them.
+We would like to express our sincere gratitude to our supervisors, instructors, and all members of the department who supported the preparation of this project. Their guidance, technical feedback, and academic rigor helped us structure the work, refine the design choices, and maintain a clear line between theoretical analysis and practical realization. We also thank everyone who contributed directly or indirectly to the development of MapIT through advice, review, and encouragement.
+
+% Compact TOC layout without changing TOC content.
+\begingroup
+\setstretch{1.0}
+\setlength{\parskip}{0pt}
+\footnotesize
+\tableofcontents
+\endgroup
+\clearpage
+\addcontentsline{toc}{chapter}{List of Figures}
+\begingroup
+\setstretch{1.0}
+\setlength{\parskip}{0pt}
+\footnotesize
+\listoffigures
+\endgroup
+\clearpage
+\addcontentsline{toc}{chapter}{List of Tables}
+\begingroup
+\setstretch{1.0}
+\setlength{\parskip}{0pt}
+\footnotesize
+\listoftables
+\endgroup
+
+\chapter*{List of Abbreviations}
+\addcontentsline{toc}{chapter}{List of Abbreviations}
+% TODO: Expand this list if you introduce new abbreviations in later revisions.
+\begin{itemize}[leftmargin=2cm]
+    \item ITSM -- Information Technology Service Management
+    \item CMDB -- Configuration Management Database
+    \item UML -- Unified Modeling Language
+    \item API -- Application Programming Interface
+    \item RBAC -- Role-Based Access Control
+    \item JWT -- JSON Web Token
+\end{itemize}
+
+\clearpage
+\pagenumbering{arabic}
+
+% -----------------------------------------------------------------------------
+% Main body
+% -----------------------------------------------------------------------------
+\part{Theoretical Part}
+\include{chapters/chapter1}
+\include{chapters/chapter2}
+\include{chapters/chapter3}
+
+\part{Practical Part}
+\include{chapters/chapter4}
+\include{chapters/chapter5}
+\include{chapters/chapter6}
+
+\include{chapters/conclusion}
+
+% -----------------------------------------------------------------------------
+% Bibliography placeholder
+% -----------------------------------------------------------------------------
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

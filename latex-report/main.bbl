@@ -1,0 +1,34 @@
+\begin{thebibliography}{1}
+
+\bibitem{itil4}
+Axelos.
+\newblock {\em ITIL Foundation: ITIL 4 Edition}.
+\newblock TSO, 2019.
+
+\bibitem{iso20000}
+{ISO/IEC}.
+\newblock Iso/iec 20000-1: Information technology -- service management, 2018.
+\newblock International standard.
+
+\bibitem{km}
+Ikujiro Nonaka and Hirotaka Takeuchi.
+\newblock {\em The Knowledge-Creating Company}.
+\newblock Oxford University Press, 1995.
+
+\bibitem{pressman}
+Roger~S. Pressman and Bruce~R. Maxim.
+\newblock {\em Software Engineering: A Practitioner's Approach}.
+\newblock McGraw-Hill, 2019.
+
+\bibitem{sntf_official}
+{SNTF}.
+\newblock Société nationale des transports ferroviaires - site officiel,
+  2026.
+\newblock Consulted for the organization presentation.
+
+\bibitem{sntf_wikipedia}
+{Wikipédia}.
+\newblock Société nationale des transports ferroviaires, 2026.
+\newblock Consulted for historical and factual context.
+
+\end{thebibliography}

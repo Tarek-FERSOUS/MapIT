@@ -1,0 +1,25 @@
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Official logo of SNTF}}{3}{figure.caption.8}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Organigramme of the SNTF DSI}}{4}{figure.caption.9}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces High-level architecture of MapIT}}{22}{figure.caption.12}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Use case diagram of MapIT}}{25}{figure.caption.13}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Sequence diagram: authentication flow}}{27}{figure.caption.14}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Sequence diagram: incident management flow}}{28}{figure.caption.15}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Sequence diagram: global search flow}}{29}{figure.caption.16}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Class diagram of the MapIT domain model}}{30}{figure.caption.17}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Activity diagram: RBAC decision flow}}{32}{figure.caption.18}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Login page}}{35}{figure.caption.19}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Access control management interface}}{36}{figure.caption.20}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Audit logs interface}}{38}{figure.caption.21}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Dashboard interface}}{39}{figure.caption.22}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Incidents management interface}}{39}{figure.caption.23}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Assets inventory interface}}{40}{figure.caption.24}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Problem and knowledge base interface}}{41}{figure.caption.25}%
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Relationship map interface}}{41}{figure.caption.26}%
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Global search interface}}{42}{figure.caption.27}%
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Reports interface}}{42}{figure.caption.28}%
