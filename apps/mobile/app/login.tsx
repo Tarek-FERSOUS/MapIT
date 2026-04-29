@@ -17,7 +17,7 @@ export default function Login() {
   const [status, setStatus] = useState("");
 
   if (token) {
-    return <Redirect href="/incidents" />;
+    return <Redirect href="/(tabs)" />;
   }
 
   const onLogin = async () => {
@@ -36,17 +36,14 @@ export default function Login() {
         password
       });
 
-      setAuth({
-        token: res.data.token,
-        role: res.data.role || "User"
-      });
+      setAuth(res.data.token, undefined, res.data.role || "User");
 
       setStatus("Login successful. Redirecting...");
-      router.replace("/incidents");
+      router.replace("/(tabs)");
     } catch (e) {
       if (isAxiosError(e)) {
         if (!e.response) {
-          setError(`Cannot reach API server at ${api.defaults.baseURL}. Please ensure API is running on port 3000.`);
+          setError(`Cannot reach API server at ${api.defaults.baseURL}. Please ensure the API is running.`);
         } else if (e.response.status === 401) {
           setError("Invalid username or password.");
         } else {

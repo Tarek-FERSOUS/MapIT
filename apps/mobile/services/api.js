@@ -26,10 +26,11 @@ function getNativeBaseURL() {
   return "http://localhost:3000";
 }
 
-const defaultBaseURL = Platform.OS === "web" ? getWebBaseURL() : getNativeBaseURL();
 const webBaseURL = process.env.EXPO_PUBLIC_API_URL_WEB || getWebBaseURL();
-const nativeBaseURL = process.env.EXPO_PUBLIC_API_URL || getNativeBaseURL();
-const baseURL = Platform.OS === "web" ? webBaseURL : nativeBaseURL || defaultBaseURL;
+const runtimeNativeBaseURL = getNativeBaseURL();
+const envNativeBaseURL = process.env.EXPO_PUBLIC_API_URL || "";
+const nativeBaseURL = runtimeNativeBaseURL || envNativeBaseURL || "http://localhost:3000";
+const baseURL = Platform.OS === "web" ? webBaseURL : nativeBaseURL;
 
 const api = axios.create({
   baseURL,
