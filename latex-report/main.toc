@@ -19,7 +19,7 @@
 \contentsline {subsection}{\numberline {1.4.3}What is specific to MapIT}{6}{subsection.1.4.3}%
 \contentsline {section}{\numberline {1.5}Motivations and Project Relevance}{6}{section.1.5}%
 \contentsline {subsection}{\numberline {1.5.1}Academic motivation}{6}{subsection.1.5.1}%
-\contentsline {subsection}{\numberline {1.5.2}Professional motivation}{7}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {1.5.2}Professional motivation}{6}{subsection.1.5.2}%
 \contentsline {section}{\numberline {1.6}Our Role as Computer Science Students Specializing in Computer Systems}{7}{section.1.6}%
 \contentsline {subsection}{\numberline {1.6.1}Academic role}{7}{subsection.1.6.1}%
 \contentsline {subsection}{\numberline {1.6.2}Technical role}{7}{subsection.1.6.2}%
@@ -31,7 +31,7 @@
 \contentsline {chapter}{\numberline {2}Study of Existing Solutions}{9}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Introduction}{9}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Methodology for Comparing Existing Solutions}{9}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Review of Existing Platforms}{10}{section.2.3}%
+\contentsline {section}{\numberline {2.3}Review of Existing Platforms}{9}{section.2.3}%
 \contentsline {section}{\numberline {2.4}Comparative Analysis}{10}{section.2.4}%
 \contentsline {section}{\numberline {2.5}Limitations of the Existing Approaches}{11}{section.2.5}%
 \contentsline {section}{\numberline {2.6}Positioning of MapIT}{12}{section.2.6}%
@@ -101,8 +101,10 @@
 \contentsline {subsection}{\numberline {6.6.1}Local execution}{42}{subsection.6.6.1}%
 \contentsline {subsection}{\numberline {6.6.2}Environment and configuration}{43}{subsection.6.6.2}%
 \contentsline {subsection}{\numberline {6.6.3}Production orientation}{43}{subsection.6.6.3}%
-\contentsline {section}{\numberline {6.7}Validation and Testing}{43}{section.6.7}%
-\contentsline {subsection}{\numberline {6.7.1}Backend checks}{43}{subsection.6.7.1}%
-\contentsline {subsection}{\numberline {6.7.2}Frontend checks}{43}{subsection.6.7.2}%
-\contentsline {section}{\numberline {6.8}Chapter Conclusion}{43}{section.6.8}%
-\contentsline {chapter}{General Conclusion}{45}{chapter*.29}%
+\contentsline {section}{\numberline {6.7}Development Tools and Quality Strategy}{43}{section.6.7}%
+\contentsline {subsection}{\numberline {6.7.1}Tooling across the project lifecycle}{43}{subsection.6.7.1}%
+\contentsline {section}{\numberline {6.8}Validation and Testing}{44}{section.6.8}%
+\contentsline {subsection}{\numberline {6.8.1}Backend checks}{44}{subsection.6.8.1}%
+\contentsline {subsection}{\numberline {6.8.2}Frontend checks}{44}{subsection.6.8.2}%
+\contentsline {section}{\numberline {6.9}Chapter Conclusion}{45}{section.6.9}%
+\contentsline {chapter}{General Conclusion}{46}{chapter*.30}%

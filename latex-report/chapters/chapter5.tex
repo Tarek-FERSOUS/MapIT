@@ -4,7 +4,7 @@
 This chapter formalizes MapIT through analysis and modeling artifacts. The diagrams and schemas presented here translate the conception choices into a precise structural view of the system. They are important because they make the behavior of the application easier to verify before implementation begins.
 
 \section{Actors and Use Cases}
-The use case model should identify the principal actors of the system, such as a standard user and an administrator, and show how each role interacts with the application. The use case diagram provides a global view of the services offered by MapIT, including authentication, incident management, document management, and administrative operations. This representation helps the reader understand the scope of the system before entering into detailed scenarios.
+The use case model identifies the principal actors of the system, such as a standard user and an administrator, and shows how each role interacts with the application. The use case diagram provides a global view of the services offered by MapIT, including authentication, incident management, document management, and administrative operations. This representation helps the reader understand the scope of the system before entering into detailed scenarios.
 
 Figure~\ref{fig:use-case-mapit} summarizes the interactions between users and the core services of the platform.
 
@@ -16,7 +16,7 @@ Figure~\ref{fig:use-case-mapit} summarizes the interactions between users and th
 \end{figure}
 
 \section{Use Case Specifications}
-Each major use case should then be described textually in terms of goal, actor, preconditions, main steps, alternate paths, and postconditions. This level of detail is important because it shows how the system should behave when a user logs in, creates a record, edits content, or performs a restricted action. The textual specification also serves as a useful reference during development and testing.
+Each major use case is described textually in terms of goal, actor, preconditions, main steps, alternate paths, and postconditions. This level of detail is important because it shows how the system behaves when a user logs in, creates a record, edits content, or performs a restricted action. The textual specification also serves as a useful reference during development and testing.
 
 \section{Sequence Diagrams}
 Sequence diagrams are used to describe the dynamic behavior of the system for representative scenarios such as authentication, incident creation, and document consultation. They show the message flow between the user interface, the API layer, the business logic, and the database, making it easier to verify that the architecture supports the intended user journeys. In an academic report, these diagrams also help demonstrate that the implementation follows a coherent interaction pattern.
@@ -49,7 +49,7 @@ The global search interaction, which aggregates multiple data domains, is presen
 \end{figure}
 
 \section{Class Diagram and Domain Model}
-The class diagram captures the static domain structure of MapIT and presents the main entities of the application. Typical classes include User, Role, Incident, Document, Category, Comment, and AuditLog, together with the relationships that connect them. The diagram should make it clear which objects own data, which objects reference others, and how the domain supports both documentation and traceability.
+The class diagram captures the static domain structure of MapIT and presents the main entities of the application. Typical classes include User, Role, Incident, Document, Category, Comment, and AuditLog, together with the relationships that connect them. The diagram makes it clear which objects own data, which objects reference others, and how the domain supports both documentation and traceability.
 
 Figure~\ref{fig:class-mapit} illustrates the domain model used to implement these entities and their associations.
 
@@ -68,10 +68,10 @@ Figure~\ref{fig:class-mapit} illustrates the domain model used to implement thes
 
 
 \section{Data Model and Relational Schema}
-Once the conceptual model is established, it must be translated into a relational schema. This part of the chapter should document the tables, primary keys, foreign keys, cardinalities, and integrity constraints used to preserve consistency in the database. If a database diagram is provided, it should confirm that the schema reflects the behavior described in the use case and class models.
+Once the conceptual model is established, it is translated into a relational schema. This part of the chapter documents the tables, primary keys, foreign keys, cardinalities, and integrity constraints used to preserve consistency in the database. The schema confirms that the persistence layer reflects the behavior described in the use case and class models.
 
 \section{Optional Complementary Diagrams}
-Additional diagrams such as activity, component, or deployment diagrams may be added if they bring real clarity to the project. For example, an activity diagram can explain a complex workflow, while a deployment diagram can clarify how the frontend, backend, and database are hosted. These diagrams should be included selectively so that they reinforce the design instead of cluttering the report.
+Additional diagrams such as activity, component, or deployment diagrams are included when they bring real clarity to the project. In this report, the activity diagram explains a permission-sensitive workflow and complements the other modeling artifacts without adding unnecessary redundancy.
 
 To clarify the permission-governed workflow used in sensitive operations, Figure~\ref{fig:activity-rbac} shows the RBAC activity flow.
 

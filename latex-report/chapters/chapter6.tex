@@ -32,7 +32,7 @@ The Prisma schema defines the real MapIT data model. The main entities include:
 	\item \texttt{Role}, \texttt{Permission}, \texttt{UserRole}, \texttt{RolePermission}, \texttt{UserPermission}
 	\item \texttt{UserSettings}, \texttt{AuditLog}, and \texttt{IncidentKnowledgeFeedback}
 \end{itemize}
-This is the persistence layer that makes the platform suitable for technical documentation rather than only for temporary user input.
+This is the persistence layer that makes the platform reliable for technical documentation rather than only for temporary user input.
 
 \section{Authentication and Access Control}
 \subsection{Login flow}
@@ -124,7 +124,7 @@ The asset inventory page supports filtering, pagination, bulk selection, and an 
 \end{figure}
 
 \subsection{Problems, relationships, search, reports, and settings}
-The problems page allows the user to manage problem records and associate them with affected assets. The relationships page visualizes the infrastructure graph and supports interactive layout editing. The search page searches across assets, incidents, problems, and documents in one place. The reports page summarizes operational data. The settings page exposes access control, audit logs, security, notifications, integrations, and API-key placeholders.
+The problems page allows the user to manage problem records and associate them with affected assets. The relationships page visualizes the infrastructure graph and supports interactive layout editing. The search page searches across assets, incidents, problems, and documents in one place. The reports page summarizes operational data. The settings page exposes access control, audit logs, security, notifications, integrations, and API configuration controls.
 
 \begin{figure}[H]
 	\centering
@@ -162,7 +162,30 @@ The local development workflow is explicit: \texttt{npm run dev:api} starts the 
 The backend requires \texttt{DATABASE\_URL}, \texttt{JWT\_SECRET}, \texttt{AD\_URL}, \texttt{AD\_DOMAIN}, \texttt{CORS\_ORIGIN}, \texttt{ADMIN\_USERNAMES}, and \texttt{DEV\_MODE}. The web layer uses the proxy base \texttt{/api/backend} and the session route \texttt{/api/auth/session}. These configuration points are evidence that the project is already organized for a real deployment scenario.
 
 \subsection{Production orientation}
-The README describes deployment readiness on Vercel for the web application, Docker for the API, and Expo builds for the mobile prototype. The implementation chapter should therefore present MapIT as a deployable system rather than as a code-only exercise.
+The README describes deployment readiness on Vercel for the web application, Docker for the API, and Expo builds for the mobile prototype. This implementation chapter therefore presents MapIT as a deployable system rather than as a code-only exercise.
+
+\section{Development Tools and Quality Strategy}
+\subsection{Tooling across the project lifecycle}
+MapIT was not produced with code alone. The project moved through planning, design, implementation, review, and final delivery using a small set of practical tools that match the stack already described in this chapter. ChatGPT supported planning and requirement refinement, while Claude Code helped with code review and debugging. The rest of the workflow relied on the project stack itself, so the tools below summarize the actual lifecycle of the work rather than an abstract methodology.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{|>{\raggedright\arraybackslash}p{2.6cm}|>{\raggedright\arraybackslash}p{4.2cm}|>{\raggedright\arraybackslash}p{6.2cm}|}
+\hline
+\textbf{Phase} & \textbf{Tools} & \textbf{Role in MapIT} \\ \hline
+Planning & ChatGPT, Claude Code, GitHub, VS Code & Shape the architecture, refine requirements, and review the report structure. \\ \hline
+Frontend implementation & Next.js 15, React 19, TypeScript, Tailwind CSS, Zustand, Axios & Build the interface, navigation, and client-side data flow. \\ \hline
+Backend implementation & Express 5, Prisma, PostgreSQL, ldapjs, JSON Web Tokens & Implement authentication, business logic, and persistence. \\ \hline
+Testing and review & ESLint, type checking, Playwright, smoke tests & Validate behavior and confirm the main UI flows. \\ \hline
+Delivery and deployment & Docker, Vercel, Nginx, latexmk / MiKTeX & Package the application and generate the final deliverable. \\ \hline
+\end{tabular}
+\caption{MapIT project tools and delivery workflow}
+\label{tab:mapit-tools-workflow}
+\end{table}
+
+No tool logos are embedded here because the repository does not contain official logos for the development stack. If you want a visual strip later, the cleanest layout is a narrow centered row of logos above Table~\ref{tab:mapit-tools-workflow}, followed by the text table itself.
 
 \section{Validation and Testing}
 \subsection{Backend checks}
