@@ -1,23 +1,89 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{confluence_docs}
+{Atlassian}.
+\newblock Confluence, 2026.
+\newblock Consulted for collaborative documentation context.
+
+\bibitem{atlassian_incident}
+{Atlassian}.
+\newblock Incident management, 2026.
+\newblock Consulted for incident lifecycle terminology.
+
+\bibitem{jira_service_management}
+{Atlassian}.
+\newblock Jira service management, 2026.
+\newblock Consulted for service-desk workflow context.
 
 \bibitem{itil4}
 Axelos.
 \newblock {\em ITIL Foundation: ITIL 4 Edition}.
 \newblock TSO, 2019.
 
+\bibitem{bookstack}
+{BookStack}.
+\newblock Bookstack documentation, 2026.
+\newblock Consulted for knowledge-base context.
+
+\bibitem{davenport_prusak}
+Thomas~H. Davenport and Laurence Prusak.
+\newblock {\em Working Knowledge: How Organizations Manage What They Know}.
+\newblock Harvard Business School Press, 1998.
+
+\bibitem{glpi}
+{GLPI Project}.
+\newblock Glpi project website, 2026.
+\newblock Consulted for open-source service desk context.
+
 \bibitem{iso20000}
 {ISO/IEC}.
 \newblock Iso/iec 20000-1: Information technology -- service management, 2018.
 \newblock International standard.
+
+\bibitem{itglue}
+{IT Glue}.
+\newblock It glue, 2026.
+\newblock Consulted for IT documentation context.
+
+\bibitem{laudon_mis}
+Kenneth~C. Laudon and Jane~P. Laudon.
+\newblock {\em Management Information Systems: Managing the Digital Firm}.
+\newblock Pearson, 17 edition, 2022.
+
+\bibitem{sharepoint}
+{Microsoft}.
+\newblock Sharepoint, 2026.
+\newblock Consulted for enterprise content management context.
+
+\bibitem{microsoft_rbac}
+{Microsoft}.
+\newblock What is role-based access control (rbac)?, 2026.
+\newblock Consulted for access-control terminology.
+
+\bibitem{nonaka_konno}
+Ikujiro Nonaka and Noboru Konno.
+\newblock The concept of {``}ba{''}: Building a foundation for knowledge
+  creation.
+\newblock {\em California Management Review}, 40(3):40--54, 1998.
 
 \bibitem{km}
 Ikujiro Nonaka and Hirotaka Takeuchi.
 \newblock {\em The Knowledge-Creating Company}.
 \newblock Oxford University Press, 1995.
 
+\bibitem{notion}
+{Notion Labs}.
+\newblock Notion, 2026.
+\newblock Consulted for general-purpose knowledge workspace context.
+
 \bibitem{pressman}
 Roger~S. Pressman and Bruce~R. Maxim.
 \newblock {\em Software Engineering: A Practitioner's Approach}.
 \newblock McGraw-Hill, 2019.
+
+\bibitem{servicenow_itsm}
+{ServiceNow}.
+\newblock What is itsm?, 2026.
+\newblock Consulted for IT service management context.
 
 \end{thebibliography}

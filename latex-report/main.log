@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.4.27)  6 MAY 2026 16:39
+This is XeTeX, Version 3.141592653-2.6-0.999998 (MiKTeX 26.2) (preloaded format=xelatex 2026.5.10)  10 MAY 2026 00:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -12,68 +12,62 @@ Document Class: report 2025/01/22 v1.4n Standard LaTeX document class
 (C:\Program Files\MiKTeX\tex/latex/base\size12.clo
 File: size12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 )
-\c@part=\count275
-\c@chapter=\count276
-\c@section=\count277
-\c@subsection=\count278
-\c@subsubsection=\count279
-\c@paragraph=\count280
-\c@subparagraph=\count281
-\c@figure=\count282
-\c@table=\count283
+\c@part=\count271
+\c@chapter=\count272
+\c@section=\count273
+\c@subsection=\count274
+\c@subsubsection=\count275
+\c@paragraph=\count276
+\c@subparagraph=\count277
+\c@figure=\count278
+\c@table=\count279
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
 \bibindent=\dimen150
 )
-(C:\Program Files\MiKTeX\tex/latex/base\inputenc.sty
-Package: inputenc 2024/02/08 v1.3d Input encoding file
-\inpenc@prehook=\toks17
-\inpenc@posthook=\toks18
+(C:\Program Files\MiKTeX\tex/latex/fontspec\fontspec.sty
+(C:\Program Files\MiKTeX\tex/latex/l3packages/xparse\xparse.sty
+(C:\Program Files\MiKTeX\tex/latex/l3kernel\expl3.sty
+Package: expl3 2026-03-20 L3 programming layer (loader) 
+
+(C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-xetex.def
+File: l3backend-xetex.def 2026-02-18 L3 backend support: XeTeX
+\g__graphics_track_int=\count280
+\g__pdfannot_backend_int=\count281
+\g__pdfannot_backend_link_int=\count282
+))
+Package: xparse 2025-10-09 L3 Experimental document command parser
 )
+Package: fontspec 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaTeX
+
+(C:\Program Files\MiKTeX\tex/latex/fontspec\fontspec-xetex.sty
+Package: fontspec-xetex 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaTe
+X
+\l__fontspec_script_int=\count283
+\l__fontspec_language_int=\count284
+\l__fontspec_strnum_int=\count285
+\l__fontspec_tmp_int=\count286
+\l__fontspec_tmpa_int=\count287
+\l__fontspec_tmpb_int=\count288
+\l__fontspec_tmpc_int=\count289
+\l__fontspec_em_int=\count290
+\l__fontspec_emdef_int=\count291
+\l__fontspec_strong_int=\count292
+\l__fontspec_strongdef_int=\count293
+\l__fontspec_tmpa_dim=\dimen151
+\l__fontspec_tmpb_dim=\dimen152
+\l__fontspec_tmpc_dim=\dimen153
+
 (C:\Program Files\MiKTeX\tex/latex/base\fontenc.sty
 Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
 )
-(C:\Program Files\MiKTeX\tex/latex/lm\lmodern.sty
-Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
-LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
-LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
-(Font)                  OML/cmm/m/it --> OML/lmm/m/it on input line 23.
-LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
-(Font)                  OMS/cmsy/m/n --> OMS/lmsy/m/n on input line 24.
-LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
-(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 25.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 26.
-LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
-(Font)                  OML/cmm/b/it --> OML/lmm/b/it on input line 27.
-LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
-(Font)                  OMS/cmsy/b/n --> OMS/lmsy/b/n on input line 28.
-LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
-(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 29.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 31.
-LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 32.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/lmr/m/it on input line 33.
-LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 34.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 35.
-LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 36.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
-LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
-)
+(C:\Program Files\MiKTeX\tex/latex/fontspec\fontspec.cfg)))
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/geometry\geometry.sty
 Package: geometry 2026/03/07 v6.0 Page Geometry
 
 (C:\Program Files\MiKTeX\tex/latex/graphics\keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
-\KV@toks@=\toks19
+\KV@toks@=\toks17
 )
 (C:\Program Files\MiKTeX\tex/generic/iftex\ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
@@ -81,18 +75,18 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 (C:\Program Files\MiKTeX\tex/generic/iftex\iftex.sty
 Package: iftex 2024/12/12 v1.0g TeX engine tests
 ))
-\Gm@cnth=\count284
-\Gm@cntv=\count285
-\c@Gm@tempcnt=\count286
-\Gm@bindingoffset=\dimen151
-\Gm@wd@mp=\dimen152
-\Gm@odd@mp=\dimen153
-\Gm@even@mp=\dimen154
-\Gm@layoutwidth=\dimen155
-\Gm@layoutheight=\dimen156
-\Gm@layouthoffset=\dimen157
-\Gm@layoutvoffset=\dimen158
-\Gm@dimlist=\toks20
+\Gm@cnth=\count294
+\Gm@cntv=\count295
+\c@Gm@tempcnt=\count296
+\Gm@bindingoffset=\dimen154
+\Gm@wd@mp=\dimen155
+\Gm@odd@mp=\dimen156
+\Gm@even@mp=\dimen157
+\Gm@layoutwidth=\dimen158
+\Gm@layoutheight=\dimen159
+\Gm@layouthoffset=\dimen160
+\Gm@layoutvoffset=\dimen161
+\Gm@dimlist=\toks18
 
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/geometry\geometry.cfg))
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/setspace\setspace.sty
@@ -110,53 +104,53 @@ Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
 (C:\Program Files\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: pdftex.def on input line 106.
+Package graphics Info: Driver file: xetex.def on input line 106.
 
-(C:\Program Files\MiKTeX\tex/latex/graphics-def\pdftex.def
-File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
+(C:\Program Files\MiKTeX\tex/latex/graphics-def\xetex.def
+File: xetex.def 2025/11/01 v5.0p Graphics/color driver for xetex
 ))
-\Gin@req@height=\dimen159
-\Gin@req@width=\dimen160
+\Gin@req@height=\dimen162
+\Gin@req@width=\dimen163
 )
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen161
-\lightrulewidth=\dimen162
-\cmidrulewidth=\dimen163
-\belowrulesep=\dimen164
-\belowbottomsep=\dimen165
-\aboverulesep=\dimen166
-\abovetopsep=\dimen167
-\cmidrulesep=\dimen168
-\cmidrulekern=\dimen169
-\defaultaddspace=\dimen170
-\@cmidla=\count287
-\@cmidlb=\count288
-\@aboverulesep=\dimen171
-\@belowrulesep=\dimen172
-\@thisruleclass=\count289
-\@lastruleclass=\count290
-\@thisrulewidth=\dimen173
+\heavyrulewidth=\dimen164
+\lightrulewidth=\dimen165
+\cmidrulewidth=\dimen166
+\belowrulesep=\dimen167
+\belowbottomsep=\dimen168
+\aboverulesep=\dimen169
+\abovetopsep=\dimen170
+\cmidrulesep=\dimen171
+\cmidrulekern=\dimen172
+\defaultaddspace=\dimen173
+\@cmidla=\count297
+\@cmidlb=\count298
+\@aboverulesep=\dimen174
+\@belowrulesep=\dimen175
+\@thisruleclass=\count299
+\@lastruleclass=\count300
+\@thisrulewidth=\dimen176
 )
 (C:\Program Files\MiKTeX\tex/latex/tools\array.sty
 Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
-\col@sep=\dimen174
+\col@sep=\dimen177
 \ar@mcellbox=\box53
-\extrarowheight=\dimen175
-\NC@list=\toks21
+\extrarowheight=\dimen178
+\NC@list=\toks19
 \extratabsurround=\skip51
 \backup@length=\skip52
 \ar@cellbox=\box54
 )
 (C:\Program Files\MiKTeX\tex/latex/tools\tabularx.sty
 Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
-\TX@col@width=\dimen176
-\TX@old@table=\dimen177
-\TX@old@col=\dimen178
-\TX@target=\dimen179
-\TX@delta=\dimen180
-\TX@cols=\count291
-\TX@ftn=\toks22
+\TX@col@width=\dimen179
+\TX@old@table=\dimen180
+\TX@old@col=\dimen181
+\TX@target=\dimen182
+\TX@delta=\dimen183
+\TX@cols=\count301
+\TX@ftn=\toks20
 )
 (C:\Program Files\MiKTeX\tex/latex/tools\longtable.sty
 Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
@@ -164,25 +158,25 @@ Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
 \LTright=\skip54
 \LTpre=\skip55
 \LTpost=\skip56
-\LTchunksize=\count292
-\LTcapwidth=\dimen181
+\LTchunksize=\count302
+\LTcapwidth=\dimen184
 \LT@head=\box55
 \LT@firsthead=\box56
 \LT@foot=\box57
 \LT@lastfoot=\box58
 \LT@gbox=\box59
-\LT@cols=\count293
-\LT@rows=\count294
-\c@LT@tables=\count295
-\c@LT@chunks=\count296
-\LT@p@ftn=\toks23
+\LT@cols=\count303
+\LT@rows=\count304
+\c@LT@tables=\count305
+\c@LT@chunks=\count306
+\LT@p@ftn=\toks21
 )
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count297
-\float@exts=\toks24
+\c@float@type=\count307
+\float@exts=\toks22
 \float@box=\box60
-\@float@everytoks=\toks25
+\@float@everytoks=\toks23
 \@floatcapt=\box61
 )
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/caption\caption.sty
@@ -190,18 +184,18 @@ Package: caption 2023/08/05 v3.6o Customizing captions (AR)
 
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/caption\caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
-\caption@tempdima=\dimen182
-\captionmargin=\dimen183
-\caption@leftmargin=\dimen184
-\caption@rightmargin=\dimen185
-\caption@width=\dimen186
-\caption@indent=\dimen187
-\caption@parindent=\dimen188
-\caption@hangindent=\dimen189
+\caption@tempdima=\dimen185
+\captionmargin=\dimen186
+\caption@leftmargin=\dimen187
+\caption@rightmargin=\dimen188
+\caption@width=\dimen189
+\caption@indent=\dimen190
+\caption@parindent=\dimen191
+\caption@hangindent=\dimen192
 Package caption Info: Standard document class detected.
 )
-\c@caption@flags=\count298
-\c@continuedfloat=\count299
+\c@caption@flags=\count308
+\c@continuedfloat=\count309
 Package caption Info: float package is loaded.
 Package caption Info: longtable package is loaded.
 
@@ -211,18 +205,18 @@ Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/caption\subcaption.sty
 Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
 Package caption Info: New subtype `subfigure' on input line 238.
-\c@subfigure=\count300
+\c@subfigure=\count310
 Package caption Info: New subtype `subtable' on input line 238.
-\c@subtable=\count301
+\c@subtable=\count311
 )
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/enumitem\enumitem.sty
 Package: enumitem 2025/02/06 v3.11 Customized lists
 \labelindent=\skip57
-\enit@outerparindent=\dimen190
-\enit@toks=\toks26
+\enit@outerparindent=\dimen193
+\enit@toks=\toks24
 \enit@inbox=\box62
-\enit@count@id=\count302
-\enitdp@description=\count303
+\enit@count@id=\count312
+\enitdp@description=\count313
 )
 (C:\Program Files\MiKTeX\tex/latex/amsmath\amsmath.sty
 Package: amsmath 2025/07/09 v2.17z AMS math features
@@ -234,24 +228,24 @@ Package: amstext 2024/11/17 v2.01 AMS text
 
 (C:\Program Files\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks27
-\ex@=\dimen191
+\@emptytoks=\toks25
+\ex@=\dimen194
 ))
 (C:\Program Files\MiKTeX\tex/latex/amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen192
+\pmbraise@=\dimen195
 )
 (C:\Program Files\MiKTeX\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count304
+\inf@bad=\count314
 LaTeX Info: Redefining \frac on input line 233.
-\uproot@=\count305
-\leftroot@=\count306
+\uproot@=\count315
+\leftroot@=\count316
 LaTeX Info: Redefining \overline on input line 398.
 LaTeX Info: Redefining \colon on input line 409.
-\classnum@=\count307
-\DOTSCASE@=\count308
+\classnum@=\count317
+\DOTSCASE@=\count318
 LaTeX Info: Redefining \ldots on input line 495.
 LaTeX Info: Redefining \dots on input line 498.
 LaTeX Info: Redefining \cdots on input line 619.
@@ -261,34 +255,34 @@ LaTeX Info: Redefining \big on input line 721.
 LaTeX Info: Redefining \Big on input line 722.
 LaTeX Info: Redefining \bigg on input line 723.
 LaTeX Info: Redefining \Bigg on input line 724.
-\big@size=\dimen193
+\big@size=\dimen196
 LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
-\macc@depth=\count309
+\macc@depth=\count319
 LaTeX Info: Redefining \bmod on input line 904.
 LaTeX Info: Redefining \pmod on input line 909.
 LaTeX Info: Redefining \smash on input line 939.
 LaTeX Info: Redefining \relbar on input line 969.
 LaTeX Info: Redefining \Relbar on input line 970.
-\c@MaxMatrixCols=\count310
+\c@MaxMatrixCols=\count320
 \dotsspace@=\muskip17
-\c@parentequation=\count311
-\dspbrk@lvl=\count312
-\tag@help=\toks28
-\row@=\count313
-\column@=\count314
-\maxfields@=\count315
-\andhelp@=\toks29
-\eqnshift@=\dimen194
-\alignsep@=\dimen195
-\tagshift@=\dimen196
-\tagwidth@=\dimen197
-\totwidth@=\dimen198
-\lineht@=\dimen199
-\@envbody=\toks30
+\c@parentequation=\count321
+\dspbrk@lvl=\count322
+\tag@help=\toks26
+\row@=\count323
+\column@=\count324
+\maxfields@=\count325
+\andhelp@=\toks27
+\eqnshift@=\dimen197
+\alignsep@=\dimen198
+\tagshift@=\dimen199
+\tagwidth@=\dimen256
+\totwidth@=\dimen257
+\lineht@=\dimen258
+\@envbody=\toks28
 \multlinegap=\skip59
 \multlinetaggap=\skip60
-\mathdisplay@stack=\toks31
+\mathdisplay@stack=\toks29
 LaTeX Info: Redefining \[ on input line 2950.
 LaTeX Info: Redefining \] on input line 2951.
 )
@@ -328,7 +322,7 @@ Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
+Package pdftexcmds Info: \pdfdraftmode not found.
 )) (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/hycolor\hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
 )
@@ -345,34 +339,30 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count316
+\c@section@level=\count326
 )
 (C:\Program Files\MiKTeX\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count317
+\etb@tempcnta=\count327
 )
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/generic/stringenc\stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 )
 )
-\@linkdim=\dimen256
-\Hy@linkcounter=\count318
-\Hy@pagecounter=\count319
+\@linkdim=\dimen259
+\Hy@linkcounter=\count328
+\Hy@pagecounter=\count329
 
 (C:\Program Files\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2026-01-29 v7.01p Hyperref: PDFDocEncoding definition (HO)
-Now handling font encoding PD1 ...
-... no UTF-8 mapping file for font encoding PD1
 )
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count320
+\Hy@SavedSpaceFactor=\count330
 
 (C:\Program Files\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2026-01-29 v7.01p Hyperref: PDF Unicode definition (HO)
-Now handling font encoding PU ...
-... no UTF-8 mapping file for font encoding PU
 )
 Package hyperref Info: Option `unicode' set `true' on input line 4072.
 Package hyperref Info: Option `pdfpagelabels' set `true' on input line 4072.
@@ -384,14 +374,14 @@ Package hyperref Info: Plain pages OFF on input line 4216.
 Package hyperref Info: Backreferencing OFF on input line 4221.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4468.
-\c@Hy@tempcnt=\count321
+\c@Hy@tempcnt=\count331
 
 (C:\Program Files\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4807.
-\XeTeXLinkMargin=\dimen257
+\XeTeXLinkMargin=\dimen260
 
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -400,9 +390,9 @@ Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count322
-\Field@Width=\dimen258
-\Fld@charsize=\dimen259
+\Fld@menulength=\count332
+\Field@Width=\dimen261
+\Fld@charsize=\dimen262
 Package hyperref Info: Hyper figures OFF on input line 6084.
 Package hyperref Info: Link nesting OFF on input line 6089.
 Package hyperref Info: Hyper index ON on input line 6092.
@@ -410,15 +400,18 @@ Package hyperref Info: backreferencing OFF on input line 6099.
 Package hyperref Info: Link coloring OFF on input line 6104.
 Package hyperref Info: Link coloring with OCG OFF on input line 6109.
 Package hyperref Info: PDF/A mode OFF on input line 6114.
-\Hy@abspage=\count323
-\c@Item=\count324
-\c@Hfootnote=\count325
+\Hy@abspage=\count333
+\c@Item=\count334
+\c@Hfootnote=\count335
 )
-Package hyperref Info: Driver (autodetected): hpdftex.
- (C:\Program Files\MiKTeX\tex/latex/hyperref\hpdftex.def
-File: hpdftex.def 2026-01-29 v7.01p Hyperref driver for pdfTeX
-\Fld@listcount=\count326
-\c@bookmark@seq@number=\count327
+Package hyperref Info: Driver (autodetected): hxetex.
+ (C:\Program Files\MiKTeX\tex/latex/hyperref\hxetex.def
+File: hxetex.def 2026-01-29 v7.01p Hyperref driver for XeTeX
+\pdfm@box=\box65
+\c@Hy@AnnotLevel=\count336
+\HyField@AnnotCount=\count337
+\Fld@listcount=\count338
+\c@bookmark@seq@number=\count339
 
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/rerunfilecheck\rerunfilechec
 k.sty
@@ -438,11 +431,10 @@ Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
 (C:\Program Files\MiKTeX\tex/latex/graphics-cfg\color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
-Package xcolor Info: Driver file: pdftex.def on input line 274.
+Package xcolor Info: Driver file: xetex.def on input line 274.
 
 (C:\Program Files\MiKTeX\tex/latex/graphics\mathcolor.ltx)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
 Package xcolor Info: Model `RGB' extended on input line 1365.
 Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
 Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
@@ -468,7 +460,7 @@ Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@widthL=\skip73
 \f@nch@widthC=\skip74
 \f@nch@widthR=\skip75
-\@temptokenb=\toks32
+\@temptokenb=\toks30
 )
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/pdfpages\pdfpages.sty
 Package: pdfpages 2026/03/30 v0.6h Insert pages of external PDF documents (AM)
@@ -478,37 +470,37 @@ Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
 )
 (C:\Program Files\MiKTeX\tex/latex/tools\calc.sty
 Package: calc 2025/03/01 v4.3b Infix arithmetic (KKT,FJ)
-\calc@Acount=\count328
-\calc@Bcount=\count329
-\calc@Adimen=\dimen260
-\calc@Bdimen=\dimen261
+\calc@Acount=\count340
+\calc@Bcount=\count341
+\calc@Adimen=\dimen263
+\calc@Bdimen=\dimen264
 \calc@Askip=\skip76
 \calc@Bskip=\skip77
 LaTeX Info: Redefining \setlength on input line 86.
 LaTeX Info: Redefining \addtolength on input line 87.
-\calc@Ccount=\count330
+\calc@Ccount=\count342
 \calc@Cskip=\skip78
 )
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/eso-pic\eso-pic.sty
 Package: eso-pic 2025/12/10 v3.0d eso-pic (RN)
-\ESO@tempdima=\dimen262
-\ESO@tempdimb=\dimen263
+\ESO@tempdima=\dimen265
+\ESO@tempdimb=\dimen266
 )
-\AM@pagewidth=\dimen264
-\AM@pageheight=\dimen265
-\AM@fboxrule=\dimen266
+\AM@pagewidth=\dimen267
+\AM@pageheight=\dimen268
+\AM@fboxrule=\dimen269
 
-(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/pdfpages\pppdftex.def
-File: pppdftex.def 2026/03/30 v0.6h Pdfpages driver for pdfTeX (AM)
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/pdfpages\ppxetex.def
+File: ppxetex.def 2026/03/30 v0.6h Pdfpages driver for XeTeX (AM)
 )
-\pdfpages@includegraphics@status=\count331
-\AM@pagebox=\box65
-\AM@global@opts=\toks33
-\AM@pagecnt=\count332
-\AM@toc@title=\toks34
-\AM@lof@heading=\toks35
-\c@AM@survey=\count333
-\AM@templatesizebox=\box66
+\pdfpages@includegraphics@status=\count343
+\AM@pagebox=\box66
+\AM@global@opts=\toks31
+\AM@pagecnt=\count344
+\AM@toc@title=\toks32
+\AM@lof@heading=\toks33
+\c@AM@survey=\count345
+\AM@templatesizebox=\box67
 )
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/pdflscape\pdflscape.sty
 Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
@@ -520,15 +512,16 @@ F (HO)
  (C:\Program Files\MiKTeX\tex/latex/graphics\lscape.sty
 Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
-Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+Package pdflscape Info: Auto-detected driver: dvipdfm (xetex) on input line 98.
+
 ))
 (C:\Program Files\MiKTeX\tex/latex/graphics\rotating.sty
 Package: rotating 2025/01/14 v2.16e rotated objects in LaTeX
-\c@r@tfl@t=\count334
+\c@r@tfl@t=\count346
 \rotFPtop=\skip79
 \rotFPbot=\skip80
-\rot@float@box=\box67
-\rot@mess@toks=\toks36
+\rot@float@box=\box68
+\rot@mess@toks=\toks34
 )
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/adjustbox\adjustbox.sty
 Package: adjustbox 2025/02/26 v1.3c Adjusting TeX boxes (trim, clip, ...)
@@ -538,10 +531,10 @@ Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
 
 (C:\Program Files\MiKTeX\tex/generic/xkeyval\xkeyval.tex
 (C:\Program Files\MiKTeX\tex/generic/xkeyval\xkvutils.tex
-\XKV@toks=\toks37
-\XKV@tempa@toks=\toks38
+\XKV@toks=\toks35
+\XKV@tempa@toks=\toks36
 )
-\XKV@depth=\count335
+\XKV@depth=\count347
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/adjustbox\adjcalc.sty
@@ -553,77 +546,441 @@ Package: trimclip 2025/02/21 v1.2a Trim and clip general TeX material
 
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/collectbox\collectbox.sty
 Package: collectbox 2022/10/17 v0.4c Collect macro arguments as boxes
-\collectedbox=\box68
+\collectedbox=\box69
 )
-\tc@llx=\dimen267
-\tc@lly=\dimen268
-\tc@urx=\dimen269
-\tc@ury=\dimen270
-Package trimclip Info: Using driver 'tc-pdftex.def'.
+\tc@llx=\dimen270
+\tc@lly=\dimen271
+\tc@urx=\dimen272
+\tc@ury=\dimen273
+Package trimclip Info: Using driver 'tc-xetex.def'.
 
-(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/adjustbox\tc-pdftex.def
-File: tc-pdftex.def 2025/02/26 v2.3 Clipping driver for pdftex
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/adjustbox\tc-xetex.def
+File: tc-xetex.def 2019/01/04 v2.2 Clipping driver for xetex
 ))
-\adjbox@Width=\dimen271
-\adjbox@Height=\dimen272
-\adjbox@Depth=\dimen273
-\adjbox@Totalheight=\dimen274
-\adjbox@pwidth=\dimen275
-\adjbox@pheight=\dimen276
-\adjbox@pdepth=\dimen277
-\adjbox@ptotalheight=\dimen278
+\adjbox@Width=\dimen274
+\adjbox@Height=\dimen275
+\adjbox@Depth=\dimen276
+\adjbox@Totalheight=\dimen277
+\adjbox@pwidth=\dimen278
+\adjbox@pheight=\dimen279
+\adjbox@pdepth=\dimen280
+\adjbox@ptotalheight=\dimen281
 
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/ifoddpage\ifoddpage.sty
 Package: ifoddpage 2022/10/18 v1.2 Conditionals for odd/even page detection
-\c@checkoddpage=\count336
+\c@checkoddpage=\count348
 )
 (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/varwidth\varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box69
-\sift@deathcycles=\count337
-\@vwid@loff=\dimen279
-\@vwid@roff=\dimen280
+\@vwid@box=\box70
+\sift@deathcycles=\count349
+\@vwid@loff=\dimen282
+\@vwid@roff=\dimen283
 )
 ==> First Aid for varwidth.sty applied!
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 34.
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 49
-.
- (C:\Program Files\MiKTeX\tex/latex/lm\t1lmr.fd
-File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/polyglossia\polyglossia.sty
+Package: polyglossia 2026/04/18 v2.10 Modern multilingual typesetting with XeLa
+TeX and LuaLaTeX
+\l_xpg_alias_keyvals_int=\count350
+
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/polyglossia\gloss-latex.ldf
+File: gloss-latex.ldf polyglossia: module for default language
+))
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/polyglossia\gloss-english.ld
+f
+File: gloss-english.ldf polyglossia: module for English
 )
-(C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
-File: l3backend-pdftex.def 2026-02-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count338
-) (main.aux
-(chapters/chapter1.aux) (chapters/chapter2.aux) (chapters/chapter3.aux)
-(chapters/chapter4.aux) (chapters/chapter5.aux) (chapters/chapter6.aux)
-(chapters/conclusion.aux))
+
+Package polyglossia Info: Default language is english
+
+
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/polyglossia\gloss-arabic.ldf
+File: gloss-arabic.ldf polyglossia: module for Arabic
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\bidi.sty
+Package: bidi 2026/01/08 v26.01.08 (Release Iran) Bidirectional typesetting in 
+plain TeX and LaTeX
+
+****************************************************
+* 
+* bidi package (Bidirectional typesetting with
+* plain TeX and LaTeX formats in XeTeX and LuaTeX engines)
+* 
+* Description: A convenient interface for
+* typesetting bidirectional texts in plain TeX
+* and LaTeX. The package includes adaptations
+* for use with many other commonly-used packages.
+* 
+* Copyright (c) 2007--2026 Vafa Khalighi
+* Copyright (c) 2018--2020 bidi-tex GitHub organization
+* 
+* v26.01.08 (Release Iran), 2026/01/08
+* 
+* License: LaTeX Project Public License, version
+* 1.3c or higher (your choice)
+* 
+* Location on CTAN: /macros/unicodetex/generic/bidi
+* 
+* Issue tracker: https://github.com/xepersian/bidi/issues
+* 
+* Primary author of bidi package: Vafa Khalighi.
+* 
+****************************************************
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\biditools.sty
+Package: biditools 2025/12/19 v2.9 Programming tools for bidi package
+\@bidi@envbody=\toks37
+\@bidi@emptytoks=\toks38
+\bidi@poscount=\count351
+\bidi@tempcountb=\count352
+\bidi@temptoksa=\toks39
+\bidi@temptoksb=\toks40
+\bidi@dummies=\count353
+\bidi@are@these@correct=\toks41
+\bidi@toks@lista=\toks42
+\bidi@toks@listb=\toks43
+\bidi@stack@length=\count354
+\bidi@empty@stack=\toks44
+\bidi@looprepeat@depth=\count355
+)
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/zref\zref-abspage.sty
+Package: zref-abspage 2026-03-07 v2.37 Module abspage for zref (HO)
+
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/zref\zref-base.sty
+Package: zref-base 2026-03-07 v2.37 Module base for zref (HO)
+
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/generic/etexcmds\etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/auxhook\auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+Package zref Info: New property list: main on input line 767.
+Package zref Info: New property: default on input line 768.
+Package zref Info: New property: page on input line 769.
+)
+\c@abspage=\count356
+Package zref Info: New property: abspage on input line 67.
+)
+\@bidi@copyins@=\insert252
+\bidi@typesethour=\count357
+\bidi@typesetminute=\count358
+
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\latex-xetex-bidi.def
+File: latex-xetex-bidi.def 2025/12/19 v1.5.6 bidi adaptations for `latex.ltx' f
+or XeTeX engine
+\bidi@n@everypar=\toks45
+LaTeX Info: Redefining \centerline on input line 317.
+LaTeX Info: Redefining \leftline on input line 326.
+LaTeX Info: Redefining \rightline on input line 327.
+LaTeX Info: Redefining \underline on input line 335.
+\bidi@column@check@number=\count359
+
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\footnote-xetex-bidi.def
+File: footnote-xetex-bidi.def 2025/09/30 v1.6 bidi footnote macros for XeTeX en
+gine
+\c@footdir@label=\count360
+\footdir@toks=\toks46
+) (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\report-xetex-bidi.def
+File: report-xetex-bidi.def 2025/12/19 v1.3 bidi adaptations for standard repor
+t class for XeTeX engine
+)
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\amsmath-xetex-bidi.def
+File: amsmath-xetex-bidi.def 2020/05/16 v1.2 bidi adaptations for amsmath packa
+ge for XeTeX engine
+) (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\amstext-xetex-bidi.de
+f
+File: amstext-xetex-bidi.def 2016/09/12 v0.2 bidi adaptations for amstext packa
+ge for XeTeX engine
+) (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\array-xetex-bidi.def
+File: array-xetex-bidi.def 2025/12/06 v0.8 bidi adaptations for array package f
+or XeTeX engine
+) (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\caption-xetex-bidi.de
+f
+File: caption-xetex-bidi.def 2010/07/25 v0.1 bidi adaptations for caption packa
+ge for XeTeX engine
+)
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\caption3-xetex-bidi.def
+File: caption3-xetex-bidi.def 2013/04/01 v0.1 bidi adaptations for caption3 pac
+kage for XeTeX engine
+) (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\color-xetex-bidi.def
+File: color-xetex-bidi.def 2013/04/08 v0.2 bidi adaptations for color package f
+or XeTeX engine
+LaTeX Info: Redefining \color on input line 50.
+) (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\eso-pic-xetex-bidi.de
+f
+File: eso-pic-xetex-bidi.def 2022/02/18 v0.4 bidi adaptations for eso-pic packa
+ge for XeTeX engine
+)
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\fancyhdr-xetex-bidi.def
+File: fancyhdr-xetex-bidi.def 2025/09/03 v1.0 bidi adaptations for fancyhdr pac
+kage for XeTeX engine
+) (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\float-xetex-bidi.def
+File: float-xetex-bidi.def 2013/04/04 v0.2 bidi adaptations for float package f
+or XeTeX engine
+)
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\geometry-xetex-bidi.def
+File: geometry-xetex-bidi.def 2017/01/14 v0.2 bidi adaptations for geometry pac
+kage for XeTeX engine
+)
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\graphicx-xetex-bidi.def
+File: graphicx-xetex-bidi.def 2017/06/17 v0.5 bidi adaptations for graphicx pac
+kage for XeTeX engine
+)
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\hyperref-xetex-bidi.def
+File: hyperref-xetex-bidi.def 2025/12/06 v1.5 bidi adaptations for hyperref pac
+kage for XeTeX engine
+)
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\longtable-xetex-bidi.de
+f
+File: longtable-xetex-bidi.def 2025/01/05 v0.8 bidi adaptations for longtable p
+ackage for XeTeX engine
+)
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\lscape-xetex-bidi.def
+File: lscape-xetex-bidi.def 2025/01/03 v0.3 bidi adaptations for lscape package
+ for XeTeX engine
+)
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\pdflscape-xetex-bidi.de
+f
+File: pdflscape-xetex-bidi.def 2022/02/18 v0.1 bidi adaptations for pdflscape p
+ackage for XeTeX engine
+)
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\rotating-xetex-bidi.def
+File: rotating-xetex-bidi.def 2013/05/22 v0.2 bidi adaptations for rotating pac
+kage for XeTeX engine
+)
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\tabularx-xetex-bidi.def
+File: tabularx-xetex-bidi.def 2014/11/08 v0.1 bidi adaptations for tabularx pac
+kage for XeTeX engine
+) (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\xcolor-xetex-bidi.def
+File: xcolor-xetex-bidi.def 2022/06/13 v0.3 bidi adaptations for xcolor package
+ for XeTeX engine
+LaTeX Info: Redefining \color on input line 49.
+LaTeX Info: Redefining \bidicolor on input line 92.
+)
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\tc-xetex-xetex-bidi.def
+File: tc-xetex-xetex-bidi.def 2014/07/08 v0.1 bidi adaptations for Clipping dri
+ver for XeTeX engine
+))
+\bidi@digits=\count361
+\bidi@digits@charclass=\XeTeXcharclass1
+\bidi@sepmark@charclass=\XeTeXcharclass2
+)
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/polyglossia\arabicnumbers.st
+y
+Package: arabicnumbers 2010/03/18 v0.2 Formatting of Arabic and Farsi digits an
+d of Arabic abjad numerals
+) (C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/polyglossia\hijrical.sty
+Package: hijrical 2010/07/12 v0.2 Islamic calendar
+
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/polyglossia\cal-util.def
+\c@tmpA=\count362
+\c@tmpB=\count363
+\c@tmpC=\count364
+\c@tmpD=\count365
+\c@tmpE=\count366
+\c@tmpF=\count367
+)
+\c@Hijriday=\count368
+\c@Hijrimonth=\count369
+\c@Hijriyear=\count370
+))
+
+Package fontspec Info: 
+(fontspec)             Font family 'TimesNewRoman(0)' created for font 'Times
+(fontspec)             New Roman' with options [Ligatures=TeX].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.: <->"Times New
+(fontspec)             Roman/OT:script=latn;language=dflt;mapping=tex-text;"
+(fontspec)             - 'small caps'  (m/sc) with NFSS spec.: <->"Times New
+(fontspec)             Roman/OT:script=latn;language=dflt;+smcp;mapping=tex-tex
+t;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.: <->"Times New
+(fontspec)             Roman/B/OT:script=latn;language=dflt;mapping=tex-text;"
+(fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: <->"Times
+(fontspec)             New
+(fontspec)             Roman/B/OT:script=latn;language=dflt;+smcp;mapping=tex-t
+ext;"
+(fontspec)             - 'italic' (m/it) with NFSS spec.: <->"Times New
+(fontspec)             Roman/I/OT:script=latn;language=dflt;mapping=tex-text;"
+(fontspec)             - 'italic small caps'  (m/scit) with NFSS spec.:
+(fontspec)             <->"Times New
+(fontspec)             Roman/I/OT:script=latn;language=dflt;+smcp;mapping=tex-t
+ext;"
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.: <->"Times New
+(fontspec)             Roman/BI/OT:script=latn;language=dflt;mapping=tex-text;"
+
+(fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.:
+(fontspec)             <->"Times New
+(fontspec)             Roman/BI/OT:script=latn;language=dflt;+smcp;mapping=tex-
+text;"
+
+
+Package fontspec Info: 
+(fontspec)             Arial scale = 1.08.
+
+
+Package fontspec Info: 
+(fontspec)             Arial scale = 1.08.
+
+
+Package fontspec Info: 
+(fontspec)             Arial scale = 1.08.
+
+
+Package fontspec Info: 
+(fontspec)             Arial/B scale = 1.08.
+
+
+Package fontspec Info: 
+(fontspec)             Arial/B scale = 1.08.
+
+
+Package fontspec Info: 
+(fontspec)             Arial/I scale = 1.08.
+
+
+Package fontspec Info: 
+(fontspec)             Arial/I scale = 1.08.
+
+
+Package fontspec Info: 
+(fontspec)             Arial/BI scale = 1.08.
+
+
+Package fontspec Info: 
+(fontspec)             Arial/BI scale = 1.08.
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'Arial(0)' created for font 'Arial' with
+(fontspec)             options [Script=Arabic,Scale=1.08].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->s*[1.08]"Arial/OT:script=arab;language=dflt;"
+(fontspec)             - 'small caps'  (m/sc) with NFSS spec.:
+(fontspec)             <->s*[1.08]"Arial/OT:script=arab;language=dflt;+smcp;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->s*[1.08]"Arial/B/OT:script=arab;language=dflt;"
+(fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.:
+(fontspec)             <->s*[1.08]"Arial/B/OT:script=arab;language=dflt;+smcp;"
+
+(fontspec)             - 'italic' (m/it) with NFSS spec.:
+(fontspec)             <->s*[1.08]"Arial/I/OT:script=arab;language=dflt;"
+(fontspec)             - 'italic small caps'  (m/scit) with NFSS spec.:
+(fontspec)             <->s*[1.08]"Arial/I/OT:script=arab;language=dflt;+smcp;"
+
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.:
+(fontspec)             <->s*[1.08]"Arial/BI/OT:script=arab;language=dflt;"
+(fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.:
+(fontspec)             <->s*[1.08]"Arial/BI/OT:script=arab;language=dflt;+smcp;
+"
+
+Package hyperref Info: Option `colorlinks' set `true' on input line 36.
+
+(C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex/latex/bidi\float-xetex-bidi.def
+File: float-xetex-bidi.def 2013/04/04 v0.2 bidi adaptations for float package f
+or XeTeX engine
+)
+(main.aux (chapters/chapter1.aux) (chapters/chapter2.aux)
+(chapters/chapter3.aux) (chapters/chapter4.aux) (chapters/chapter5.aux)
+(chapters/chapter6.aux) (chapters/conclusion.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+
+Package fontspec Info: 
+(fontspec)             Adjusting the maths setup (use [no-math] to avoid
+(fontspec)             this).
+
+\symlegacymaths=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 51.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 51.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 51.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 51.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 51.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 51.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 51.
+LaTeX Font Info:    Redeclaring math accent \check on input line 51.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 51.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 51.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 51.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 51.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 51.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 51.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 51.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 51.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 51.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 51.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 51.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 51.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 51.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 51.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 51.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 51.
+LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
+(Font)              `operators' in the math version `normal' on input line 51.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> TU/TimesNewRoman(0)/m/n on input line 5
+1.
+LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
+(Font)              `operators' in the math version `bold' on input line 51.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> TU/TimesNewRoman(0)/m/n on input line 
+51.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  TU/TimesNewRoman(0)/m/n --> TU/TimesNewRoman(0)/m/n on 
+input line 51.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> TU/TimesNewRoman(0)/m/it on input line
+ 51.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> TU/TimesNewRoman(0)/b/n on input line 
+51.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 51.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 51.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  TU/TimesNewRoman(0)/m/n --> TU/TimesNewRoman(0)/b/n on 
+input line 51.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> TU/TimesNewRoman(0)/b/it on input lin
+e 51.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 51.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 51.
 
 *geometry* driver: auto-detecting
-*geometry* detected driver: pdftex
+*geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
-* driver: pdftex
+* driver: xetex
 * paper: a4paper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
@@ -654,150 +1011,99 @@ LaTeX Font Info:    ... okay on input line 49.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-(C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count339
-\scratchdimen=\dimen281
-\scratchbox=\box70
-\nofMPsegments=\count340
-\nofMParguments=\count341
-\everyMPshowfont=\toks39
-\MPscratchCnt=\count342
-\MPscratchDim=\dimen282
-\MPnumerator=\count343
-\makeMPintoPDFobject=\count344
-\everyMPtoPDFconversion=\toks40
-) (C:\Program Files\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
-Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
-85.
-
-(C:\Program Files\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
-))
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: rotating package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 49.
- (main.out)
-(main.out)
+Package hyperref Info: Link coloring ON on input line 51.
+(main.out) (main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
-Package hyperref Info: Option `pageanchor' set `false' on input line 54.
-<figures/page de garde.pdf, id=443, 597.55246pt x 845.07724pt>
+Package hyperref Info: Option `pageanchor' set `false' on input line 56.
 File: figures/page de garde.pdf Graphic file (type pdf)
 <use figures/page de garde.pdf>
-Package pdftex.def Info: figures/page de garde.pdf  used on input line 55.
-(pdftex.def)             Requested size: 597.551pt x 845.07518pt.
-<figures/page de garde.pdf, id=445, page=1, 597.55246pt x 845.07724pt>
 File: figures/page de garde.pdf Graphic file (type pdf)
 <use figures/page de garde.pdf, page 1>
-Package pdftex.def Info: figures/page de garde.pdf , page1 used on input line 5
-5.
-(pdftex.def)             Requested size: 597.551pt x 845.07518pt.
 File: figures/page de garde.pdf Graphic file (type pdf)
 <use figures/page de garde.pdf, page 1>
-Package pdftex.def Info: figures/page de garde.pdf , page1 used on input line 5
-5.
-(pdftex.def)             Requested size: 597.59657pt x 845.13965pt.
 File: figures/page de garde.pdf Graphic file (type pdf)
 <use figures/page de garde.pdf, page 1>
-Package pdftex.def Info: figures/page de garde.pdf , page1 used on input line 5
-5.
-(pdftex.def)             Requested size: 597.59657pt x 845.13965pt.
 File: figures/page de garde.pdf Graphic file (type pdf)
 <use figures/page de garde.pdf, page 1>
-Package pdftex.def Info: figures/page de garde.pdf , page1 used on input line 5
-5.
-(pdftex.def)             Requested size: 597.59657pt x 845.13965pt.
 File: figures/page de garde.pdf Graphic file (type pdf)
 <use figures/page de garde.pdf, page 1>
-Package pdftex.def Info: figures/page de garde.pdf , page1 used on input line 5
-5.
-(pdftex.def)             Requested size: 597.59657pt x 845.13965pt.
  [1
 
 
- <./figures/page de garde.pdf>]
-Package hyperref Info: Option `pageanchor' set `true' on input line 57.
+]
+Package hyperref Info: Option `pageanchor' set `true' on input line 59.
  [1
 
 
-{C:/Users/ryzen 5/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Program 
-Files/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}] [2
+] [2
+
 
 ] [3
 
+] [4
+
+
+]
+LaTeX Font Info:    Font shape `TU/Arial(0)/b/n' will be
+(Font)              scaled to size 26.87044pt on input line 119.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\textarabic' on input line 120.
+
+LaTeX Font Info:    Font shape `TU/Arial(0)/m/n' will be
+(Font)              scaled to size 12.96002pt on input line 122.
+LaTeX Font Info:    Font shape `TU/Arial(0)/b/n' will be
+(Font)              scaled to size 12.96002pt on input line 124.
+[5
+
+
+] [6
+
 ] (main.toc
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 9
-.
- (C:\Program Files\MiKTeX\tex/latex/lm\ot1lmr.fd
-File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 9
-.
+LaTeX Font Info:    Font shape `TU/Arial(0)/b/n' will be
+(Font)              scaled to size 10.80002pt on input line 5.
+LaTeX Font Info:    Font shape `TU/Arial(0)/m/n' will be
+(Font)              scaled to size 10.80002pt on input line 6.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 13.
 
-(C:\Program Files\MiKTeX\tex/latex/lm\omllmm.fd
-File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-9.
-
-(C:\Program Files\MiKTeX\tex/latex/lm\omslmsy.fd
-File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-9.
-
-(C:\Program Files\MiKTeX\tex/latex/lm\omxlmex.fd
-File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 9.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 9.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 9.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 9.
-
-(C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd
+ (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 9.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 13.
+
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [4
+) [7
 
-] [5])
+
+] [8])
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [6] (main.lof)
+ [9] (main.lof)
 \tf@lof=\write5
 \openout5 = `main.lof'.
 
 
-[7
+[10
 
 
 ] (main.lot)
 \tf@lot=\write6
 \openout6 = `main.lot'.
 
- [8
+ [11
 
 
-]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-11.
- (C:\Program Files\MiKTeX\tex/latex/lm\ts1lmr.fd
-File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [9
-
-{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}] [1
+] [1
 
 
 ]
@@ -805,48 +1111,28 @@ File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 
  (chapters/chapter1.tex
 Chapter 1.
-<figures/sntf.png, id=694, 473.77pt x 285.065pt>
-File: figures/sntf.png Graphic file (type png)
-<use figures/sntf.png>
-Package pdftex.def Info: figures/sntf.png  used on input line 13.
-(pdftex.def)             Requested size: 282.24911pt x 169.83109pt.
+File: figures/sntf.png Graphic file (type bmp)
+<figures/sntf.png>
 [2
 
 
-] [3 <./figures/sntf.png>]
-<figures/dsi-organigramme.png, id=707, 845.0772pt x 597.9138pt>
-File: figures/dsi-organigramme.png Graphic file (type png)
-<use figures/dsi-organigramme.png>
-Package pdftex.def Info: figures/dsi-organigramme.png  used on input line 24.
-(pdftex.def)             Requested size: 553.35555pt x 391.51021pt.
- [4 <./figures/dsi-organigramme.png (PNG copy)>]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
-3.
-
-(C:\Program Files\MiKTeX\tex/latex/lm\t1lmtt.fd
-File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [5
+] [3]
+File: figures/dsi-organigramme.png Graphic file (type bmp)
+<figures/dsi-organigramme.png>
+ [4] [5
 
 
 ] [6] [7]) [8]
 \openout2 = `chapters/chapter2.aux'.
 
-
-(chapters/chapter2.tex
+ (chapters/chapter2.tex
 Chapter 2.
 [9
 
 
 
 
-]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 20.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 20.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 20.
- [10] [11]) [12]
+] [10] [11]) [12]
 \openout2 = `chapters/chapter3.aux'.
 
  (chapters/chapter3.tex
@@ -856,7 +1142,16 @@ Chapter 3.
 
 
 
-] [14] [15] [16]) [17] [18] [19
+] [14] [15] [16]
+Overfull \hbox (12.47919pt too wide) in paragraph at lines 90--91
+[]\TU/TimesNewRoman(0)/m/n/12 The Prisma schema shows how the theoretical conce
+pts become concrete entities: \TU/lmtt/m/n/12 User\TU/TimesNewRoman(0)/m/n/12 ,
+ \TU/lmtt/m/n/12 Incident\TU/TimesNewRoman(0)/m/n/12 ,[]
+ []
+
+File: figures/diagrams/simplified_class_diagram.pdf Graphic file (type pdf)
+<use figures/diagrams/simplified_class_diagram.pdf>
+[17]) [18] [19
 
 
 
@@ -869,195 +1164,160 @@ Chapter 4.
 
 
 ]
-<figures/diagrams/architecture_diagram.pdf, id=791, 374.14781pt x 290.58563pt>
 File: figures/diagrams/architecture_diagram.pdf Graphic file (type pdf)
 <use figures/diagrams/architecture_diagram.pdf>
-Package pdftex.def Info: figures/diagrams/architecture_diagram.pdf  used on inp
-ut line 23.
-(pdftex.def)             Requested size: 432.48051pt x 335.909pt.
- [21] [22 <./figures/diagrams/architecture_diagram.pdf>]) [23]
+ [21] [22]) [23]
 \openout2 = `chapters/chapter5.aux'.
 
-
-(chapters/chapter5.tex
+ (chapters/chapter5.tex
 Chapter 5.
-<figures/diagrams/use_case_diagram.pdf, id=814, 534.49687pt x 772.38562pt>
-File: figures/diagrams/use_case_diagram.pdf Graphic file (type pdf)
-<use figures/diagrams/use_case_diagram.pdf>
-Package pdftex.def Info: figures/diagrams/use_case_diagram.pdf  used on input l
-ine 13.
-(pdftex.def)             Requested size: 418.82375pt x 605.25156pt.
+File: figures/diagrams/updated_use_case_diagram.pdf Graphic file (type pdf)
+<use figures/diagrams/updated_use_case_diagram.pdf>
 [24
 
 
 
 
-] [25 <./figures/diagrams/use_case_diagram.pdf>]
-<figures/diagrams/sequence_diagram_authentication.pdf, id=838, 437.38406pt x 34
-4.03531pt>
+] [25]
 File: figures/diagrams/sequence_diagram_authentication.pdf Graphic file (type p
 df)
 <use figures/diagrams/sequence_diagram_authentication.pdf>
-Package pdftex.def Info: figures/diagrams/sequence_diagram_authentication.pdf  
-used on input line 28.
-(pdftex.def)             Requested size: 432.48051pt x 340.18129pt.
- [26]
-<figures/diagrams/sequence_diagram_incident_flow.pdf, id=844, 488.57532pt x 409
-.53pt>
+ [26] [27]
+File: figures/diagrams/advanced_auth_sequence_diagram.pdf Graphic file (type pd
+f)
+<use figures/diagrams/advanced_auth_sequence_diagram.pdf>
+ [28]
 File: figures/diagrams/sequence_diagram_incident_flow.pdf Graphic file (type pd
 f)
 <use figures/diagrams/sequence_diagram_incident_flow.pdf>
-Package pdftex.def Info: figures/diagrams/sequence_diagram_incident_flow.pdf  u
-sed on input line 37.
-(pdftex.def)             Requested size: 432.48051pt x 362.51839pt.
- [27 <./figures/diagrams/sequence_diagram_authentication.pdf>]
-<figures/diagrams/sequence_diagram_global_search.pdf, id=859, 335.00156pt x 312
-.41719pt>
 File: figures/diagrams/sequence_diagram_global_search.pdf Graphic file (type pd
 f)
 <use figures/diagrams/sequence_diagram_global_search.pdf>
-Package pdftex.def Info: figures/diagrams/sequence_diagram_global_search.pdf  u
-sed on input line 46.
-(pdftex.def)             Requested size: 432.48051pt x 403.32492pt.
- [28 <./figures/diagrams/sequence_diagram_incident_flow.pdf>] [29 <./figures/di
-agrams/sequence_diagram_global_search.pdf>]
-<figures/diagrams/class_diagram.pdf, id=885, 1198.4775pt x 406.51875pt>
-File: figures/diagrams/class_diagram.pdf Graphic file (type pdf)
-<use figures/diagrams/class_diagram.pdf>
-Package pdftex.def Info: figures/diagrams/class_diagram.pdf  used on input line
- 61.
-(pdftex.def)             Requested size: 1198.47458pt x 406.51775pt.
- [30 <./figures/diagrams/class_diagram.pdf>]
-<figures/diagrams/activity_diagram_RBAC.pdf, id=899, 320.69812pt x 361.35pt>
+ [29
+
+
+] [30]
+File: figures/diagrams/updated_class_diagram.pdf Graphic file (type pdf)
+<use figures/diagrams/updated_class_diagram.pdf>
+ [31]
 File: figures/diagrams/activity_diagram_RBAC.pdf Graphic file (type pdf)
 <use figures/diagrams/activity_diagram_RBAC.pdf>
-Package pdftex.def Info: figures/diagrams/activity_diagram_RBAC.pdf  used on in
-put line 80.
-(pdftex.def)             Requested size: 432.48051pt x 487.31625pt.
- [31
+ [32
 
 
-]) [32 <./figures/diagrams/activity_diagram_RBAC.pdf>]
+]) [33]
 \openout2 = `chapters/chapter6.aux'.
 
  (chapters/chapter6.tex
 Chapter 6.
-[33
+[34
 
 
 
 
-] [34]
-<figures/screenshots/login_page.png, id=926, 1204.5pt x 554.82281pt>
-File: figures/screenshots/login_page.png Graphic file (type png)
-<use figures/screenshots/login_page.png>
-Package pdftex.def Info: figures/screenshots/login_page.png  used on input line
- 45.
-(pdftex.def)             Requested size: 409.71692pt x 188.72191pt.
- [35 <./figures/screenshots/login_page.png>]
-<figures/screenshots/access_control.png, id=933, 1204.5pt x 554.82281pt>
-File: figures/screenshots/access_control.png Graphic file (type png)
-<use figures/screenshots/access_control.png>
-Package pdftex.def Info: figures/screenshots/access_control.png  used on input 
-line 65.
-(pdftex.def)             Requested size: 432.48051pt x 199.21117pt.
- [36 <./figures/screenshots/access_control.png>]
-<figures/screenshots/audit_logs.png, id=940, 1204.5pt x 554.82281pt>
-File: figures/screenshots/audit_logs.png Graphic file (type png)
-<use figures/screenshots/audit_logs.png>
-Package pdftex.def Info: figures/screenshots/audit_logs.png  used on input line
- 87.
-(pdftex.def)             Requested size: 432.48051pt x 199.21117pt.
- [37]
-<figures/screenshots/dashboard.png, id=945, 1204.5pt x 554.82281pt>
-File: figures/screenshots/dashboard.png Graphic file (type png)
-<use figures/screenshots/dashboard.png>
-Package pdftex.def Info: figures/screenshots/dashboard.png  used on input line 
-101.
-(pdftex.def)             Requested size: 432.48051pt x 199.21117pt.
- [38 <./figures/screenshots/audit_logs.png>]
-<figures/screenshots/incidents.png, id=951, 1204.5pt x 554.82281pt>
-File: figures/screenshots/incidents.png Graphic file (type png)
-<use figures/screenshots/incidents.png>
-Package pdftex.def Info: figures/screenshots/incidents.png  used on input line 
-111.
-(pdftex.def)             Requested size: 432.48051pt x 199.21117pt.
-
-[39 <./figures/screenshots/dashboard.png> <./figures/screenshots/incidents.png>
 ]
-<figures/screenshots/assets.png, id=959, 1204.5pt x 554.82281pt>
-File: figures/screenshots/assets.png Graphic file (type png)
-<use figures/screenshots/assets.png>
-Package pdftex.def Info: figures/screenshots/assets.png  used on input line 121
-.
-(pdftex.def)             Requested size: 432.48051pt x 199.21117pt.
-<figures/screenshots/knowledge_base.png, id=960, 1204.5pt x 554.82281pt>
-File: figures/screenshots/knowledge_base.png Graphic file (type png)
-<use figures/screenshots/knowledge_base.png>
-Package pdftex.def Info: figures/screenshots/knowledge_base.png  used on input 
-line 131.
-(pdftex.def)             Requested size: 432.48051pt x 199.21117pt.
- [40 <./figures/screenshots/assets.png>]
-<figures/screenshots/relation_map.png, id=966, 1204.5pt x 554.82281pt>
-File: figures/screenshots/relation_map.png Graphic file (type png)
-<use figures/screenshots/relation_map.png>
-Package pdftex.def Info: figures/screenshots/relation_map.png  used on input li
-ne 138.
-(pdftex.def)             Requested size: 432.48051pt x 199.21117pt.
-<figures/screenshots/search.png, id=967, 1204.5pt x 554.82281pt>
-File: figures/screenshots/search.png Graphic file (type png)
-<use figures/screenshots/search.png>
-Package pdftex.def Info: figures/screenshots/search.png  used on input line 145
-.
-(pdftex.def)             Requested size: 432.48051pt x 199.21117pt.
- [41 <./figures/screenshots/knowledge_base.png> <./figures/screenshots/relation
-_map.png>]
-<figures/screenshots/reports.png, id=974, 1204.5pt x 554.82281pt>
-File: figures/screenshots/reports.png Graphic file (type png)
-<use figures/screenshots/reports.png>
-Package pdftex.def Info: figures/screenshots/reports.png  used on input line 15
-2.
-(pdftex.def)             Requested size: 432.48051pt x 199.21117pt.
- [42 <./figures/screenshots/search.png> <./figures/screenshots/reports.png>] [4
-3] [44]) [45]
+Overfull \hbox (1.12582pt too wide) in paragraph at lines 39--40
+[]\TU/TimesNewRoman(0)/m/n/12 The login route accepts a username and password, 
+authenticates against Active Directory through[]
+ []
+
+[35]
+File: figures/screenshots/login_page.png Graphic file (type bmp)
+<figures/screenshots/login_page.png>
+
+Overfull \hbox (4.36732pt too wide) in paragraph at lines 51--52
+[]\TU/TimesNewRoman(0)/m/n/12 keeping the public web application same-origin. T
+he auth store also checks \TU/lmtt/m/n/12 /api/auth/session[]
+ []
+
+
+Overfull \hbox (9.47737pt too wide) in paragraph at lines 54--56
+[]\TU/TimesNewRoman(0)/m/n/12 overrides. Middleware functions such as \TU/lmtt/
+m/n/12 requireAuth\TU/TimesNewRoman(0)/m/n/12 , \TU/lmtt/m/n/12 requireRole\TU/
+TimesNewRoman(0)/m/n/12 , and \TU/lmtt/m/n/12 requirePermission[]
+ []
+
+[36]
+File: figures/screenshots/access_control.png Graphic file (type bmp)
+<figures/screenshots/access_control.png>
+
+Overfull \hbox (1.48515pt too wide) in paragraph at lines 72--73
+[]\TU/lmtt/m/n/12 IN_PROGRESS\TU/TimesNewRoman(0)/m/n/12 , \TU/lmtt/m/n/12 BLOC
+KED\TU/TimesNewRoman(0)/m/n/12 , \TU/lmtt/m/n/12 RESOLVED\TU/TimesNewRoman(0)/m
+/n/12 , and \TU/lmtt/m/n/12 CLOSED\TU/TimesNewRoman(0)/m/n/12 , together with p
+riorities from \TU/lmtt/m/n/12 LOW \TU/TimesNewRoman(0)/m/n/12 to \TU/lmtt/m/n/
+12 CRITICAL\TU/TimesNewRoman(0)/m/n/12 .[]
+ []
+
+[37]
+File: figures/screenshots/audit_logs.png Graphic file (type bmp)
+<figures/screenshots/audit_logs.png>
+ [38]
+File: figures/screenshots/dashboard.png Graphic file (type bmp)
+<figures/screenshots/dashboard.png>
+ [39]
+File: figures/screenshots/incidents.png Graphic file (type bmp)
+<figures/screenshots/incidents.png>
+ [40]
+File: figures/screenshots/assets.png Graphic file (type bmp)
+<figures/screenshots/assets.png>
+File: figures/screenshots/knowledge_base.png Graphic file (type bmp)
+<figures/screenshots/knowledge_base.png>
+ [41]
+File: figures/screenshots/relation_map.png Graphic file (type bmp)
+<figures/screenshots/relation_map.png>
+File: figures/screenshots/search.png Graphic file (type bmp)
+<figures/screenshots/search.png>
+ [42]
+File: figures/screenshots/reports.png Graphic file (type bmp)
+<figures/screenshots/reports.png>
+
+Overfull \hbox (65.3791pt too wide) in paragraph at lines 162--163
+[]\TU/TimesNewRoman(0)/m/n/12 The backend requires \TU/lmtt/m/n/12 DATABASE_URL
+\TU/TimesNewRoman(0)/m/n/12 , \TU/lmtt/m/n/12 JWT_SECRET\TU/TimesNewRoman(0)/m/
+n/12 , \TU/lmtt/m/n/12 AD_URL\TU/TimesNewRoman(0)/m/n/12 , \TU/lmtt/m/n/12 AD_D
+OMAIN\TU/TimesNewRoman(0)/m/n/12 , \TU/lmtt/m/n/12 CORS_ORIGIN\TU/TimesNewRoman
+(0)/m/n/12 , \TU/lmtt/m/n/12 ADMIN_USERNAMES\TU/TimesNewRoman(0)/m/n/12 ,[]
+ []
+
+
+Overfull \hbox (63.35925pt too wide) in paragraph at lines 162--163
+[]\TU/TimesNewRoman(0)/m/n/12 and \TU/lmtt/m/n/12 DEV_MODE\TU/TimesNewRoman(0)/
+m/n/12 . The web layer uses the proxy base \TU/lmtt/m/n/12 /api/backend \TU/Tim
+esNewRoman(0)/m/n/12 and the session route \TU/lmtt/m/n/12 /api/auth/session\TU
+/TimesNewRoman(0)/m/n/12 .[]
+ []
+
+[43] [44] [45]) [46]
 \openout2 = `chapters/conclusion.aux'.
 
-
-(chapters/conclusion.tex) [46
-
+ (chapters/conclusion.tex) [47
 
 
 
-] (main.bbl) [47
+
+] (main.bbl [48
 
 
 
-] (main.aux (chapters/chapter1.aux) (chapters/chapter2.aux) (chapters/chapter3.
-aux) (chapters/chapter4.aux)
-(chapters/chapter5.aux) (chapters/chapter6.aux) (chapters/conclusion.aux))
+]) [49]
+(main.aux (chapters/chapter1.aux) (chapters/chapter2.aux)
+(chapters/chapter3.aux) (chapters/chapter4.aux) (chapters/chapter5.aux)
+(chapters/chapter6.aux) (chapters/conclusion.aux))
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-03-20>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 536427631C10D4150E4E1EAB8EC9C77A;20500.
+(rerunfilecheck)             Checksum: 25D80EC5947517E0D034C7A04B597048;20828.
  ) 
 Here is how much of TeX's memory you used:
- 16370 strings out of 467691
- 268352 string characters out of 5425046
- 694763 words of memory out of 5000000
- 44908 multiletter control sequences out of 15000+600000
- 694015 words of font info for 88 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 75i,17n,79p,838b,643s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Program Files/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Program Files/M
-iKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/pub
-lic/lm/lmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/P
-rogram Files/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Program Files/MiKTeX/f
-onts/type1/public/lm/lmtt12.pfb>
-Output written on main.pdf (57 pages, 2189340 bytes).
-PDF statistics:
- 1078 PDF objects out of 1200 (max. 8388607)
- 195 named destinations out of 1000 (max. 500000)
- 991 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 20807 strings out of 402807
+ 417739 string characters out of 5449482
+ 904564 words of memory out of 5000000
+ 49251 multiletter control sequences out of 15000+600000
+ 636333 words of font info for 118 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 84i,17n,93p,1189b,612s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
+Output written on main.pdf (61 pages).

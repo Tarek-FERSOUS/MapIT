@@ -10,7 +10,7 @@ Figure~\ref{fig:use-case-mapit} summarizes the interactions between users and th
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.92\textwidth]{figures/diagrams/use_case_diagram.pdf}
+	\includegraphics[width=0.92\textwidth]{figures/diagrams/updated_use_case_diagram.pdf}
 	\caption{Use case diagram of MapIT}
 	\label{fig:use-case-mapit}
 \end{figure}
@@ -29,6 +29,21 @@ The authentication interaction flow is shown in Figure~\ref{fig:seq-auth}.
 	\caption{Sequence diagram: authentication flow}
 	\label{fig:seq-auth}
 \end{figure}
+
+The advanced authentication scenario, including session and permission checks, is shown in Figure~\ref{fig:seq-auth-advanced}.
+
+\begin{landscape}
+\begin{figure}[p]
+	\centering
+	\vspace*{\fill}
+	\begin{adjustbox}{width=\linewidth, totalheight=0.8\textheight, keepaspectratio}
+		\includegraphics{figures/diagrams/advanced_auth_sequence_diagram.pdf}
+	\end{adjustbox}
+	\vspace*{\fill}
+	\caption{Advanced authentication sequence diagram}
+	\label{fig:seq-auth-advanced}
+\end{figure}
+\end{landscape}
 
 The lifecycle of incident processing is detailed in Figure~\ref{fig:seq-incident}.
 
@@ -58,7 +73,7 @@ Figure~\ref{fig:class-mapit} illustrates the domain model used to implement thes
     \centering
 	\vspace*{\fill}
     \begin{adjustbox}{width=\linewidth, totalheight=0.8\textheight, keepaspectratio}
-        \includegraphics{figures/diagrams/class_diagram.pdf}
+		\includegraphics{figures/diagrams/updated_class_diagram.pdf}
     \end{adjustbox}
 	\vspace*{\fill}
     \caption{Class diagram of the MapIT domain model}

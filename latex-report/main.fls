@@ -1,5 +1,5 @@
 PWD C:\Users\ryzen 5\Desktop\it-docs-saas\latex-report
-INPUT C:\Users\ryzen 5\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
+INPUT C:\Users\ryzen 5\AppData\Local\MiKTeX\miktex\data\le\xetex\xelatex.fmt
 INPUT main.tex
 OUTPUT main.log
 INPUT C:\Program Files\MiKTeX\tex\latex\base\report.cls
@@ -7,14 +7,21 @@ INPUT C:\Program Files\MiKTeX\tex\latex\base\report.cls
 INPUT C:\Program Files\MiKTeX\tex\latex\base\size12.clo
 INPUT C:\Program Files\MiKTeX\tex\latex\base\size12.clo
 INPUT C:\Program Files\MiKTeX\tex\latex\base\size12.clo
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
-INPUT C:\Program Files\MiKTeX\tex\latex\base\inputenc.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\base\inputenc.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\fontspec\fontspec.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\fontspec\fontspec.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\l3packages\xparse\xparse.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\l3packages\xparse\xparse.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\l3kernel\expl3.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\l3kernel\expl3.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\l3backend\l3backend-xetex.def
+INPUT C:\Program Files\MiKTeX\tex\latex\l3backend\l3backend-xetex.def
+INPUT C:\Program Files\MiKTeX\tex\latex\fontspec\fontspec-xetex.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\fontspec\fontspec-xetex.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\base\fontenc.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\base\fontenc.sty
-INPUT C:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecrm1200.tfm
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\lmodern.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\lmodern.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\fontspec\fontspec.cfg
+INPUT C:\Program Files\MiKTeX\tex\latex\fontspec\fontspec.cfg
+INPUT C:\Program Files\MiKTeX\tex\latex\fontspec\fontspec.cfg
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\geometry\geometry.sty
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\geometry\geometry.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\graphics\keyval.sty
@@ -37,9 +44,9 @@ INPUT C:\Program Files\MiKTeX\tex\latex\graphics\trig.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\graphics-cfg\graphics.cfg
 INPUT C:\Program Files\MiKTeX\tex\latex\graphics-cfg\graphics.cfg
 INPUT C:\Program Files\MiKTeX\tex\latex\graphics-cfg\graphics.cfg
-INPUT C:\Program Files\MiKTeX\tex\latex\graphics-def\pdftex.def
-INPUT C:\Program Files\MiKTeX\tex\latex\graphics-def\pdftex.def
-INPUT C:\Program Files\MiKTeX\tex\latex\graphics-def\pdftex.def
+INPUT C:\Program Files\MiKTeX\tex\latex\graphics-def\xetex.def
+INPUT C:\Program Files\MiKTeX\tex\latex\graphics-def\xetex.def
+INPUT C:\Program Files\MiKTeX\tex\latex\graphics-def\xetex.def
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\booktabs\booktabs.sty
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\booktabs\booktabs.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\tools\array.sty
@@ -112,13 +119,14 @@ INPUT C:\Program Files\MiKTeX\tex\latex\hyperref\puenc.def
 INPUT C:\Program Files\MiKTeX\tex\latex\hyperref\puenc.def
 INPUT C:\Program Files\MiKTeX\tex\latex\url\url.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\url\url.sty
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\zapfding\pzdr.tfm
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\generic\bitset\bitset.sty
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\generic\bitset\bitset.sty
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\generic\bigintcalc\bigintcalc.sty
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\generic\bigintcalc\bigintcalc.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\hyperref\hpdftex.def
-INPUT C:\Program Files\MiKTeX\tex\latex\hyperref\hpdftex.def
-INPUT C:\Program Files\MiKTeX\tex\latex\hyperref\hpdftex.def
+INPUT C:\Program Files\MiKTeX\tex\latex\hyperref\hxetex.def
+INPUT C:\Program Files\MiKTeX\tex\latex\hyperref\hxetex.def
+INPUT C:\Program Files\MiKTeX\tex\latex\hyperref\hxetex.def
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\rerunfilecheck\rerunfilecheck.sty
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\rerunfilecheck\rerunfilecheck.sty
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\generic\uniquecounter\uniquecounter.sty
@@ -141,9 +149,9 @@ INPUT C:\Program Files\MiKTeX\tex\latex\tools\calc.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\tools\calc.sty
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\eso-pic\eso-pic.sty
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\eso-pic\eso-pic.sty
-INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\pdfpages\pppdftex.def
-INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\pdfpages\pppdftex.def
-INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\pdfpages\pppdftex.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\pdfpages\ppxetex.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\pdfpages\ppxetex.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\pdfpages\ppxetex.def
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\pdflscape\pdflscape.sty
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\pdflscape\pdflscape.sty
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\pdflscape\pdflscape-nometadata.sty
@@ -164,21 +172,109 @@ INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\adjustbox\trimclip.sty
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\adjustbox\trimclip.sty
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\collectbox\collectbox.sty
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\collectbox\collectbox.sty
-INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\adjustbox\tc-pdftex.def
-INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\adjustbox\tc-pdftex.def
-INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\adjustbox\tc-pdftex.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\adjustbox\tc-xetex.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\adjustbox\tc-xetex.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\adjustbox\tc-xetex.def
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\ifoddpage\ifoddpage.sty
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\ifoddpage\ifoddpage.sty
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\ifoddpage\ifoddpage.sty
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\varwidth\varwidth.sty
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\varwidth\varwidth.sty
 INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\varwidth\varwidth.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\t1lmr.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\t1lmr.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\t1lmr.fd
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmr12.tfm
-INPUT C:\Program Files\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
-INPUT C:\Program Files\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\polyglossia\polyglossia.sty
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\polyglossia\polyglossia.sty
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\polyglossia\gloss-latex.ldf
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\polyglossia\gloss-latex.ldf
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\polyglossia\gloss-english.ldf
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\polyglossia\gloss-english.ldf
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\polyglossia\gloss-arabic.ldf
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\polyglossia\gloss-arabic.ldf
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\bidi.sty
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\bidi.sty
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\biditools.sty
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\biditools.sty
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\zref\zref-abspage.sty
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\zref\zref-abspage.sty
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\zref\zref-base.sty
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\zref\zref-base.sty
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\generic\etexcmds\etexcmds.sty
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\generic\etexcmds\etexcmds.sty
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\auxhook\auxhook.sty
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\auxhook\auxhook.sty
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\latex-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\latex-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\latex-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\footnote-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\footnote-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\footnote-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\report-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\report-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\report-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\amsmath-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\amsmath-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\amsmath-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\amstext-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\amstext-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\amstext-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\array-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\array-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\array-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\caption-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\caption-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\caption-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\caption3-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\caption3-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\caption3-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\color-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\color-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\color-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\eso-pic-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\eso-pic-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\eso-pic-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\fancyhdr-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\fancyhdr-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\fancyhdr-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\float-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\float-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\float-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\geometry-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\geometry-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\geometry-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\graphicx-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\graphicx-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\graphicx-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\hyperref-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\hyperref-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\hyperref-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\longtable-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\longtable-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\longtable-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\lscape-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\lscape-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\lscape-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\pdflscape-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\pdflscape-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\pdflscape-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\rotating-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\rotating-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\rotating-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\tabularx-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\tabularx-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\tabularx-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\xcolor-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\xcolor-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\xcolor-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\tc-xetex-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\tc-xetex-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\tc-xetex-xetex-bidi.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\polyglossia\arabicnumbers.sty
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\polyglossia\arabicnumbers.sty
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\polyglossia\hijrical.sty
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\polyglossia\hijrical.sty
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\polyglossia\cal-util.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\polyglossia\cal-util.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\polyglossia\cal-util.def
+INPUT C:\Users\ryzen 5\AppData\Roaming\MiKTeX\tex\latex\bidi\float-xetex-bidi.def
 INPUT .\main.aux
 INPUT .\main.aux
 INPUT main.aux
@@ -204,23 +300,15 @@ INPUT .\chapters\conclusion.aux
 INPUT .\chapters\conclusion.aux
 INPUT chapters\conclusion.aux
 OUTPUT main.aux
-INPUT C:\Program Files\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
-INPUT C:\Program Files\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
-INPUT C:\Program Files\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
-INPUT C:\Program Files\MiKTeX\tex\latex\epstopdf-pkg\epstopdf-base.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\epstopdf-pkg\epstopdf-base.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
-INPUT C:\Program Files\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
-INPUT C:\Program Files\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
 INPUT C:\Program Files\MiKTeX\tex\latex\graphics\color.sty
 INPUT .\main.out
 INPUT .\main.out
 INPUT main.out
 INPUT main.out
-OUTPUT main.pdf
 INPUT .\main.out
 INPUT .\main.out
 OUTPUT main.out
+INPUT figures\page de garde.pdf
 INPUT .\figures\page de garde.pdf
 INPUT .\figures\page de garde.pdf
 INPUT .\figures\page de garde.pdf
@@ -235,40 +323,15 @@ INPUT .\figures\page de garde.pdf
 INPUT .\figures\page de garde.pdf
 INPUT .\figures\page de garde.pdf
 INPUT .\figures\page de garde.pdf
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmr17.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmbx12.tfm
-INPUT C:\Users\ryzen 5\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
-INPUT C:\Program Files\MiKTeX\fonts\enc\dvips\lm\lm-ec.enc
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmbx12.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmr10.tfm
+INPUT .\figures\page de garde.pdf
+INPUT .\figures\page de garde.pdf
+INPUT .\figures\page de garde.pdf
+INPUT .\figures\page de garde.pdf
 INPUT .\main.toc
 INPUT .\main.toc
 INPUT main.toc
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmbx10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmr12.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmbx12.tfm
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\ot1lmr.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\ot1lmr.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\ot1lmr.fd
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\rm-lmr10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\rm-lmr7.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\rm-lmr5.tfm
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\omllmm.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\omllmm.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\omllmm.fd
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmmi10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmmi7.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmmi5.tfm
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\omslmsy.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\omslmsy.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\omslmsy.fd
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmsy10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmsy7.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmsy5.tfm
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\omxlmex.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\omxlmex.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\omxlmex.fd
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmex10.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
 INPUT C:\Program Files\MiKTeX\tex\latex\amsfonts\umsa.fd
 INPUT C:\Program Files\MiKTeX\tex\latex\amsfonts\umsa.fd
 INPUT C:\Program Files\MiKTeX\tex\latex\amsfonts\umsa.fd
@@ -290,67 +353,57 @@ INPUT .\main.lot
 INPUT .\main.lot
 INPUT main.lot
 OUTPUT main.lot
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\ts1lmr.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\ts1lmr.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\ts1lmr.fd
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ts1-lmr12.tfm
-INPUT C:\Program Files\MiKTeX\fonts\enc\dvips\lm\lm-ts1.enc
 INPUT .\chapters\chapter1.tex
 INPUT .\chapters\chapter1.tex
 OUTPUT chapters\chapter1.aux
 INPUT .\chapters\chapter1.tex
 INPUT .\chapters\chapter1.tex
 INPUT chapters\chapter1.tex
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmr17.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmbx12.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmri12.tfm
-INPUT .\figures\sntf.png
-INPUT .\figures\sntf.png
-INPUT .\figures\sntf.png
-INPUT .\figures\sntf.png
 INPUT .\figures\sntf.png
 INPUT .\figures\sntf.png
 INPUT .\figures\sntf.png
 INPUT .\figures\dsi-organigramme.png
 INPUT .\figures\dsi-organigramme.png
 INPUT .\figures\dsi-organigramme.png
-INPUT .\figures\dsi-organigramme.png
-INPUT .\figures\dsi-organigramme.png
-INPUT .\figures\dsi-organigramme.png
-INPUT .\figures\dsi-organigramme.png
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\t1lmtt.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\t1lmtt.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\t1lmtt.fd
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmtt12.tfm
 INPUT .\chapters\chapter2.tex
 INPUT .\chapters\chapter2.tex
 OUTPUT chapters\chapter2.aux
 INPUT .\chapters\chapter2.tex
 INPUT .\chapters\chapter2.tex
 INPUT chapters\chapter2.tex
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmr10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\rm-lmr10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\rm-lmr8.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\rm-lmr6.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmmi10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmmi8.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmmi6.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmsy10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmsy8.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmsy6.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmmi12.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmmi8.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmmi6.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmsy10.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmsy8.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmsy6.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmex10.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex8.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam7.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmbx10.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr8.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr6.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmmi10.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmsy10.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmex10.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam10.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr10.tfm
 INPUT .\chapters\chapter3.tex
 INPUT .\chapters\chapter3.tex
 OUTPUT chapters\chapter3.aux
 INPUT .\chapters\chapter3.tex
 INPUT .\chapters\chapter3.tex
 INPUT chapters\chapter3.tex
+INPUT .\figures\diagrams\simplified_class_diagram.pdf
+INPUT .\figures\diagrams\simplified_class_diagram.pdf
+INPUT .\figures\diagrams\simplified_class_diagram.pdf
 INPUT .\chapters\chapter4.tex
 INPUT .\chapters\chapter4.tex
 OUTPUT chapters\chapter4.aux
@@ -360,48 +413,30 @@ INPUT chapters\chapter4.tex
 INPUT .\figures\diagrams\architecture_diagram.pdf
 INPUT .\figures\diagrams\architecture_diagram.pdf
 INPUT .\figures\diagrams\architecture_diagram.pdf
-INPUT .\figures\diagrams\architecture_diagram.pdf
-INPUT .\figures\diagrams\architecture_diagram.pdf
-INPUT .\figures\diagrams\architecture_diagram.pdf
 INPUT .\chapters\chapter5.tex
 INPUT .\chapters\chapter5.tex
 OUTPUT chapters\chapter5.aux
 INPUT .\chapters\chapter5.tex
 INPUT .\chapters\chapter5.tex
 INPUT chapters\chapter5.tex
-INPUT .\figures\diagrams\use_case_diagram.pdf
-INPUT .\figures\diagrams\use_case_diagram.pdf
-INPUT .\figures\diagrams\use_case_diagram.pdf
-INPUT .\figures\diagrams\use_case_diagram.pdf
-INPUT .\figures\diagrams\use_case_diagram.pdf
-INPUT .\figures\diagrams\use_case_diagram.pdf
+INPUT .\figures\diagrams\updated_use_case_diagram.pdf
+INPUT .\figures\diagrams\updated_use_case_diagram.pdf
+INPUT .\figures\diagrams\updated_use_case_diagram.pdf
 INPUT .\figures\diagrams\sequence_diagram_authentication.pdf
 INPUT .\figures\diagrams\sequence_diagram_authentication.pdf
 INPUT .\figures\diagrams\sequence_diagram_authentication.pdf
-INPUT .\figures\diagrams\sequence_diagram_authentication.pdf
-INPUT .\figures\diagrams\sequence_diagram_authentication.pdf
-INPUT .\figures\diagrams\sequence_diagram_authentication.pdf
-INPUT .\figures\diagrams\sequence_diagram_incident_flow.pdf
-INPUT .\figures\diagrams\sequence_diagram_incident_flow.pdf
-INPUT .\figures\diagrams\sequence_diagram_incident_flow.pdf
+INPUT .\figures\diagrams\advanced_auth_sequence_diagram.pdf
+INPUT .\figures\diagrams\advanced_auth_sequence_diagram.pdf
+INPUT .\figures\diagrams\advanced_auth_sequence_diagram.pdf
 INPUT .\figures\diagrams\sequence_diagram_incident_flow.pdf
 INPUT .\figures\diagrams\sequence_diagram_incident_flow.pdf
 INPUT .\figures\diagrams\sequence_diagram_incident_flow.pdf
 INPUT .\figures\diagrams\sequence_diagram_global_search.pdf
 INPUT .\figures\diagrams\sequence_diagram_global_search.pdf
 INPUT .\figures\diagrams\sequence_diagram_global_search.pdf
-INPUT .\figures\diagrams\sequence_diagram_global_search.pdf
-INPUT .\figures\diagrams\sequence_diagram_global_search.pdf
-INPUT .\figures\diagrams\sequence_diagram_global_search.pdf
-INPUT .\figures\diagrams\class_diagram.pdf
-INPUT .\figures\diagrams\class_diagram.pdf
-INPUT .\figures\diagrams\class_diagram.pdf
-INPUT .\figures\diagrams\class_diagram.pdf
-INPUT .\figures\diagrams\class_diagram.pdf
-INPUT .\figures\diagrams\class_diagram.pdf
-INPUT .\figures\diagrams\activity_diagram_RBAC.pdf
-INPUT .\figures\diagrams\activity_diagram_RBAC.pdf
-INPUT .\figures\diagrams\activity_diagram_RBAC.pdf
+INPUT .\figures\diagrams\updated_class_diagram.pdf
+INPUT .\figures\diagrams\updated_class_diagram.pdf
+INPUT .\figures\diagrams\updated_class_diagram.pdf
 INPUT .\figures\diagrams\activity_diagram_RBAC.pdf
 INPUT .\figures\diagrams\activity_diagram_RBAC.pdf
 INPUT .\figures\diagrams\activity_diagram_RBAC.pdf
@@ -414,70 +449,30 @@ INPUT chapters\chapter6.tex
 INPUT .\figures\screenshots\login_page.png
 INPUT .\figures\screenshots\login_page.png
 INPUT .\figures\screenshots\login_page.png
-INPUT .\figures\screenshots\login_page.png
-INPUT .\figures\screenshots\login_page.png
-INPUT .\figures\screenshots\login_page.png
-INPUT .\figures\screenshots\login_page.png
-INPUT .\figures\screenshots\access_control.png
-INPUT .\figures\screenshots\access_control.png
-INPUT .\figures\screenshots\access_control.png
-INPUT .\figures\screenshots\access_control.png
 INPUT .\figures\screenshots\access_control.png
 INPUT .\figures\screenshots\access_control.png
 INPUT .\figures\screenshots\access_control.png
 INPUT .\figures\screenshots\audit_logs.png
 INPUT .\figures\screenshots\audit_logs.png
 INPUT .\figures\screenshots\audit_logs.png
-INPUT .\figures\screenshots\audit_logs.png
-INPUT .\figures\screenshots\audit_logs.png
-INPUT .\figures\screenshots\audit_logs.png
-INPUT .\figures\screenshots\audit_logs.png
-INPUT .\figures\screenshots\dashboard.png
-INPUT .\figures\screenshots\dashboard.png
-INPUT .\figures\screenshots\dashboard.png
-INPUT .\figures\screenshots\dashboard.png
 INPUT .\figures\screenshots\dashboard.png
 INPUT .\figures\screenshots\dashboard.png
 INPUT .\figures\screenshots\dashboard.png
 INPUT .\figures\screenshots\incidents.png
 INPUT .\figures\screenshots\incidents.png
 INPUT .\figures\screenshots\incidents.png
-INPUT .\figures\screenshots\incidents.png
-INPUT .\figures\screenshots\incidents.png
-INPUT .\figures\screenshots\incidents.png
-INPUT .\figures\screenshots\incidents.png
-INPUT .\figures\screenshots\assets.png
-INPUT .\figures\screenshots\assets.png
-INPUT .\figures\screenshots\assets.png
-INPUT .\figures\screenshots\assets.png
 INPUT .\figures\screenshots\assets.png
 INPUT .\figures\screenshots\assets.png
 INPUT .\figures\screenshots\assets.png
 INPUT .\figures\screenshots\knowledge_base.png
 INPUT .\figures\screenshots\knowledge_base.png
 INPUT .\figures\screenshots\knowledge_base.png
-INPUT .\figures\screenshots\knowledge_base.png
-INPUT .\figures\screenshots\knowledge_base.png
-INPUT .\figures\screenshots\knowledge_base.png
-INPUT .\figures\screenshots\knowledge_base.png
-INPUT .\figures\screenshots\relation_map.png
-INPUT .\figures\screenshots\relation_map.png
-INPUT .\figures\screenshots\relation_map.png
-INPUT .\figures\screenshots\relation_map.png
 INPUT .\figures\screenshots\relation_map.png
 INPUT .\figures\screenshots\relation_map.png
 INPUT .\figures\screenshots\relation_map.png
 INPUT .\figures\screenshots\search.png
 INPUT .\figures\screenshots\search.png
 INPUT .\figures\screenshots\search.png
-INPUT .\figures\screenshots\search.png
-INPUT .\figures\screenshots\search.png
-INPUT .\figures\screenshots\search.png
-INPUT .\figures\screenshots\search.png
-INPUT .\figures\screenshots\reports.png
-INPUT .\figures\screenshots\reports.png
-INPUT .\figures\screenshots\reports.png
-INPUT .\figures\screenshots\reports.png
 INPUT .\figures\screenshots\reports.png
 INPUT .\figures\screenshots\reports.png
 INPUT .\figures\screenshots\reports.png
@@ -514,15 +509,3 @@ INPUT .\chapters\conclusion.aux
 INPUT chapters\conclusion.aux
 INPUT .\main.out
 INPUT .\main.out
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmbx10.pfb
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmbx10.pfb
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmbx12.pfb
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmbx12.pfb
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmr10.pfb
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmr10.pfb
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmr12.pfb
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmr12.pfb
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmri12.pfb
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmri12.pfb
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmtt12.pfb
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmtt12.pfb

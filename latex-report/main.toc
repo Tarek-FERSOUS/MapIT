@@ -1,9 +1,13 @@
-\contentsline {chapter}{Dedication}{i}{chapter*.1}%
-\contentsline {chapter}{Abstract}{ii}{chapter*.2}%
-\contentsline {chapter}{Acknowledgements}{iii}{chapter*.3}%
-\contentsline {chapter}{List of Figures}{vii}{chapter*.4}%
-\contentsline {chapter}{List of Tables}{viii}{chapter*.5}%
-\contentsline {chapter}{List of Abbreviations}{ix}{chapter*.7}%
+\xpg@aux {}{english}
+\contentsline {chapter}{Acknowledgements}{i}{chapter*.1}%
+\contentsline {chapter}{Dedication}{ii}{chapter*.2}%
+\contentsline {chapter}{Abstract}{iv}{chapter*.3}%
+\contentsline {chapter}{\textarabic {ملخص}}{v}{chapter*.4}%
+\xpg@aux {}{arabic}
+\xpg@aux {}{english}
+\contentsline {chapter}{List of Abbreviations}{vi}{chapter*.5}%
+\contentsline {chapter}{List of Figures}{x}{chapter*.6}%
+\contentsline {chapter}{List of Tables}{xi}{chapter*.7}%
 \contentsline {part}{I\hspace {1em}Theoretical Part}{1}{part.1}%
 \contentsline {chapter}{\numberline {1}General Context and Introduction}{2}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Introduction}{2}{section.1.1}%
@@ -23,8 +27,8 @@
 \contentsline {section}{\numberline {1.6}Our Role as Computer Science Students Specializing in Computer Systems}{7}{section.1.6}%
 \contentsline {subsection}{\numberline {1.6.1}Academic role}{7}{subsection.1.6.1}%
 \contentsline {subsection}{\numberline {1.6.2}Technical role}{7}{subsection.1.6.2}%
-\contentsline {section}{\numberline {1.7}Project Objectives and Scope}{8}{section.1.7}%
-\contentsline {subsection}{\numberline {1.7.1}Functional objectives}{8}{subsection.1.7.1}%
+\contentsline {section}{\numberline {1.7}Project Objectives and Scope}{7}{section.1.7}%
+\contentsline {subsection}{\numberline {1.7.1}Functional objectives}{7}{subsection.1.7.1}%
 \contentsline {subsection}{\numberline {1.7.2}Scope of the first phase}{8}{subsection.1.7.2}%
 \contentsline {subsection}{\numberline {1.7.3}Planning and work organization}{8}{subsection.1.7.3}%
 \contentsline {section}{\numberline {1.8}Chapter Conclusion}{8}{section.1.8}%
@@ -32,6 +36,7 @@
 \contentsline {section}{\numberline {2.1}Introduction}{9}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Methodology for Comparing Existing Solutions}{9}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Review of Existing Platforms}{9}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Visual positioning of the landscape}{10}{subsection.2.3.1}%
 \contentsline {section}{\numberline {2.4}Comparative Analysis}{10}{section.2.4}%
 \contentsline {section}{\numberline {2.5}Limitations of the Existing Approaches}{11}{section.2.5}%
 \contentsline {section}{\numberline {2.6}Positioning of MapIT}{12}{section.2.6}%
@@ -46,16 +51,16 @@
 \contentsline {section}{\numberline {3.3}Knowledge Management in IT Operations}{15}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Knowledge capture and reuse}{15}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Knowledge quality and traceability}{15}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}Why this is important for IT teams}{15}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.3}Why this is important for IT teams}{16}{subsection.3.3.3}%
 \contentsline {section}{\numberline {3.4}Incident Tracking and Relationship Mapping}{16}{section.3.4}%
 \contentsline {subsection}{\numberline {3.4.1}Incident tracking}{16}{subsection.3.4.1}%
 \contentsline {subsection}{\numberline {3.4.2}Relationship mapping}{16}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Why both concepts are essential}{16}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.3}Why both concepts are essential}{17}{subsection.3.4.3}%
 \contentsline {section}{\numberline {3.5}Applying the Theory to MapIT}{17}{section.3.5}%
 \contentsline {subsection}{\numberline {3.5.1}The MapIT domain model}{17}{subsection.3.5.1}%
-\contentsline {subsection}{\numberline {3.5.2}How the theory appears in the interface}{17}{subsection.3.5.2}%
-\contentsline {subsection}{\numberline {3.5.3}Consistency of the theoretical path}{17}{subsection.3.5.3}%
-\contentsline {section}{\numberline {3.6}Chapter Conclusion}{17}{section.3.6}%
+\contentsline {subsection}{\numberline {3.5.2}How the theory appears in the interface}{18}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Consistency of the theoretical path}{18}{subsection.3.5.3}%
+\contentsline {section}{\numberline {3.6}Chapter Conclusion}{18}{section.3.6}%
 \contentsline {part}{II\hspace {1em}Practical Part}{19}{part.2}%
 \contentsline {chapter}{\numberline {4}Conception}{20}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Introduction}{20}{section.4.1}%
@@ -71,40 +76,40 @@
 \contentsline {section}{\numberline {5.2}Actors and Use Cases}{24}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Use Case Specifications}{26}{section.5.3}%
 \contentsline {section}{\numberline {5.4}Sequence Diagrams}{26}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Class Diagram and Domain Model}{29}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Data Model and Relational Schema}{31}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Optional Complementary Diagrams}{31}{section.5.7}%
-\contentsline {section}{\numberline {5.8}Chapter Conclusion}{32}{section.5.8}%
-\contentsline {chapter}{\numberline {6}Implementation}{33}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Introduction}{33}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Technical Stack and System Architecture}{33}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Monorepo structure}{33}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Web implementation stack}{34}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Backend implementation stack}{34}{subsection.6.2.3}%
-\contentsline {subsection}{\numberline {6.2.4}Data and persistence layer}{34}{subsection.6.2.4}%
-\contentsline {section}{\numberline {6.3}Authentication and Access Control}{35}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Login flow}{35}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Session and proxy handling}{35}{subsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.3.3}Role-based and permission-based access control}{36}{subsection.6.3.3}%
-\contentsline {section}{\numberline {6.4}Backend Modules and Business Functions}{36}{section.6.4}%
-\contentsline {subsection}{\numberline {6.4.1}Incidents}{36}{subsection.6.4.1}%
-\contentsline {subsection}{\numberline {6.4.2}Assets and relationships}{37}{subsection.6.4.2}%
-\contentsline {subsection}{\numberline {6.4.3}Problems and knowledge reuse}{37}{subsection.6.4.3}%
-\contentsline {subsection}{\numberline {6.4.4}Search, reports, settings, and audit logs}{37}{subsection.6.4.4}%
-\contentsline {section}{\numberline {6.5}Realized User Interfaces}{38}{section.6.5}%
-\contentsline {subsection}{\numberline {6.5.1}Login and shared layout}{38}{subsection.6.5.1}%
-\contentsline {subsection}{\numberline {6.5.2}Dashboard}{38}{subsection.6.5.2}%
-\contentsline {subsection}{\numberline {6.5.3}Incidents}{39}{subsection.6.5.3}%
-\contentsline {subsection}{\numberline {6.5.4}Assets}{40}{subsection.6.5.4}%
-\contentsline {subsection}{\numberline {6.5.5}Problems, relationships, search, reports, and settings}{40}{subsection.6.5.5}%
-\contentsline {section}{\numberline {6.6}Deployment and Execution Notes}{42}{section.6.6}%
-\contentsline {subsection}{\numberline {6.6.1}Local execution}{42}{subsection.6.6.1}%
-\contentsline {subsection}{\numberline {6.6.2}Environment and configuration}{43}{subsection.6.6.2}%
-\contentsline {subsection}{\numberline {6.6.3}Production orientation}{43}{subsection.6.6.3}%
-\contentsline {section}{\numberline {6.7}Development Tools and Quality Strategy}{43}{section.6.7}%
-\contentsline {subsection}{\numberline {6.7.1}Tooling across the project lifecycle}{43}{subsection.6.7.1}%
-\contentsline {section}{\numberline {6.8}Validation and Testing}{44}{section.6.8}%
-\contentsline {subsection}{\numberline {6.8.1}Backend checks}{44}{subsection.6.8.1}%
-\contentsline {subsection}{\numberline {6.8.2}Frontend checks}{44}{subsection.6.8.2}%
-\contentsline {section}{\numberline {6.9}Chapter Conclusion}{45}{section.6.9}%
-\contentsline {chapter}{General Conclusion}{46}{chapter*.30}%
+\contentsline {section}{\numberline {5.5}Class Diagram and Domain Model}{30}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Data Model and Relational Schema}{32}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Optional Complementary Diagrams}{32}{section.5.7}%
+\contentsline {section}{\numberline {5.8}Chapter Conclusion}{33}{section.5.8}%
+\contentsline {chapter}{\numberline {6}Implementation}{34}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Introduction}{34}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Technical Stack and System Architecture}{34}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Monorepo structure}{34}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Web implementation stack}{35}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Backend implementation stack}{35}{subsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.2.4}Data and persistence layer}{35}{subsection.6.2.4}%
+\contentsline {section}{\numberline {6.3}Authentication and Access Control}{36}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Login flow}{36}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Session and proxy handling}{36}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Role-based and permission-based access control}{37}{subsection.6.3.3}%
+\contentsline {section}{\numberline {6.4}Backend Modules and Business Functions}{37}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Incidents}{37}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Assets and relationships}{38}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}Problems and knowledge reuse}{38}{subsection.6.4.3}%
+\contentsline {subsection}{\numberline {6.4.4}Search, reports, settings, and audit logs}{38}{subsection.6.4.4}%
+\contentsline {section}{\numberline {6.5}Realized User Interfaces}{39}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Login and shared layout}{39}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Dashboard}{39}{subsection.6.5.2}%
+\contentsline {subsection}{\numberline {6.5.3}Incidents}{40}{subsection.6.5.3}%
+\contentsline {subsection}{\numberline {6.5.4}Assets}{41}{subsection.6.5.4}%
+\contentsline {subsection}{\numberline {6.5.5}Problems, relationships, search, reports, and settings}{41}{subsection.6.5.5}%
+\contentsline {section}{\numberline {6.6}Deployment and Execution Notes}{43}{section.6.6}%
+\contentsline {subsection}{\numberline {6.6.1}Local execution}{43}{subsection.6.6.1}%
+\contentsline {subsection}{\numberline {6.6.2}Environment and configuration}{44}{subsection.6.6.2}%
+\contentsline {subsection}{\numberline {6.6.3}Production orientation}{44}{subsection.6.6.3}%
+\contentsline {section}{\numberline {6.7}Development Tools and Quality Strategy}{44}{section.6.7}%
+\contentsline {subsection}{\numberline {6.7.1}Tooling across the project lifecycle}{44}{subsection.6.7.1}%
+\contentsline {section}{\numberline {6.8}Validation and Testing}{45}{section.6.8}%
+\contentsline {subsection}{\numberline {6.8.1}Backend checks}{45}{subsection.6.8.1}%
+\contentsline {subsection}{\numberline {6.8.2}Frontend checks}{46}{subsection.6.8.2}%
+\contentsline {section}{\numberline {6.9}Chapter Conclusion}{46}{section.6.9}%
+\contentsline {chapter}{General Conclusion}{47}{chapter*.36}%

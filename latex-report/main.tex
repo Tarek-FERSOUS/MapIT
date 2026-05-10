@@ -1,9 +1,6 @@
 \documentclass[12pt,a4paper]{report}
-\pdfminorversion=7
 
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
+\usepackage{fontspec}
 \usepackage[margin=2.5cm]{geometry}
 \usepackage{setspace}
 \usepackage{graphicx}
@@ -23,6 +20,11 @@
 \usepackage{pdflscape}
 \usepackage{rotating}
 \usepackage{adjustbox}
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+\setotherlanguage{arabic}
+\setmainfont{Times New Roman}
+\newfontfamily\arabicfont[Script=Arabic,Scale=1.08]{Arial}
 
 \hypersetup{
     colorlinks=true,
@@ -58,16 +60,6 @@
 
 \pagenumbering{roman}
 
-\chapter*{Dedication}
-\addcontentsline{toc}{chapter}{Dedication}
-To our families, whose patience, encouragement, and steady support carried us through this work and every stage of our studies.
-
-\chapter*{Abstract}
-\addcontentsline{toc}{chapter}{Abstract}
-MapIT is a web-based platform created to bring together IT infrastructure documentation and incident knowledge management inside a single controlled workspace. It addresses a recurring operational weakness in support teams: notes are scattered, troubleshooting is repeated, and the link between an incident and the knowledge used to solve it is often lost. To reduce that fragmentation, the project combines a structured data model, role-based access control, and a clear user interface that supports incident registration, document maintenance, and reusable technical knowledge. The application is implemented as a full-stack system with a separated frontend, backend API, and relational database, making it the best choice for teams that need a lightweight but disciplined documentation environment.
-
-\textbf{Keywords:} IT infrastructure, incident management, knowledge management, documentation platform, role-based access control.
-
 \chapter*{Acknowledgements}
 \addcontentsline{toc}{chapter}{Acknowledgements}
 As we complete this work, we thank Allah for granting us the strength, patience, and clarity needed to carry it through.
@@ -81,7 +73,75 @@ Our thanks extend to all the faculty members of the Computer Science Department 
 We are deeply grateful to our parents for their unconditional support, patience, and trust. Their encouragement made this journey possible.
 
 Finally, we thank everyone who contributed directly or indirectly to the completion of this project.
+
+\clearpage
+
+\chapter*{Dedication}
+\addcontentsline{toc}{chapter}{Dedication}
+
+To my dearest mother, whose endless support, gentle presence, and unwavering belief have been my shelter through every storm—thank you for always standing by my side.
+
+To my father, who raised me with strength and wisdom, showed me the path of integrity, and pushed me to become the person I am today—this achievement is as much yours as it is mine.
+
+To my sweet younger sister, my anchor and my light, on whom I count in everything—thank you for being my constant source of joy and trust.
+
+To my entire family, and especially my beloved grandmother, whose prayers never left my heart and whose motivation fueled my hardest days—I dedicate this work to you with all my love.
+
+To the members of the Scientific University Club of Octobit and Open Source, for every line of code, every late-night discussion, and every moment of shared passion—you taught me more than I could ever put into words. The time spent with you was precious, and I carry it with me always.
+
+To all my friends and university colleagues, and most especially to my PFE partner, who walked this final project journey with me step by step—thank you for your patience, collaboration, and camaraderie.
+
+With deepest gratitude, this mémoire is yours as much as it is mine.
+
+
+\vspace{1.5cm}
+\hfill \textit{Tarek}
+
+\clearpage
+
+À mes parents \\
+À mes frères \\
+À mon binôme Tarek pour ses grands efforts
+
+\vspace{0.5cm}
+\hfill \textit{EL Amine}
+
+\clearpage
+
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+MapIT is a web-based platform created to bring together IT infrastructure documentation and incident knowledge management inside a single controlled workspace. It addresses a recurring operational weakness in support teams: notes are scattered, troubleshooting is repeated, and the link between an incident and the knowledge used to solve it is often lost. To reduce that fragmentation, the project combines a structured data model, role-based access control, and a clear user interface that supports incident registration, document maintenance, and reusable technical knowledge. The application is implemented as a full-stack system with a separated frontend, backend API, and relational database, making it the best choice for teams that need a lightweight but disciplined documentation environment.
+
+\textbf{Keywords:} IT infrastructure, incident management, knowledge management, documentation platform, role-based access control.
+
+\clearpage
+
+\chapter*{\texorpdfstring{\hfill\textarabic{ملخص}}{ملخص}}
+\addcontentsline{toc}{chapter}{\textarabic{ملخص}}
+\begin{Arabic}
+MapIT هي منصة قائمة على الويب تم إنشاؤها لجمع توثيق البنية التحتية لتكنولوجيا المعلومات وإدارة معارف الحوادث في مساحة عمل محكومة واحدة. وهي تعالج ضعفاً تشغيلياً متكرراً في فريق الدعم: الملاحظات متناثرة، واستكشاف الأخطاء مكرر، والربط بين الحادث والمعرفة المستخدمة لحله غالباً ما يكون مفقوداً. لتقليل هذا التجزئة، يجمع المشروع بين نموذج بيانات منظم، وتحكم في الوصول على أساس الأدوار، وواجهة مستخدم واضحة تدعم تسجيل الحوادث وصيانة المستندات والمعرفة التقنية القابلة لإعادة الاستخدام. يتم تنفيذ التطبيق كنظام متكامل مع واجهة أمامية منفصلة وواجهة برمجية خلفية وقاعدة بيانات علائقية، مما يجعله الخيار الأفضل للفرق التي تحتاج إلى بيئة توثيق خفيفة الوزن لكن منضبطة.
+
+\textbf{الكلمات المفتاحية:} توثيق البنية التحتية لتكنولوجيا المعلومات، إدارة الحوادث، إدارة المعارف، منصة التوثيق، التحكم في الوصول على أساس الأدوار
+\end{Arabic}
 % Compact TOC layout without changing TOC content.
+\chapter*{List of Abbreviations}
+\addcontentsline{toc}{chapter}{List of Abbreviations}
+\begin{itemize}[leftmargin=2cm]
+    \item ITSM -- Information Technology Service Management
+    \item CMDB -- Configuration Management Database
+    \item UML -- Unified Modeling Language
+    \item API -- Application Programming Interface
+    \item CRUD -- Create, Read, Update, Delete
+    \item DB -- Database
+    \item LDAP -- Lightweight Directory Access Protocol
+    \item ORM -- Object-Relational Mapping
+    \item UI -- User Interface
+    \item RBAC -- Role-Based Access Control
+    \item JWT -- JSON Web Token
+\end{itemize}
+
+\clearpage
+
 \begingroup
 \setstretch{1.0}
 \setlength{\parskip}{0pt}
@@ -104,17 +164,6 @@ Finally, we thank everyone who contributed directly or indirectly to the complet
 \footnotesize
 \listoftables
 \endgroup
-
-\chapter*{List of Abbreviations}
-\addcontentsline{toc}{chapter}{List of Abbreviations}
-\begin{itemize}[leftmargin=2cm]
-    \item ITSM -- Information Technology Service Management
-    \item CMDB -- Configuration Management Database
-    \item UML -- Unified Modeling Language
-    \item API -- Application Programming Interface
-    \item RBAC -- Role-Based Access Control
-    \item JWT -- JSON Web Token
-\end{itemize}
 
 \clearpage
 \pagenumbering{arabic}
